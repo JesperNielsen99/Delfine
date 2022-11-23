@@ -1,3 +1,5 @@
+package userinterface;
+
 public class UserInterface {
     private Controller controller = new Controller();
 

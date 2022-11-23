@@ -1,4 +1,7 @@
+package datahandling;
+
 import java.util.ArrayList;
+import member.Member;
 
 public class Club {
     private ArrayList<Member> members = new ArrayList<>();
