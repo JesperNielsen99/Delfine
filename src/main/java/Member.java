@@ -5,27 +5,11 @@ public class Member {
     private String address;
     private String phoneNumber;
     private String mail;
-    private Date birthday;
+    private String birthday;
     private String sex;
     private boolean isStudent;
     private boolean isActive;
     private boolean isCompetitive;
-
-    public Member(String name, String address, String phoneNumber, String mail, Date birthday, String sex, Boolean isStudent, Boolean isActive, Boolean isCompetitive) {
-        this.name = name;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.mail = mail;
-        this.birthday = birthday;
-        this.sex = sex;
-        this.isStudent = isStudent;
-        this.isActive = isActive;
-        this.isCompetitive = isCompetitive;
-    }
-
-    public String toString() {
-        return null;
-    }
 
     public String getName() {
         return name;
@@ -43,7 +27,7 @@ public class Member {
         return mail;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
@@ -79,7 +63,7 @@ public class Member {
         this.mail = mail;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
@@ -98,4 +82,5 @@ public class Member {
     public void setCompetitive(boolean competitive) {
         isCompetitive = competitive;
     }
+
 }
