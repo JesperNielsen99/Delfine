@@ -8,7 +8,7 @@ public class Club {
 
     }
 
-    public void createMember() {
+    public void createMemberWithRawData() {
 
     }
 
