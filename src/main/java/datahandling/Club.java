@@ -22,12 +22,14 @@ public class Club {
 
     public String deleteMember(int memberIndex) {
         if (members.size() >= memberIndex) {
-            String deleteedMemberName = members.get(memberIndex).getName();
+            String deletedMemberName = members.get(memberIndex).getName();
             members.remove(memberIndex);
-            return deleteedMemberName;
+            return deletedMemberName;
         }
         else {
             return null;
         }
     }
+
+
 }
