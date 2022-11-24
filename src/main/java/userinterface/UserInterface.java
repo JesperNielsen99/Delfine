@@ -1,4 +1,5 @@
 package userinterface;
+import datahandling.Controller;
 
 public class UserInterface {
     private Controller controller = new Controller();
