@@ -13,6 +13,19 @@ public class Member {
     private boolean isActive;
     private boolean isCompetitive;
 
+    public Member(String name, String address, String phoneNumber, String mail, LocalDate birthday,
+                  String sex, boolean isStudent, boolean isActive, boolean isCompetitive) {
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.mail = mail;
+        this.birthday = birthday;
+        this.sex = sex;
+        this.isStudent = isStudent;
+        this.isActive = isActive;
+        this.isCompetitive = isCompetitive;
+    }
+
     public String getName() {
         return name;
     }
@@ -85,7 +98,7 @@ public class Member {
         isCompetitive = competitive;
     }
 
-    public String printMember(){
+    public String printMember() {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append(name).append(" ");

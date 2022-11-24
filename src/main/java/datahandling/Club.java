@@ -9,12 +9,9 @@ public class Club {
     private ArrayList<Member> members = new ArrayList<>();
     private Member currentMember;
 
-    public Club() {
-
-    }
-
-    public void createMember() {
-        currentMember = new Member();
+    public void createMember(String name, String address, String number, String mail, LocalDate birthdate, String sex, Boolean isStudent, Boolean isActive, Boolean isCompetitive) {
+        currentMember = new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, isCompetitive);
+        members.add(currentMember);
     }
 
     public ArrayList<Member> searchMember(String searchMemberName) {
@@ -66,6 +63,10 @@ public class Club {
     }
     public void setCurrentMemberCompetitive(Boolean newMemberIsCompetitive){
         currentMember.setCompetitive(newMemberIsCompetitive);
+    }
+
+    public int getSizeOfMembers(){
+        return members.size();
     }
 
 }
