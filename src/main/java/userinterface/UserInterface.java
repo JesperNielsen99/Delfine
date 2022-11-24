@@ -1,11 +1,16 @@
 package userinterface;
+
 import datahandling.Controller;
+
+import java.util.Locale;
+import java.util.Scanner;
 
 public class UserInterface {
     private Controller controller = new Controller();
+    private Scanner scanner = new Scanner(System.in).useLocale(Locale.GERMAN);
 
     public void start() {
-      printMainMenu();
+        printMainMenu();
     }
 
     public void printMainMenu() {
@@ -17,6 +22,7 @@ public class UserInterface {
     }
 
     public void handleMainMenuChoice() {
+       
 
     }
 
@@ -43,6 +49,27 @@ public class UserInterface {
     }
 
     public void deleteMember() {
+
+    }
+
+    public int readInt() {
+        while (!scanner.hasNextInt()) {
+            String wrongInput = scanner.nextLine();
+            System.out.println("Du intastede [" + wrongInput + "] dette er ikke et helt tal.\nPrøv igen.");
+        }
+        int rightInput = scanner.nextInt();
+        scanner.nextLine();
+        return rightInput;
+    }
+
+    public double readDouble() {
+        while (!scanner.hasNextDouble()) {
+            String wrongInput = scanner.nextLine();
+            System.out.println("Du intastede [" + wrongInput + "] dette er ikke et kommatal.\nPrøv igen.");
+        }
+        double rightInput = scanner.nextDouble();
+        scanner.nextLine();
+        return rightInput;
 
     }
 }
