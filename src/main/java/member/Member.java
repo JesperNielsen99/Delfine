@@ -1,13 +1,13 @@
 package member;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Member {
     private String name;
     private String address;
     private String phoneNumber;
     private String mail;
-    private String birthday;
+    private LocalDate birthday;
     private String sex;
     private boolean isStudent;
     private boolean isActive;
@@ -29,7 +29,7 @@ public class Member {
         return mail;
     }
 
-    public String getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
@@ -65,7 +65,7 @@ public class Member {
         this.mail = mail;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
@@ -83,6 +83,23 @@ public class Member {
 
     public void setCompetitive(boolean competitive) {
         isCompetitive = competitive;
+    }
+
+    public String printMember(){
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(name).append(" ");
+        stringBuilder.append(address).append(" ");
+        stringBuilder.append(phoneNumber).append(" ");
+        stringBuilder.append(mail).append(" ");
+        stringBuilder.append(birthday).append(" ");
+        stringBuilder.append(sex).append(" ");
+        stringBuilder.append(isStudent).append(" ");
+        stringBuilder.append(isActive).append(" ");
+        stringBuilder.append(isCompetitive).append(" ");
+        stringBuilder.append("\n");
+
+        return stringBuilder.toString();
     }
 
 }
