@@ -1,6 +1,7 @@
 package datahandling;
 
 import java.util.ArrayList;
+
 import member.Member;
 
 public class Club {
@@ -19,7 +20,14 @@ public class Club {
         return null;
     }
 
-    public void deleteMember(int memberIndex) {
-
+    public String deleteMember(int memberIndex) {
+        if (members.size() >= memberIndex) {
+            String deleteedMemberName = members.get(memberIndex).getName();
+            members.remove(memberIndex);
+            return deleteedMemberName;
+        }
+        else {
+            return null;
+        }
     }
 }
