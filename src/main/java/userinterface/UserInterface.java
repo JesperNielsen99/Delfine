@@ -1,6 +1,9 @@
 package userinterface;
 
 import datahandling.Controller;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -32,7 +35,7 @@ public class UserInterface {
             case 3 -> editMember();
             case 4 -> deleteMember();
             case 5 -> exitProgram();
-            default -> System.out.println("invalid option") ;
+            default -> System.out.println("invalid option");
         }
 
 
@@ -41,7 +44,7 @@ public class UserInterface {
     public void printEditMenu() {
         System.out.println("""
                 Hvad ønsker du at redigere?
-                
+                                
                 1: Navn
                 2: Adresse 
                 3: Telefon nummer 
@@ -56,21 +59,22 @@ public class UserInterface {
     }
 
 
-    void handleEditMenuChoice() {
-         switch (readInt()){
-            /* case 1 ->      */
-            /* case 2 ->*/
-            /* case 3 ->*/
-            /* case 4 ->*/
-            /* case 5 ->*/
-            /* case 6 ->*/
-            /* case 7 ->*/
-            /* case 8 ->*/
-            /* case 9 ->*/
-            /* case 10 ->*/
-            /* default -> System.out.println("Invald option");  */
-         }
+    public void handleEditMenuChoice() {
+        /*switch (readInt()){*/
+        /*    case 1 ->      */
+        /*    case 2 ->*/
+        /*    case 3 ->*/
+        /*    case 4 ->*/
+        /*    case 5 ->*/
+        /*    case 6 ->*/
+        /*    case 7 ->*/
+        /*    case 8 ->*/
+        /*    case 9 ->*/
+        /*    case 10 ->*/
+        /*    default -> System.out.println("Invald option");  */
+        //}
     }
+
 
     void createMember() {
 
@@ -81,7 +85,7 @@ public class UserInterface {
     }
 
     public void editMember() {
-       printEditMenu();
+        printEditMenu();
     }
 
     public void deleteMember() {
@@ -113,12 +117,30 @@ public class UserInterface {
 
     }
 
-    public String readMail(){
+    public String readMail() {
         String input = scanner.nextLine();
-        while (!input.contains("@") || input.contains("..")){
+        while (!input.contains("@") || input.contains("..")) {
             System.out.println("Ugyldig e-mail prøv igen");
             input = scanner.nextLine();
         }
         return input;
+    }
+
+    public LocalDate readBirthday() {
+        DateTimeFormatter birthdayFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        System.out.print("Intast fødselsdag: ");
+        String birthdayInput = scanner.nextLine();
+        LocalDate birthday = null;
+
+        boolean wrongBirthday = true;
+        while (wrongBirthday) {
+            try {
+                birthday = LocalDate.parse(birthdayInput,birthdayFormat);
+                wrongBirthday = false;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return birthday;
     }
 }
