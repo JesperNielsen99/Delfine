@@ -16,8 +16,16 @@ public class Club {
 
     }
 
-    public String searchMember() {
-        return null;
+    public ArrayList<Member> searchMember(String searchMemberName) {
+        ArrayList<Member> searchResult = new ArrayList<>();
+        if (!members.isEmpty()) {
+            for (Member member : members) {
+                if (member.getName().toLowerCase().contains(searchMemberName.toLowerCase())) {
+                    searchResult.add(member);
+                }
+            }
+        }
+        return searchResult;
     }
 
     public String deleteMember(int memberIndex) {
