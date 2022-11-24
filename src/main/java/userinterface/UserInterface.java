@@ -1,7 +1,6 @@
 package userinterface;
 
 import datahandling.Controller;
-
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -13,6 +12,7 @@ public class UserInterface {
         System.out.println("Velkommen til Delfinen");
         printMainMenu();
         handleMainMenuChoice();
+
     }
 
     public void printMainMenu() {
@@ -32,6 +32,7 @@ public class UserInterface {
             case 3 -> editMember();
             case 4 -> deleteMember();
             case 5 -> exitProgram();
+            default -> System.out.println("invalid option") ;
         }
 
 
@@ -52,13 +53,23 @@ public class UserInterface {
                 9: Medlemskab 
                 10: Tilbage til hovedmenu  
                 """);
-
-
     }
 
 
     void handleEditMenuChoice() {
-         switch (readInt())
+         switch (readInt()){
+            /* case 1 ->      */
+            /* case 2 ->*/
+            /* case 3 ->*/
+            /* case 4 ->*/
+            /* case 5 ->*/
+            /* case 6 ->*/
+            /* case 7 ->*/
+            /* case 8 ->*/
+            /* case 9 ->*/
+            /* case 10 ->*/
+            /* default -> System.out.println("Invald option");  */
+         }
     }
 
     void createMember() {
@@ -70,7 +81,7 @@ public class UserInterface {
     }
 
     public void editMember() {
-
+       printEditMenu();
     }
 
     public void deleteMember() {
@@ -100,5 +111,14 @@ public class UserInterface {
         scanner.nextLine();
         return rightInput;
 
+    }
+
+    public String readMail(){
+        String input = scanner.nextLine();
+        while (!input.contains("@") || input.contains("..")){
+            System.out.println("Ugyldig e-mail prøv igen");
+            input = scanner.nextLine();
+        }
+        return input;
     }
 }
