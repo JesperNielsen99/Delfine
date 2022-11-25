@@ -68,4 +68,8 @@ public class Club {
         return members.size();
     }
 
+    public ArrayList<Member> getMembers(){
+        return members;
+    }
+
 }

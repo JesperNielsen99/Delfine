@@ -23,4 +23,7 @@ public class Controller {
     }
 
 
+    public ArrayList<Member> getMembers() {
+        return club.getMembers();
+    }
 }
