@@ -60,19 +60,6 @@ public class UserInterface {
 
 
     public void handleEditMenuChoice() {
-        /*switch (readInt()){*/
-        /*    case 1 ->      */
-        /*    case 2 ->*/
-        /*    case 3 ->*/
-        /*    case 4 ->*/
-        /*    case 5 ->*/
-        /*    case 6 ->*/
-        /*    case 7 ->*/
-        /*    case 8 ->*/
-        /*    case 9 ->*/
-        /*    case 10 ->*/
-        /*    default -> System.out.println("Invald option");  */
-        //}
     }
 
 
@@ -118,6 +105,7 @@ public class UserInterface {
     }
 
     public String readMail() {
+        System.out.println("Indtast mail");
         String input = scanner.nextLine();
         while (!input.contains("@") || input.contains("..")) {
             System.out.println("Ugyldig e-mail prøv igen");
@@ -128,19 +116,97 @@ public class UserInterface {
 
     public LocalDate readBirthday() {
         DateTimeFormatter birthdayFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        System.out.print("Intast fødselsdag: ");
-        String birthdayInput = scanner.nextLine();
         LocalDate birthday = null;
+        String errorMessage = "Ugyldig fødselsdato prøv igen!";
 
         boolean wrongBirthday = true;
         while (wrongBirthday) {
+            System.out.print("Intast fødselsdag (dd-mm-yyyy): ");
+            String birthdayInput = scanner.nextLine();
             try {
-                birthday = LocalDate.parse(birthdayInput,birthdayFormat);
-                wrongBirthday = false;
+                birthday = LocalDate.parse(birthdayInput, birthdayFormat);
+                if (birthday.getYear() <= LocalDate.now().getYear() && birthday.getYear() > 1900) {
+                    wrongBirthday = false;
+                } else {
+                    System.out.println(errorMessage);
+                }
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.println(errorMessage);
             }
         }
         return birthday;
     }
+
+    public boolean readSex() {
+        boolean wrongInput = true;
+
+        while (wrongInput) {
+            System.out.print("Indtast køn (Mand/Kvinde eller M/K): ");
+
+            switch (scanner.nextLine().toLowerCase()) {
+                case "m", "mand" -> {
+                    return true;
+                }
+                case "k", "kvinde" -> {
+                    return false;
+                }
+                default -> System.out.println("Ugyldigt input");
+            }
+        }
+        return true;
+    }
+
+    public boolean readStudent() {
+        boolean wrongInput = true;
+        while (wrongInput) {
+            System.out.println("Er medlemmet studerende? (ja/nej): ");
+            switch (scanner.nextLine().toLowerCase()) {
+                case "ja", "j" -> {
+                    return true;
+                }
+                case "nej", "n" -> {
+                    return false;
+                }
+                default -> System.out.println("Ugyldigt input");
+            }
+        }
+        return true;
+    }
+
+    public boolean readactive() {
+        boolean wrongInput = true;
+        while (wrongInput) {
+
+            System.out.println("Er medlemmet aktiv? (ja/nej): ");
+            switch (scanner.nextLine().toLowerCase()) {
+                case "ja", "j" -> {
+                    return true;
+                }
+                case "nej", "n" -> {
+                    return false;
+                }
+                default -> System.out.println("Ugyldigt input");
+            }
+        }
+        return true;
+    }
+
+    public boolean readCompetetive() {
+        boolean wrongInput = true;
+
+        while (wrongInput) {
+        }
+        System.out.println("Er medlemmet konkurencesvømmer: ");
+        switch (scanner.nextLine().toLowerCase()) {
+            case "ja", "j" -> {
+                return true;
+            }
+            case "nej", "n" -> {
+                return false;
+            }
+            default -> System.out.println("Ugyldigt input");
+        }
+        return true;
+    }
+
 }
