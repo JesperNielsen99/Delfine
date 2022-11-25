@@ -16,7 +16,7 @@ class ClubTest {
     @BeforeEach
     public void setup(){
         club = new Club();
-        club.createMember("Test testen testesten","Himmelbjerget 69","10101010", "test@gmail.com", LocalDate.now(), "Mand", true, true, true);
+        club.createMember("Test testen testesten","Himmelbjerget 69","10101010", "test@gmail.com", LocalDate.now(), true, true, true, true);
     }
 
     @org.junit.jupiter.api.Test

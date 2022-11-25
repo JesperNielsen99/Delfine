@@ -8,13 +8,13 @@ public class Member {
     private String phoneNumber;
     private String mail;
     private LocalDate birthday;
-    private String sex;
+    private boolean sex;
     private boolean isStudent;
     private boolean isActive;
     private boolean isCompetitive;
 
     public Member(String name, String address, String phoneNumber, String mail, LocalDate birthday,
-                  String sex, boolean isStudent, boolean isActive, boolean isCompetitive) {
+                  boolean sex, boolean isStudent, boolean isActive, boolean isCompetitive) {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
@@ -46,7 +46,7 @@ public class Member {
         return birthday;
     }
 
-    public String getSex() {
+    public boolean getSex() {
         return sex;
     }
 
@@ -82,7 +82,7 @@ public class Member {
         this.birthday = birthday;
     }
 
-    public void setSex(String sex) {
+    public void setSex(boolean sex) {
         this.sex = sex;
     }
 

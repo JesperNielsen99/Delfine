@@ -9,9 +9,8 @@ public class Club {
     private ArrayList<Member> members = new ArrayList<>();
     private Member currentMember;
 
-    public void createMember(String name, String address, String number, String mail, LocalDate birthdate, String sex, Boolean isStudent, Boolean isActive, Boolean isCompetitive) {
-        currentMember = new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, isCompetitive);
-        members.add(currentMember);
+    public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, Boolean isActive, Boolean isCompetitive) {
+        members.add(new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, isCompetitive));
     }
 
     public ArrayList<Member> searchMember(String searchMemberName) {
@@ -52,7 +51,7 @@ public class Club {
     public void setCurrentMemberBirthday(LocalDate newMemberBirthday){
         currentMember.setBirthday(newMemberBirthday);
     }
-    public void setCurrentMemberSex(String newMemberSex){
+    public void setCurrentMemberSex(boolean newMemberSex){
         currentMember.setSex(newMemberSex);
     }
     public void setCurrentMemberIsStudent(Boolean newMemberIsStudent){
