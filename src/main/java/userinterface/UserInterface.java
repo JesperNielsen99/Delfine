@@ -1,5 +1,4 @@
 package userinterface;
-import datahandling.Controller;
 
 import datahandling.Controller;
 
@@ -14,8 +13,10 @@ public class UserInterface {
 
     public void start() {
         System.out.println("Velkommen til Delfinen");
-        printMainMenu();
-        handleMainMenuChoice();
+        while (true) {
+            printMainMenu();
+            handleMainMenuChoice();
+        }
 
     }
 
@@ -75,10 +76,10 @@ public class UserInterface {
         LocalDate memberBirthdate = readBirthday();
         boolean memberSex = readSex();
         boolean memberIsStudent = readStudent();
-        boolean memberIsActive = readactive();
+        boolean memberIsActive = readActive();
         boolean memberIsCompetitive = readCompetetive();
 
-        controller.createMember(memberName, memberAddress, memberPhoneNumber, memberMail, memberBirthdate, memberSex, memberIsStudent, memberIsActive,memberIsCompetitive);
+        controller.createMember(memberName, memberAddress, memberPhoneNumber, memberMail, memberBirthdate, memberSex, memberIsStudent, memberIsActive, memberIsCompetitive);
 
     }
 
@@ -188,7 +189,7 @@ public class UserInterface {
         return true;
     }
 
-    public boolean readactive() {
+    public boolean readActive() {
         boolean wrongInput = true;
         while (wrongInput) {
 
@@ -210,16 +211,17 @@ public class UserInterface {
         boolean wrongInput = true;
 
         while (wrongInput) {
-        }
-        System.out.println("Er medlemmet konkurencesvømmer: ");
-        switch (scanner.nextLine().toLowerCase()) {
-            case "ja", "j" -> {
-                return true;
+
+            System.out.println("Er medlemmet konkurencesvømmer? (ja/nej): ");
+            switch (scanner.nextLine().toLowerCase()) {
+                case "ja", "j" -> {
+                    return true;
+                }
+                case "nej", "n" -> {
+                    return false;
+                }
+                default -> System.out.println("Ugyldigt input");
             }
-            case "nej", "n" -> {
-                return false;
-            }
-            default -> System.out.println("Ugyldigt input");
         }
         return true;
     }
