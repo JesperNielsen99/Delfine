@@ -1,9 +1,11 @@
 package userinterface;
 
 import datahandling.Controller;
+import member.Member;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -20,30 +22,43 @@ public class UserInterface {
 
     }
 
-    public void printMainMenu() {
+    private void printMainMenu() {
         System.out.println("""
                 Du har følgende valgmuligheder, hvad ønsker du at gøre?
                                 
                 1: Opret medlem 
                 2: Søg efter medlem 
-                3: Redigere medlem 
-                4: Slet medlem """);
+                3: Redigere medlem
+                4: Vis alle medlemmer 
+                5: Slet medlem 
+                6: Luk program
+                """);
+
     }
 
-    public void handleMainMenuChoice() {
+    private void handleMainMenuChoice() {
         switch (readInt()) {
             case 1 -> createMember();
-            case 2 -> searchMember();
+            case 2 -> printSearchResult(searchMember());
             case 3 -> editMember();
-            case 4 -> deleteMember();
-            case 5 -> exitProgram();
+            case 4 -> showAllMembers();
+            case 5 -> deleteMember();
+            case 6 -> exitProgram();
             default -> System.out.println("invalid option");
         }
+    }
 
+
+    private void showAllMembers() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Member member : controller.getMembers()){
+            stringBuilder.append(member.printMember());
+        }
+        System.out.println(stringBuilder.toString());
 
     }
 
-    public void printEditMenu() {
+    private void printEditMenu() {
         System.out.println("""
                 Hvad ønsker du at redigere?
                                 
@@ -61,11 +76,26 @@ public class UserInterface {
     }
 
 
-    public void handleEditMenuChoice() {
+    private void handleEditMenuChoice() {
+        switch (readInt()){
+            case 1 ->{}
+            case 2 ->{}
+            case 3 -> {}
+            case 4 ->{}
+            case 5 ->{}
+            case 6 ->{}
+            case 7 ->{}
+            case 8 ->{}
+            case 9 -> {}
+            case 10 -> {}
+            default -> {}
+
+        }
+
     }
 
 
-    void createMember() {
+    private void createMember() {
         System.out.println("Indtast navnet på det nye medlem: ");
         String memberName = scanner.nextLine();
         System.out.println("Indtast adressen på det nye medlem: ");
@@ -83,23 +113,30 @@ public class UserInterface {
 
     }
 
-    public void searchMember() {
-
+    private ArrayList<Member> searchMember() {
+        System.out.print("Indtast navn du vil søge efter: ");
+        return controller.searchMember(scanner.nextLine());
     }
 
-    public void editMember() {
+    private void printSearchResult (ArrayList<Member> searchResult){
+        for (Member member : searchResult){
+            System.out.println(member.printMember());
+        }
+    }
+    private void editMember() {
         printEditMenu();
+        handleEditMenuChoice();
     }
 
-    public void deleteMember() {
+    private void deleteMember() {
 
     }
 
-    public void exitProgram() {
+    private void exitProgram() {
         System.exit(0);
     }
 
-    public int readInt() {
+    private int readInt() {
         while (!scanner.hasNextInt()) {
             String wrongInput = scanner.nextLine();
             System.out.println("Du intastede [" + wrongInput + "] dette er ikke et helt tal.\nPrøv igen.");
@@ -109,7 +146,7 @@ public class UserInterface {
         return rightInput;
     }
 
-    public double readDouble() {
+    private double readDouble() {
         while (!scanner.hasNextDouble()) {
             String wrongInput = scanner.nextLine();
             System.out.println("Du intastede [" + wrongInput + "] dette er ikke et kommatal.\nPrøv igen.");
@@ -120,7 +157,7 @@ public class UserInterface {
 
     }
 
-    public String readMail() {
+    private String readMail() {
         System.out.println("Indtast mail");
         String input = scanner.nextLine();
         while (!input.contains("@") || input.contains("..")) {
@@ -130,7 +167,7 @@ public class UserInterface {
         return input;
     }
 
-    public LocalDate readBirthday() {
+    private LocalDate readBirthday() {
         DateTimeFormatter birthdayFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate birthday = null;
         String errorMessage = "Ugyldig fødselsdato prøv igen!";
@@ -153,7 +190,7 @@ public class UserInterface {
         return birthday;
     }
 
-    public boolean readSex() {
+    private boolean readSex() {
         boolean wrongInput = true;
 
         while (wrongInput) {
@@ -172,7 +209,7 @@ public class UserInterface {
         return true;
     }
 
-    public boolean readStudent() {
+    private boolean readStudent() {
         boolean wrongInput = true;
         while (wrongInput) {
             System.out.println("Er medlemmet studerende? (ja/nej): ");
@@ -189,7 +226,7 @@ public class UserInterface {
         return true;
     }
 
-    public boolean readActive() {
+    private boolean readActive() {
         boolean wrongInput = true;
         while (wrongInput) {
 
@@ -207,7 +244,7 @@ public class UserInterface {
         return true;
     }
 
-    public boolean readCompetetive() {
+    private boolean readCompetetive() {
         boolean wrongInput = true;
 
         while (wrongInput) {
