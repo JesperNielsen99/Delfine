@@ -64,6 +64,20 @@ public class UserInterface {
 
 
     void createMember() {
+        System.out.println("Indtast navnet på det nye medlem: ");
+        String memberName = scanner.nextLine();
+        System.out.println("Indtast adressen på det nye medlem: ");
+        String memberAddress = scanner.nextLine();
+        System.out.println("Indtast telefon nummer på det nye medlem: ");
+        String memberPhoneNumber = scanner.nextLine();
+        String memberMail = readMail();
+        LocalDate memberBirthdate = readBirthday();
+        boolean memberSex = readSex();
+        boolean memberIsStudent = readStudent();
+        boolean memberIsActive = readactive();
+        boolean memberIsCompetitive = readCompetetive();
+
+        controller.createMember(memberName, memberAddress, memberPhoneNumber, memberMail, memberBirthdate, memberSex, memberIsStudent, memberIsActive,memberIsCompetitive);
 
     }
 
