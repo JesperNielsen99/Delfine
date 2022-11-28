@@ -18,8 +18,13 @@ public class UserInterface {
         controller.loadMembers();
         System.out.println("Velkommen til Delfinen");
         while (true) {
-            printMainMenu();
-            handleMainMenuChoice();
+            if (!controller.getMembers().isEmpty()){
+                printMainMenu();
+                handleMainMenuChoice();
+            } else {
+                System.out.println("Ingen oprettede medlemmer. Opret nyt medlem nu: ");
+                createMember();
+            }
         }
 
     }
