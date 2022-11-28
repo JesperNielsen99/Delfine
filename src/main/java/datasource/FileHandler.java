@@ -32,7 +32,7 @@ public class FileHandler {
                             member.getSex() + ";" +
                             member.getIsStudent() + ";" +
                             member.getIsActive() + ";" +
-                            member.getIsCompetetive()
+                            member.getIsCompetitive()
             );
         }
 

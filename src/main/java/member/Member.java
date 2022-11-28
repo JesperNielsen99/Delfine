@@ -50,15 +50,15 @@ public class Member {
         return sex;
     }
 
-    public boolean isStudent() {
+    public boolean getIsStudent() {
         return isStudent;
     }
 
-    public boolean isActive() {
+    public boolean getIsActive() {
         return isActive;
     }
 
-    public boolean isCompetitive() {
+    public boolean getIsCompetitive() {
         return isCompetitive;
     }
 
