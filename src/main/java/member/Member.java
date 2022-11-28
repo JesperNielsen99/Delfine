@@ -86,15 +86,15 @@ public class Member {
         this.sex = sex;
     }
 
-    public void setStudent(boolean student) {
+    public void setIsStudent(boolean student) {
         isStudent = student;
     }
 
-    public void setActive(boolean active) {
+    public void setIsActive(boolean active) {
         isActive = active;
     }
 
-    public void setCompetitive(boolean competitive) {
+    public void setIsCompetitive(boolean competitive) {
         isCompetitive = competitive;
     }
 
