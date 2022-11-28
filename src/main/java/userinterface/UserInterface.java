@@ -102,14 +102,17 @@ public class UserInterface {
     }
 
     private void editMemberName(Member currentMember) {
+        System.out.print("Indtast nyt navn: ");
         currentMember.setName(scanner.nextLine());
     }
 
     private void editMemberAddresse(Member currentMember) {
+        System.out.print("Indtast ny adresse: ");
         currentMember.setAddress(scanner.nextLine());
     }
 
     private void editMemberPhoneNumber(Member currentMember) {
+        System.out.print("Indtast ny telefon nummer: ");
         currentMember.setPhoneNumber(scanner.nextLine());
     }
 
