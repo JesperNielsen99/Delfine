@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -35,9 +36,7 @@ public class FileHandler {
                             member.getIsCompetitive()
             );
         }
-
         output.close();
-
     }
 
     public ArrayList<Member> loadMembers() {
@@ -51,7 +50,7 @@ public class FileHandler {
                         lineSplit[1],
                         lineSplit[2],
                         lineSplit[3],
-                        LocalDate.parse(lineSplit[4]),
+                        LocalDate.parse(lineSplit[4], DateTimeFormatter.ofPattern("dd-MM-yyyy")),
                         Boolean.parseBoolean(lineSplit[5]),
                         Boolean.parseBoolean(lineSplit[6]),
                         Boolean.parseBoolean(lineSplit[7]),
