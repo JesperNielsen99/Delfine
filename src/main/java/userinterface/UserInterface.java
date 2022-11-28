@@ -161,7 +161,6 @@ public class UserInterface {
             printSearchResult(members);
         } else {
             System.out.println("Der er ingen medlemmer i klubben. Opret nye medlemmer, før du kan søge.");
-            start();
         }
     }
 
