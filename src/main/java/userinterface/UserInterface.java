@@ -1,5 +1,6 @@
 package userinterface;
 
+import com.sun.source.tree.ArrayAccessTree;
 import datahandling.Controller;
 import member.Member;
 
@@ -39,7 +40,7 @@ public class UserInterface {
     private void handleMainMenuChoice() {
         switch (readInt()) {
             case 1 -> createMember();
-            case 2 -> printSearchResult(searchMember());
+            case 2 -> searchMember();
             case 3 -> editMember();
             case 4 -> showAllMembers();
             case 5 -> deleteMember();
@@ -51,7 +52,7 @@ public class UserInterface {
 
     private void showAllMembers() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (Member member : controller.getMembers()){
+        for (Member member : controller.getMembers()) {
             stringBuilder.append(member.printMember());
         }
         System.out.println(stringBuilder.toString());
@@ -76,22 +77,58 @@ public class UserInterface {
     }
 
 
-    private void handleEditMenuChoice() {
-        switch (readInt()){
-            case 1 ->{}
-            case 2 ->{}
-            case 3 -> {}
-            case 4 ->{}
-            case 5 ->{}
-            case 6 ->{}
-            case 7 ->{}
-            case 8 ->{}
-            case 9 -> {}
-            case 10 -> {}
-            default -> {}
+    private void handleEditMenuChoice(Member currentMember) {
+        switch (readInt()) {
+            case 1 -> editMemberName(currentMember);
+            case 2 -> editMemberAddresse(currentMember);
+            case 3 -> editMemberPhoneNumber(currentMember);
+            case 4 -> editMemberMail(currentMember);
+            case 5 -> editMemberBirthdate(currentMember);
+            case 6 -> editMemberSex(currentMember);
+            case 7 -> editMemberIsStudent(currentMember);
+            case 8 -> editMemberIsActive(currentMember);
+            case 9 -> editMemberIsCompetitive(currentMember);
+            case 10 -> start();
+            default -> System.out.println("Ikke en mulig funktion.");
 
         }
 
+    }
+
+    private void editMemberName(Member currentMember) {
+        currentMember.setName(scanner.nextLine());
+    }
+
+    private void editMemberAddresse(Member currentMember) {
+        currentMember.setAddress(scanner.nextLine());
+    }
+
+    private void editMemberPhoneNumber(Member currentMember) {
+        currentMember.setPhoneNumber(scanner.nextLine());
+    }
+
+    private void editMemberMail(Member currentMember) {
+        currentMember.setMail(readMail());
+    }
+
+    private void editMemberBirthdate(Member currentMember) {
+        currentMember.setBirthday(readBirthday());
+    }
+
+    private void editMemberSex(Member currentMember) {
+        currentMember.setSex(readSex());
+    }
+
+    private void editMemberIsStudent(Member currentMember) {
+        currentMember.setIsStudent(readStudent());
+    }
+
+    private void editMemberIsActive(Member currentMember) {
+        currentMember.setIsActive(readActive());
+    }
+
+    private void editMemberIsCompetitive(Member currentMember) {
+        currentMember.setIsCompetitive(readCompetetive());
     }
 
 
@@ -113,19 +150,45 @@ public class UserInterface {
 
     }
 
-    private ArrayList<Member> searchMember() {
-        System.out.print("Indtast navn du vil søge efter: ");
-        return controller.searchMember(scanner.nextLine());
-    }
-
-    private void printSearchResult (ArrayList<Member> searchResult){
-        for (Member member : searchResult){
-            System.out.println(member.printMember());
+    private void searchMember() {
+        if (controller.getMembers().isEmpty()) {
+            System.out.print("Indtast navn du vil søge efter: ");
+            ArrayList<Member> members = controller.searchMember(scanner.nextLine());
+            while (members.isEmpty()) {
+                System.out.println("Ingen resultater var fundet med indtastet navn");
+                members = controller.searchMember(scanner.nextLine());
+            }
+            printSearchResult(members);
+        } else {
+            System.out.println("Der er ingen medlemmer i klubben. Opret nye medlemmer, før du kan søge.");
+            start();
         }
     }
+
+    private void printSearchResult(ArrayList<Member> searchResult) {
+        for (int i = 0; i < searchResult.size(); i++) {
+            System.out.println((i + 1) + ")" + searchResult.get(i));
+        }
+    }
+
     private void editMember() {
+        System.out.print("Indtast navn på medlem du vil redigere: ");
+        ArrayList<Member> members = controller.searchMember(scanner.nextLine());
+        Member currentMember = chooseSearchResult(members);
         printEditMenu();
-        handleEditMenuChoice();
+        handleEditMenuChoice(currentMember);
+    }
+
+    private Member chooseSearchResult(ArrayList<Member> members) {
+        printSearchResult(members);
+        System.out.print("Indtast medlem du gerne vil redigere: ");
+        int index = readInt();
+        while (index >= members.size() && index > 0) {
+            System.out.println("Der findes ikke noget medlem tilsvarende: " + index);
+            System.out.println("Indtast et tal under eller lig: " + members.size());
+            index = readInt();
+        }
+        return members.get(index - 1);
     }
 
     private void deleteMember() {
