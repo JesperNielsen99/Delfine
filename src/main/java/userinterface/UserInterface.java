@@ -167,14 +167,18 @@ public class UserInterface {
 
     private void printSearchResult(ArrayList<Member> searchResult) {
         for (int i = 0; i < searchResult.size(); i++) {
-            System.out.println((i + 1) + ")" + searchResult.get(i));
+            System.out.println((i + 1) + ")\n" + searchResult.get(i).printMember());
         }
     }
 
     private void editMember() {
         System.out.print("Indtast navn på medlem du vil redigere: ");
-        ArrayList<Member> members = controller.searchMember(scanner.nextLine());
-        Member currentMember = chooseSearchResult(members);
+        ArrayList<Member> searchResult = controller.searchMember(scanner.nextLine());
+        while (searchResult.isEmpty()) {
+            System.out.print("Ingen medlemmer med indtastede navn eksisterer. Prøv igen: " );
+            searchResult = controller.searchMember(scanner.nextLine());
+        }
+        Member currentMember = chooseSearchResult(searchResult);
         printEditMenu();
         handleEditMenuChoice(currentMember);
     }
@@ -183,9 +187,9 @@ public class UserInterface {
         printSearchResult(members);
         System.out.print("Indtast medlem du gerne vil redigere: ");
         int index = readInt();
-        while (index >= members.size() && index > 0) {
+        while (index > members.size() || index <= 0) {
             System.out.println("Der findes ikke noget medlem tilsvarende: " + index);
-            System.out.println("Indtast et tal under eller lig: " + members.size());
+            System.out.println("Indtast et tal mellem 1 og " + members.size());
             index = readInt();
         }
         return members.get(index - 1);
