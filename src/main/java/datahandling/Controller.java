@@ -18,8 +18,8 @@ public class Controller {
         return club.searchMember(searchMemberName);
     }
 
-    public String deleteMember(int numberIndex){
-        return club.deleteMember(numberIndex);
+    public String deleteMember(Member currentMember){
+        return club.deleteMember(currentMember);
     }
 
 
