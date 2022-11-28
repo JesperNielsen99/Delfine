@@ -24,15 +24,10 @@ public class Club {
         return searchResult;
     }
 
-    public String deleteMember(int memberIndex) {
-        if (members.size() >= memberIndex) {
-            String deletedMemberName = members.get(memberIndex).getName();
-            members.remove(memberIndex);
-            return deletedMemberName;
-        }
-        else {
-            return null;
-        }
+    public String deleteMember(Member currentMember) {
+        String currentMemberName = currentMember.getName();
+        members.remove(currentMember);
+        return String.format("%s er blevet slettet fra medlemslisten.", currentMemberName);
     }
 
 

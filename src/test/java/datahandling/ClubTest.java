@@ -42,11 +42,11 @@ class ClubTest {
         assertTrue(club.getSizeOfMembers() > 0);
 
         //Act
-        club.deleteMember(0);
+        club.deleteMember(club.getMembers().get(0));
         int expectedSize = 0;
 
         //Assert (true)
-        assertEquals(club.getSizeOfMembers(),expectedSize);
+        assertEquals(expectedSize,club.getSizeOfMembers());
 
     }
 }
