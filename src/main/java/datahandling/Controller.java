@@ -26,4 +26,12 @@ public class Controller {
     public ArrayList<Member> getMembers() {
         return club.getMembers();
     }
+
+    public void loadMembers(){
+        club.setMembers(fileHandler.loadMembers());
+    }
+
+    public void saveMembers(){
+        fileHandler.saveMembers(club.getMembers());
+    }
 }

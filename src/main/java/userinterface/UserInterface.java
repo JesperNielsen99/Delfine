@@ -15,6 +15,7 @@ public class UserInterface {
     private Scanner scanner = new Scanner(System.in).useLocale(Locale.GERMAN);
 
     public void start() {
+        controller.loadMembers();
         System.out.println("Velkommen til Delfinen");
         while (true) {
             printMainMenu();
@@ -151,7 +152,7 @@ public class UserInterface {
     }
 
     private void searchMember() {
-        if (controller.getMembers().isEmpty()) {
+        if (!controller.getMembers().isEmpty()) {
             System.out.print("Indtast navn du vil søge efter: ");
             ArrayList<Member> members = controller.searchMember(scanner.nextLine());
             while (members.isEmpty()) {
@@ -166,7 +167,7 @@ public class UserInterface {
 
     private void printSearchResult(ArrayList<Member> searchResult) {
         for (int i = 0; i < searchResult.size(); i++) {
-            System.out.println((i + 1) + ")" + searchResult.get(i));
+            System.out.println((i + 1) + ")\n" + searchResult.get(i).printMember());
         }
     }
 
@@ -182,7 +183,7 @@ public class UserInterface {
         printSearchResult(members);
         System.out.print("Indtast medlem du gerne vil redigere: ");
         int index = readInt();
-        while (index >= members.size() && index > 0) {
+        while (index > members.size() && index <= 0) {
             System.out.println("Der findes ikke noget medlem tilsvarende: " + index);
             System.out.println("Indtast et tal under eller lig: " + members.size());
             index = readInt();
@@ -199,6 +200,7 @@ public class UserInterface {
     }
 
     private void exitProgram() {
+        controller.saveMembers();
         System.exit(0);
     }
 

@@ -44,4 +44,7 @@ public class Club {
         return members;
     }
 
+    public void setMembers(ArrayList<Member> members) {
+        this.members = members;
+    }
 }
