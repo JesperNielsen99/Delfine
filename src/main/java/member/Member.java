@@ -98,18 +98,35 @@ public class Member {
         isCompetitive = competitive;
     }
 
+    public String readSex(){
+        return sex? "M" : "K";
+    }
+
+    public String readIsStudent(){
+        return isStudent? "Ja": "Nej";
+    }
+
+    public String readIsActive(){
+        return isActive? "Ja" : "Nej";
+    }
+
+    public String readIsCompetitive(){
+        return isCompetitive? "Ja" : "Nej";
+    }
+
+
     public String printMember() {
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.append(name).append(" ");
-        stringBuilder.append(address).append(" ");
-        stringBuilder.append(phoneNumber).append(" ");
-        stringBuilder.append(mail).append(" ");
-        stringBuilder.append(birthday).append(" ");
-        stringBuilder.append(sex).append(" ");
-        stringBuilder.append(isStudent).append(" ");
-        stringBuilder.append(isActive).append(" ");
-        stringBuilder.append(isCompetitive).append(" ");
+        stringBuilder.append("Navn: " + name).append('\n');
+        stringBuilder.append("Adresse: " + address).append('\n');
+        stringBuilder.append("Tlf.nr.: " + phoneNumber).append('\n');
+        stringBuilder.append("E-mail: " + mail).append('\n');
+        stringBuilder.append("Fødselsdato: " + birthday).append('\n');
+        stringBuilder.append("Køn: " + readSex()).append('\n');
+        stringBuilder.append("Studerende: " + readIsStudent()).append('\n');
+        stringBuilder.append("Aktivitetsform: " + readIsActive()).append('\n');
+        stringBuilder.append("Konkurrencesvømmer: " + readIsCompetitive()).append('\n');
         stringBuilder.append("\n");
 
         return stringBuilder.toString();

@@ -130,7 +130,9 @@ public class UserInterface {
 
     private void deleteMember() {
         System.out.print("Indtast navn, eller del af navn på medlemmet du ønsker at slette: ");
-        controller.searchMember(scanner.nextLine());
+        ArrayList<Member> searchResult = controller.searchMember(scanner.nextLine());
+        printSearchResult(searchResult);
+
 
     }
 
