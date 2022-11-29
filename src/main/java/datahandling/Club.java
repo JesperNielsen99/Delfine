@@ -7,21 +7,20 @@ import member.Member;
 
 public class Club {
     private ArrayList<Member> members = new ArrayList<>();
+    private ArrayList<Member> searchResult = new ArrayList<>();
+
 
     public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, Boolean isActive, Boolean isCompetitive) {
         members.add(new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, isCompetitive));
     }
 
-    public ArrayList<Member> searchMember(String searchMemberName) {
-        ArrayList<Member> searchResult = new ArrayList<>();
-        if (!members.isEmpty()) {
-            for (Member member : members) {
-                if (member.getName().toLowerCase().contains(searchMemberName.toLowerCase())) {
-                    searchResult.add(member);
-                }
+    public void searchMember(String searchMemberName) {
+        searchResult.clear();
+        for (Member member : members) {
+            if (member.getName().toLowerCase().contains(searchMemberName.toLowerCase())) {
+                searchResult.add(member);
             }
         }
-        return searchResult;
     }
 
     public String deleteMember(Member currentMember) {
@@ -41,5 +40,9 @@ public class Club {
 
     public void setMembers(ArrayList<Member> members) {
         this.members = members;
+    }
+
+    public ArrayList<Member> getSearchResult() {
+        return searchResult;
     }
 }

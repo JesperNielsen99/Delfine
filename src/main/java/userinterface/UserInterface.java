@@ -1,9 +1,7 @@
 package userinterface;
 
-import com.sun.source.tree.ArrayAccessTree;
 import datahandling.Controller;
 import member.Member;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -36,22 +34,20 @@ public class UserInterface {
                 1: Opret medlem 
                 2: Søg efter medlem 
                 3: Redigere medlem
-                4: Vis alle medlemmer 
-                5: Slet medlem 
-                6: Luk program
+                4: Slet medlem 
+                9: Luk program
                 """);
-
     }
 
     private void handleMainMenuChoice() {
         switch (readInt()) {
-            case 1 -> createMember();
-            case 2 -> searchMember();
-            case 3 -> editMember();
-            case 4 -> showAllMembers();
-            case 5 -> deleteMember();
-            case 6 -> exitProgram();
-            default -> System.out.println("invalid option");
+            case 1 ->  createMember();
+            case 2 ->  searchMember();
+            case 3 ->  editMember();
+            case 4 ->  deleteMember();
+            case 8 ->  showAllMembers();
+            case 9 ->  exitProgram();
+            default -> { System.out.println("invalid option"); }
         }
     }
 
@@ -98,7 +94,6 @@ public class UserInterface {
             default -> System.out.println("Ikke en mulig funktion.");
 
         }
-
     }
 
     private void editMemberName(Member currentMember) {
@@ -160,16 +155,12 @@ public class UserInterface {
     }
 
     private void searchMember() {
-        if (controller.getMembers().isEmpty()) {
-            System.out.print("Indtast navn du vil søge efter: ");
-            ArrayList<Member> members = controller.searchMember(scanner.nextLine());
-            while (members.isEmpty()) {
-                System.out.println("Ingen resultater var fundet med indtastet navn");
-                members = controller.searchMember(scanner.nextLine());
-            }
-            printSearchResult(members);
+        System.out.print("Indtast navn på medlem: ");
+        controller.searchMember(scanner.nextLine());
+        if (!controller.getSearchResult().isEmpty()) {
+            printSearchResult(controller.getSearchResult());
         } else {
-            System.out.println("Der er ingen medlemmer i klubben. Opret nye medlemmer, før du kan søge.");
+            System.out.println("Ingen medlemmer blev fundet med dette navn.");
         }
     }
 
@@ -180,20 +171,16 @@ public class UserInterface {
     }
 
     private void editMember() {
-        System.out.print("Indtast navn på medlem du vil redigere: ");
-        ArrayList<Member> searchResult = controller.searchMember(scanner.nextLine());
-        while (searchResult.isEmpty()) {
-            System.out.print("Ingen medlemmer med indtastede navn eksisterer. Prøv igen: " );
-            searchResult = controller.searchMember(scanner.nextLine());
+        searchMember();
+        if (!controller.getSearchResult().isEmpty()) {
+            Member currentMember = chooseSearchResult(controller.getSearchResult());
+            printEditMenu();
+            handleEditMenuChoice(currentMember);
         }
-        Member currentMember = chooseSearchResult(searchResult);
-        printEditMenu();
-        handleEditMenuChoice(currentMember);
     }
 
     private Member chooseSearchResult(ArrayList<Member> members) {
-        printSearchResult(members);
-        System.out.print("Indtast medlem du gerne vil redigere: ");
+        System.out.print("Indtast nummeret på medlemmet: ");
         int index = readInt();
         while (index > members.size() || index <= 0) {
             System.out.println("Der findes ikke noget medlem tilsvarende: " + index);
@@ -204,10 +191,11 @@ public class UserInterface {
     }
 
     private void deleteMember() {
-        System.out.print("Indtast navn, eller del af navn på medlemmet du ønsker at slette: ");
-        ArrayList<Member> searchResult = controller.searchMember(scanner.nextLine());
-        Member currentMember = chooseSearchResult(searchResult);
-        System.out.println(controller.deleteMember(currentMember));
+        searchMember();
+        if (!controller.getSearchResult().isEmpty()) {
+            Member currentMember = chooseSearchResult(controller.getSearchResult());
+            System.out.println(controller.deleteMember(currentMember));
+        }
     }
 
     private void exitProgram() {
@@ -291,7 +279,7 @@ public class UserInterface {
     private boolean readStudent() {
         boolean wrongInput = true;
         while (wrongInput) {
-            System.out.println("Er medlemmet studerende? (ja/nej): ");
+            System.out.print("Er medlemmet studerende? (ja/nej): ");
             switch (scanner.nextLine().toLowerCase()) {
                 case "ja", "j" -> {
                     return true;
@@ -309,7 +297,7 @@ public class UserInterface {
         boolean wrongInput = true;
         while (wrongInput) {
 
-            System.out.println("Er medlemmet aktiv? (ja/nej): ");
+            System.out.print("Er medlemmet aktiv? (ja/nej): ");
             switch (scanner.nextLine().toLowerCase()) {
                 case "ja", "j" -> {
                     return true;
@@ -328,7 +316,7 @@ public class UserInterface {
 
         while (wrongInput) {
 
-            System.out.println("Er medlemmet konkurencesvømmer? (ja/nej): ");
+            System.out.print("Er medlemmet konkurencesvømmer? (ja/nej): ");
             switch (scanner.nextLine().toLowerCase()) {
                 case "ja", "j" -> {
                     return true;

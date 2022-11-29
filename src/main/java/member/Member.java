@@ -1,6 +1,7 @@
 package member;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Member {
     private String name;
@@ -12,6 +13,7 @@ public class Member {
     private boolean isStudent;
     private boolean isActive;
     private boolean isCompetitive;
+    private DateTimeFormatter birthdayFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     public Member(String name, String address, String phoneNumber, String mail, LocalDate birthday,
                   boolean sex, boolean isStudent, boolean isActive, boolean isCompetitive) {
@@ -78,9 +80,7 @@ public class Member {
         this.mail = mail;
     }
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
+    public void setBirthday(LocalDate birthday) { this.birthday = birthday; }
 
     public void setSex(boolean sex) {
         this.sex = sex;
@@ -114,15 +114,15 @@ public class Member {
         return isCompetitive? "Ja" : "Nej";
     }
 
-
     public String printMember() {
+
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append("Navn: " + name).append('\n');
         stringBuilder.append("Adresse: " + address).append('\n');
         stringBuilder.append("Tlf.nr.: " + phoneNumber).append('\n');
         stringBuilder.append("E-mail: " + mail).append('\n');
-        stringBuilder.append("Fødselsdato: " + birthday).append('\n');
+        stringBuilder.append("Fødselsdato: " + birthday.format(birthdayFormat)).append('\n');
         stringBuilder.append("Køn: " + readSex()).append('\n');
         stringBuilder.append("Studerende: " + readIsStudent()).append('\n');
         stringBuilder.append("Aktivitetsform: " + readIsActive()).append('\n');
