@@ -18,8 +18,13 @@ public class UserInterface {
         controller.loadMembers();
         System.out.println("Velkommen til Delfinen");
         while (true) {
-            printMainMenu();
-            handleMainMenuChoice();
+            if (!controller.getMembers().isEmpty()){
+                printMainMenu();
+                handleMainMenuChoice();
+            } else {
+                System.out.println("Ingen oprettede medlemmer. Opret nyt medlem nu: ");
+                createMember();
+            }
         }
 
     }
@@ -97,14 +102,17 @@ public class UserInterface {
     }
 
     private void editMemberName(Member currentMember) {
+        System.out.print("Indtast nyt navn: ");
         currentMember.setName(scanner.nextLine());
     }
 
     private void editMemberAddresse(Member currentMember) {
+        System.out.print("Indtast ny adresse: ");
         currentMember.setAddress(scanner.nextLine());
     }
 
     private void editMemberPhoneNumber(Member currentMember) {
+        System.out.print("Indtast ny telefon nummer: ");
         currentMember.setPhoneNumber(scanner.nextLine());
     }
 
@@ -152,7 +160,7 @@ public class UserInterface {
     }
 
     private void searchMember() {
-        if (!controller.getMembers().isEmpty()) {
+        if (controller.getMembers().isEmpty()) {
             System.out.print("Indtast navn du vil søge efter: ");
             ArrayList<Member> members = controller.searchMember(scanner.nextLine());
             while (members.isEmpty()) {
@@ -173,8 +181,12 @@ public class UserInterface {
 
     private void editMember() {
         System.out.print("Indtast navn på medlem du vil redigere: ");
-        ArrayList<Member> members = controller.searchMember(scanner.nextLine());
-        Member currentMember = chooseSearchResult(members);
+        ArrayList<Member> searchResult = controller.searchMember(scanner.nextLine());
+        while (searchResult.isEmpty()) {
+            System.out.print("Ingen medlemmer med indtastede navn eksisterer. Prøv igen: " );
+            searchResult = controller.searchMember(scanner.nextLine());
+        }
+        Member currentMember = chooseSearchResult(searchResult);
         printEditMenu();
         handleEditMenuChoice(currentMember);
     }
@@ -183,9 +195,9 @@ public class UserInterface {
         printSearchResult(members);
         System.out.print("Indtast medlem du gerne vil redigere: ");
         int index = readInt();
-        while (index > members.size() && index <= 0) {
+        while (index > members.size() || index <= 0) {
             System.out.println("Der findes ikke noget medlem tilsvarende: " + index);
-            System.out.println("Indtast et tal under eller lig: " + members.size());
+            System.out.println("Indtast et tal mellem 1 og " + members.size());
             index = readInt();
         }
         return members.get(index - 1);
