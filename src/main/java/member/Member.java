@@ -18,7 +18,7 @@ public class Member {
     private final DateTimeFormatter birthdayFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     public Member(String name, String address, String phoneNumber, String mail, LocalDate birthdate,
-                  boolean sex, boolean isStudent, boolean isActive, boolean isCompetitive) {
+                  boolean sex, boolean isStudent, boolean isActive, boolean isCompetitive, boolean hasPaid) {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
@@ -28,6 +28,7 @@ public class Member {
         this.isStudent = isStudent;
         this.isActive = isActive;
         this.isCompetitive = isCompetitive;
+        this.hasPaid = hasPaid;
     }
 
     public String getName() {
