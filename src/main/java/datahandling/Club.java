@@ -44,4 +44,14 @@ public class Club {
     public ArrayList<Member> getSearchResult() {
         return searchResult;
     }
+
+    public ArrayList<Member> membersInDebt() {
+        ArrayList<Member> membersInDebt = new ArrayList<>();
+        for (Member member : members) {
+            if (!member.getHasPaid()) {
+                membersInDebt.add(member);
+            }
+        }
+        return membersInDebt;
+    }
 }

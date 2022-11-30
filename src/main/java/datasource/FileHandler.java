@@ -32,7 +32,8 @@ public class FileHandler {
                             member.getSex() + ";" +
                             member.getIsStudent() + ";" +
                             member.getIsActive() + ";" +
-                            member.getIsCompetitive()
+                            member.getIsCompetitive() + ";" +
+                            member.getHasPaid()
             );
         }
         output.close();
@@ -53,7 +54,8 @@ public class FileHandler {
                         Boolean.parseBoolean(lineSplit[5]),
                         Boolean.parseBoolean(lineSplit[6]),
                         Boolean.parseBoolean(lineSplit[7]),
-                        Boolean.parseBoolean(lineSplit[8])
+                        Boolean.parseBoolean(lineSplit[8]),
+                        Boolean.parseBoolean(lineSplit[9])
                 ));
             }
         } catch (FileNotFoundException e) {

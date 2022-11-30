@@ -6,12 +6,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Controller {
+    private Economy economy = new Economy();
     private Club club = new Club();
     private FileHandler fileHandler = new FileHandler();
 
     public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, Boolean isActive, Boolean isCompetitive){
         club.createMember(name, address, number, mail, birthdate, sex, isStudent, isActive, isCompetitive);
     }
+
     public void searchMember(String searchMemberName){ club.searchMember(searchMemberName); }
 
     public String deleteMember(Member currentMember){
@@ -31,4 +33,12 @@ public class Controller {
         fileHandler.saveMembers(club.getMembers());
     }
     public ArrayList<Member> getSearchResult() { return club.getSearchResult(); }
+
+    public double calculateMemberSubscription(Member member) {
+        return economy.calculateMemberSubscription(member);
+    }
+
+    public double getExpectedTotalIncome() {
+        return economy.expectedTotalIncome(club.getMembers());
+    }
 }

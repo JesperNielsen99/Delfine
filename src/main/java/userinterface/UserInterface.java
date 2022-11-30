@@ -57,7 +57,7 @@ public class UserInterface {
         for (Member member : controller.getMembers()) {
             stringBuilder.append(member.printMember());
         }
-        System.out.println(stringBuilder.toString());
+        System.out.println(stringBuilder);
 
     }
 
@@ -149,10 +149,22 @@ public class UserInterface {
     private void createMember() {
         System.out.println("Indtast navnet på det nye medlem: ");
         String memberName = scanner.nextLine();
+        while (!memberName.isEmpty()) {
+            System.out.println("Dit navn kan ikke være tomt.");
+            memberName = scanner.nextLine();
+        }
         System.out.println("Indtast adressen på det nye medlem: ");
         String memberAddress = scanner.nextLine();
+        while (!memberAddress.isEmpty()) {
+            System.out.println("Din addresse kan ikke være tomt.");
+            memberAddress = scanner.nextLine();
+        }
         System.out.println("Indtast telefon nummer på det nye medlem: ");
         String memberPhoneNumber = scanner.nextLine();
+        while (!memberPhoneNumber.isEmpty()) {
+            System.out.println("Dit telefon nummer kan ikke være tomt.");
+            memberPhoneNumber = scanner.nextLine();
+        }
         String memberMail = readMail();
         LocalDate memberBirthdate = readBirthday();
         boolean memberSex = readSex();
@@ -176,7 +188,8 @@ public class UserInterface {
 
     private void printSearchResult(ArrayList<Member> searchResult) {
         for (int i = 0; i < searchResult.size(); i++) {
-            System.out.println((i + 1) + ")\n" + searchResult.get(i).printMember());
+            System.out.println((i + 1) + ")\n" + searchResult.get(i).printMember() +
+                    "Kontingent:  " + controller.calculateMemberSubscription(searchResult.get(i)) + '\n');
         }
     }
 
@@ -205,6 +218,12 @@ public class UserInterface {
         if (!controller.getSearchResult().isEmpty()) {
             Member currentMember = chooseSearchResult(controller.getSearchResult());
             System.out.println(controller.deleteMember(currentMember));
+        }
+    }
+
+    public void membersInDebtMessage(ArrayList<Member> members) {
+        for (Member member: members) {
+            System.out.printf("Hej %s, du har desværre ikke betalt dit kontingent på %s kroner og bedes derfor betale snarest muligt.", member.getName(), controller.calculateMemberSubscription(member));
         }
     }
 

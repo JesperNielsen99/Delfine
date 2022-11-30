@@ -13,6 +13,7 @@ public class Member {
     private boolean isStudent;
     private boolean isActive;
     private boolean isCompetitive;
+    private boolean hasPaid;
 
     private final DateTimeFormatter birthdayFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
@@ -65,6 +66,14 @@ public class Member {
         return isCompetitive;
     }
 
+    public boolean getHasPaid() {
+        return hasPaid;
+    }
+
+    public int getAge() {
+        return LocalDate.now().compareTo(birthdate);
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -81,7 +90,9 @@ public class Member {
         this.mail = mail;
     }
 
-    public void setBirthdate(LocalDate birthday) {this.birthdate = birthday;}
+    public void setBirthdate(LocalDate birthday) {
+        this.birthdate = birthday;
+    }
 
     public void setSex(boolean sex) {
         this.sex = sex;
@@ -115,6 +126,10 @@ public class Member {
         return isCompetitive ? "Ja" : "Nej";
     }
 
+    public String readHasPaid() {
+        return hasPaid ? "Ja" : "Nej";
+    }
+
     public String printMember() {
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -124,10 +139,12 @@ public class Member {
         stringBuilder.append("Tlf.nr.: " + phoneNumber).append('\n');
         stringBuilder.append("E-mail: " + mail).append('\n');
         stringBuilder.append("Fødselsdato: " + birthdate.format(birthdayFormat)).append('\n');
+        stringBuilder.append("Alder: " + getAge()).append('\n');
         stringBuilder.append("Køn: " + readSex()).append('\n');
         stringBuilder.append("Studerende: " + readIsStudent()).append('\n');
         stringBuilder.append("Aktivitetsform: " + readIsActive()).append('\n');
         stringBuilder.append("Konkurrencesvømmer: " + readIsCompetitive()).append('\n');
+        stringBuilder.append("Restance: " + readHasPaid()).append('\n');
         stringBuilder.append("\n");
 
         return stringBuilder.toString();
