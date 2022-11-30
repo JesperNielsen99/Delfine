@@ -17,19 +17,19 @@ public class Economy {
     public double calculateMemberSubscription(Member member) {
         double subscription = 0;
         if (member.getIsActive()) {
-            if (member.getAge() > 18) {
+            if (member.getAge() < 18) {
                 if (member.getIsStudent()) {
                     subscription = under18 * (1 - student);
                 } else {
                     subscription = under18;
                 }
-            } else if (member.getAge() <= 18) {
+            } else if (member.getAge() > 17 && member.getAge() < 60) {
                 if (member.getIsStudent()) {
                     subscription = over17 * (1 - student);
                 } else {
                     subscription = over17;
                 }
-            } else if (member.getAge() <= 60) {
+            } else if (member.getAge() > 59) {
                 subscription = over17 * (1 - over59);
             }
         } else {
@@ -40,6 +40,7 @@ public class Economy {
             }
         }
         return subscription;
+
     }
 
     public double expectedTotalIncome(ArrayList<Member> members) {

@@ -111,6 +111,10 @@ public class Member {
         isCompetitive = competitive;
     }
 
+    public void setHasPaid(boolean hasPaid){
+        this.hasPaid = hasPaid;
+    }
+
     public String readSex() {
         return sex ? "M" : "K";
     }
@@ -128,7 +132,7 @@ public class Member {
     }
 
     public String readHasPaid() {
-        return hasPaid ? "Ja" : "Nej";
+        return hasPaid ? "Nej" : "Ja";
     }
 
     public String printMember() {
@@ -145,8 +149,8 @@ public class Member {
         stringBuilder.append("Studerende: " + readIsStudent()).append('\n');
         stringBuilder.append("Aktivitetsform: " + readIsActive()).append('\n');
         stringBuilder.append("Konkurrencesvømmer: " + readIsCompetitive()).append('\n');
-        stringBuilder.append("Restance: " + readHasPaid()).append('\n');
-        stringBuilder.append("\n");
+        stringBuilder.append("Restance: " + readHasPaid());
+
 
         return stringBuilder.toString();
     }

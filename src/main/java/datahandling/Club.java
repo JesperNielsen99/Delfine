@@ -9,8 +9,8 @@ public class Club {
     private ArrayList<Member> searchResult = new ArrayList<>();
 
 
-    public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, Boolean isActive, Boolean isCompetitive) {
-        members.add(new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, isCompetitive, fals));
+    public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, Boolean isActive, Boolean isCompetitive, boolean hasPaid) {
+        members.add(new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, isCompetitive, hasPaid));
     }
 
     public void searchMember(String searchMemberName) {

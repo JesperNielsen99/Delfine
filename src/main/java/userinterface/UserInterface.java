@@ -16,7 +16,7 @@ public class UserInterface {
         controller.loadMembers();
         System.out.println("Velkommen til Delfinen");
         while (true) {
-            if (!controller.getMembers().isEmpty()){
+            if (!controller.getMembers().isEmpty()) {
                 printMainMenu();
                 handleMainMenuChoice();
             } else {
@@ -31,35 +31,69 @@ public class UserInterface {
         System.out.println("""
                 Du har følgende valgmuligheder, hvad ønsker du at gøre?
                                 
-                1: Opret medlem 
-                2: Søg efter medlem 
-                3: Redigere medlem
-                4: Slet medlem 
-                9: Luk program
+                1: Opret medlem. 
+                2: Søg efter medlem. 
+                3: Redigere medlem.
+                4: Slet medlem. 
+                5: Print restanceliste.
+                8: Vis alle medlemmer.
+                9: Luk program.
                 """);
     }
 
     private void handleMainMenuChoice() {
         switch (readInt()) {
-            case 1 ->  createMember();
-            case 2 ->  searchMember();
-            case 3 ->  editMember();
-            case 4 ->  deleteMember();
-            case 8 ->  showAllMembers();
-            case 9 ->  exitProgram();
-            default -> { System.out.println("invalid option"); }
+            case 1 -> createMember();
+            case 2 -> searchMember();
+            case 3 -> editMember();
+            case 4 -> deleteMember();
+            case 5 -> printMembersInDebt();
+            case 8 -> showAllMembers();
+            case 9 -> exitProgram();
+            default -> {
+                System.out.println("invalid option");
+            }
         }
     }
 
+    private void createMember() {
+        System.out.println("Indtast navnet på det nye medlem: ");
+        String memberName = scanner.nextLine();
+        System.out.println("Indtast adressen på det nye medlem: ");
+        String memberAddress = scanner.nextLine();
+        System.out.println("Indtast telefon nummer på det nye medlem: ");
+        String memberPhoneNumber = scanner.nextLine();
+        String memberMail = readMail();
+        LocalDate memberBirthdate = readBirthday();
+        boolean memberSex = readSex();
+        boolean memberIsStudent = readStudent();
+        boolean memberIsActive = readActive();
+        boolean memberIsCompetitive = readCompetetive();
+        boolean memberHasPaid = readHasPaid();
+        System.out.println("\n");
+
+        controller.createMember(memberName, memberAddress, memberPhoneNumber, memberMail, memberBirthdate, memberSex, memberIsStudent, memberIsActive, memberIsCompetitive, memberHasPaid);
+
+    }
 
     private void showAllMembers() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Member member : controller.getMembers()) {
-            stringBuilder.append(member.printMember());
+            stringBuilder.append(member.printMember()).append("\nKontigent: ").append(controller.calculateMemberSubscription(member)).append(" kr.").append("\n\n\n");
         }
         System.out.println(stringBuilder);
 
     }
+
+    private void printMembersInDebt(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Member member : controller.getMembersInDebt()) {
+            stringBuilder.append(member.printMember()).append("\nManglende betaling: ").append(controller.calculateMemberSubscription(member)).append(" kr.").append("\n");
+            stringBuilder.append("\n\nAutogenereret besked til medlem: \nHej ").append(member.getName()).append(". Du mangler at betale: ").append(controller.calculateMemberSubscription(member)).append(" kr.\n\n\n");
+        }
+        System.out.println(stringBuilder);
+    }
+
 
     private void printEditMenu() {
         System.out.println("""
@@ -74,107 +108,89 @@ public class UserInterface {
                 7: Studie status
                 8: Aktivitets status
                 9: Medlemskab 
-                10: Tilbage til hovedmenu  
+                10: Betalingssatus 
+                11: Tilbage til hovedmenu  
                 """);
     }
 
 
     private void handleEditMenuChoice(Member currentMember) {
         switch (readInt()) {
-            case 1 -> editMemberName(currentMember);
-            case 2 -> editMemberAddresse(currentMember);
-            case 3 -> editMemberPhoneNumber(currentMember);
-            case 4 -> editMemberMail(currentMember);
-            case 5 -> editMemberBirthdate(currentMember);
-            case 6 -> editMemberSex(currentMember);
-            case 7 -> editMemberIsStudent(currentMember);
-            case 8 -> editMemberIsActive(currentMember);
-            case 9 -> editMemberIsCompetitive(currentMember);
-            case 10 -> start();
+            case 1 -> editName(currentMember);
+            case 2 -> editAddresse(currentMember);
+            case 3 -> editPhoneNumber(currentMember);
+            case 4 -> editMail(currentMember);
+            case 5 -> editBirthdate(currentMember);
+            case 6 -> editSex(currentMember);
+            case 7 -> editIsStudent(currentMember);
+            case 8 -> editIsActive(currentMember);
+            case 9 -> editIsCompetitive(currentMember);
+            case 10 -> editHasPaid(currentMember);
+            case 11 -> start();
             default -> System.out.println("Ikke en mulig funktion.");
 
         }
     }
 
-    private void editMemberName(Member currentMember) {
+
+    private void editName(Member currentMember) {
         System.out.print("Indtast nyt navn: ");
         currentMember.setName(scanner.nextLine());
-        while (currentMember.getName().isEmpty()){
-            currentMember.setName(scanner.nextLine());}
+        while (currentMember.getName().isEmpty()) {
+            currentMember.setName(scanner.nextLine());
+        }
     }
 
-    private void editMemberAddresse(Member currentMember) {
+    private void editAddresse(Member currentMember) {
         System.out.print("Indtast ny adresse: ");
         currentMember.setAddress(scanner.nextLine());
-        while (currentMember.getAddress().isEmpty()){
-            currentMember.setAddress(scanner.nextLine());}
+        while (currentMember.getAddress().isEmpty()) {
+            currentMember.setAddress(scanner.nextLine());
+        }
     }
 
-    private void editMemberPhoneNumber(Member currentMember) {
+    private void editPhoneNumber(Member currentMember) {
         System.out.print("Indtast ny telefon nummer: ");
         currentMember.setPhoneNumber(scanner.nextLine());
-        while (currentMember.getPhoneNumber().isEmpty()){
-            currentMember.setPhoneNumber(scanner.nextLine());}
+        while (currentMember.getPhoneNumber().isEmpty()) {
+            currentMember.setPhoneNumber(scanner.nextLine());
+        }
     }
 
-    private void editMemberMail(Member currentMember) {
+    private void editMail(Member currentMember) {
         currentMember.setMail(readMail());
-        while (currentMember.getMail().isEmpty()){
-            currentMember.setMail(scanner.nextLine());}
+        while (currentMember.getMail().isEmpty()) {
+            currentMember.setMail(scanner.nextLine());
+        }
     }
 
-    private void editMemberBirthdate(Member currentMember) {
+    private void editBirthdate(Member currentMember) {
         currentMember.setBirthdate(readBirthday());
-        while (currentMember.getMail().isEmpty()){
-            currentMember.setMail(scanner.nextLine());}
+        while (currentMember.getMail().isEmpty()) {
+            currentMember.setMail(scanner.nextLine());
+        }
     }
 
-    private void editMemberSex(Member currentMember) {
+    private void editSex(Member currentMember) {
         currentMember.setSex(readSex());
     }
 
-    private void editMemberIsStudent(Member currentMember) {
+    private void editIsStudent(Member currentMember) {
         currentMember.setIsStudent(readStudent());
     }
 
-    private void editMemberIsActive(Member currentMember) {
+    private void editIsActive(Member currentMember) {
         currentMember.setIsActive(readActive());
     }
 
-    private void editMemberIsCompetitive(Member currentMember) {
+    private void editIsCompetitive(Member currentMember) {
         currentMember.setIsCompetitive(readCompetetive());
     }
 
-
-    private void createMember() {
-        System.out.println("Indtast navnet på det nye medlem: ");
-        String memberName = scanner.nextLine();
-        while (!memberName.isEmpty()) {
-            System.out.println("Dit navn kan ikke være tomt.");
-            memberName = scanner.nextLine();
-        }
-        System.out.println("Indtast adressen på det nye medlem: ");
-        String memberAddress = scanner.nextLine();
-        while (!memberAddress.isEmpty()) {
-            System.out.println("Din addresse kan ikke være tomt.");
-            memberAddress = scanner.nextLine();
-        }
-        System.out.println("Indtast telefon nummer på det nye medlem: ");
-        String memberPhoneNumber = scanner.nextLine();
-        while (!memberPhoneNumber.isEmpty()) {
-            System.out.println("Dit telefon nummer kan ikke være tomt.");
-            memberPhoneNumber = scanner.nextLine();
-        }
-        String memberMail = readMail();
-        LocalDate memberBirthdate = readBirthday();
-        boolean memberSex = readSex();
-        boolean memberIsStudent = readStudent();
-        boolean memberIsActive = readActive();
-        boolean memberIsCompetitive = readCompetetive();
-
-        controller.createMember(memberName, memberAddress, memberPhoneNumber, memberMail, memberBirthdate, memberSex, memberIsStudent, memberIsActive, memberIsCompetitive);
-
+    private void editHasPaid(Member currenMember){
+        currenMember.setHasPaid(readHasPaid());
     }
+
 
     private void searchMember() {
         System.out.print("Indtast navn på medlem: ");
@@ -188,8 +204,7 @@ public class UserInterface {
 
     private void printSearchResult(ArrayList<Member> searchResult) {
         for (int i = 0; i < searchResult.size(); i++) {
-            System.out.println((i + 1) + ")\n" + searchResult.get(i).printMember() +
-                    "Kontingent:  " + controller.calculateMemberSubscription(searchResult.get(i)) + '\n');
+            System.out.println((i + 1) + ")\n" + searchResult.get(i).printMember() + "\nKontingent: " + controller.calculateMemberSubscription(searchResult.get(i)) + "\n\n");
         }
     }
 
@@ -221,11 +236,6 @@ public class UserInterface {
         }
     }
 
-    public void membersInDebtMessage(ArrayList<Member> members) {
-        for (Member member: members) {
-            System.out.printf("Hej %s, du har desværre ikke betalt dit kontingent på %s kroner og bedes derfor betale snarest muligt.", member.getName(), controller.calculateMemberSubscription(member));
-        }
-    }
 
     private void exitProgram() {
         controller.saveMembers();
@@ -257,7 +267,7 @@ public class UserInterface {
         System.out.println("Indtast mail");
         String input = scanner.nextLine();
         String emailValidation = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*"
-                                 + "@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+                + "@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
         while (!input.matches(emailValidation)) {
             System.out.print("Ugyldig e-mail prøv igen: ");
             input = scanner.nextLine();
@@ -358,6 +368,28 @@ public class UserInterface {
                 default -> System.out.println("Ugyldigt input");
             }
         }
+        return true;
+    }
+
+    private boolean readHasPaid() {
+        boolean wrongInput = true;
+
+        while (wrongInput) {
+
+            System.out.print("Har medlemmet betalt? (ja/nej): ");
+            switch (scanner.nextLine().toLowerCase()) {
+                case "ja", "j" -> {
+                    System.out.println("\n");
+                    return true;
+                }
+                case "nej", "n" -> {
+                    System.out.println("\n");
+                    return false;
+                }
+                default -> System.out.println("Ugyldigt input");
+            }
+        }
+
         return true;
     }
 
