@@ -99,24 +99,34 @@ public class UserInterface {
     private void editMemberName(Member currentMember) {
         System.out.print("Indtast nyt navn: ");
         currentMember.setName(scanner.nextLine());
+        while (currentMember.getName().isEmpty()){
+            currentMember.setName(scanner.nextLine());}
     }
 
     private void editMemberAddresse(Member currentMember) {
         System.out.print("Indtast ny adresse: ");
         currentMember.setAddress(scanner.nextLine());
+        while (currentMember.getAddress().isEmpty()){
+            currentMember.setAddress(scanner.nextLine());}
     }
 
     private void editMemberPhoneNumber(Member currentMember) {
         System.out.print("Indtast ny telefon nummer: ");
         currentMember.setPhoneNumber(scanner.nextLine());
+        while (currentMember.getPhoneNumber().isEmpty()){
+            currentMember.setPhoneNumber(scanner.nextLine());}
     }
 
     private void editMemberMail(Member currentMember) {
         currentMember.setMail(readMail());
+        while (currentMember.getMail().isEmpty()){
+            currentMember.setMail(scanner.nextLine());}
     }
 
     private void editMemberBirthdate(Member currentMember) {
         currentMember.setBirthdate(readBirthday());
+        while (currentMember.getMail().isEmpty()){
+            currentMember.setMail(scanner.nextLine());}
     }
 
     private void editMemberSex(Member currentMember) {
@@ -230,7 +240,7 @@ public class UserInterface {
         String emailValidation = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*"
                                  + "@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
         while (!input.matches(emailValidation)) {
-            System.out.print("Ugyldig e-mail prøv igen");
+            System.out.print("Ugyldig e-mail prøv igen: ");
             input = scanner.nextLine();
         }
         return input;
