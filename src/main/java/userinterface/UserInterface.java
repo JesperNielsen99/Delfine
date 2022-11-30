@@ -227,8 +227,10 @@ public class UserInterface {
     private String readMail() {
         System.out.println("Indtast mail");
         String input = scanner.nextLine();
-        while (!input.contains("@") || input.contains("..")) {
-            System.out.println("Ugyldig e-mail prøv igen");
+        String emailValidation = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*"
+                                 + "@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        while (!input.matches(emailValidation)) {
+            System.out.print("Ugyldig e-mail prøv igen");
             input = scanner.nextLine();
         }
         return input;
