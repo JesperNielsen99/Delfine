@@ -8,20 +8,21 @@ public class Member {
     private String address;
     private String phoneNumber;
     private String mail;
-    private LocalDate birthday;
+    private LocalDate birthdate;
     private boolean sex;
     private boolean isStudent;
     private boolean isActive;
     private boolean isCompetitive;
-    private DateTimeFormatter birthdayFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-    public Member(String name, String address, String phoneNumber, String mail, LocalDate birthday,
+    private final DateTimeFormatter birthdayFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+    public Member(String name, String address, String phoneNumber, String mail, LocalDate birthdate,
                   boolean sex, boolean isStudent, boolean isActive, boolean isCompetitive) {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.mail = mail;
-        this.birthday = birthday;
+        this.birthdate = birthdate;
         this.sex = sex;
         this.isStudent = isStudent;
         this.isActive = isActive;
@@ -44,8 +45,8 @@ public class Member {
         return mail;
     }
 
-    public LocalDate getBirthday() {
-        return birthday;
+    public LocalDate getBirthdate() {
+        return birthdate;
     }
 
     public boolean getSex() {
@@ -80,7 +81,7 @@ public class Member {
         this.mail = mail;
     }
 
-    public void setBirthday(LocalDate birthday) { this.birthday = birthday; }
+    public void setBirthdate(LocalDate birthday) {this.birthdate = birthday;}
 
     public void setSex(boolean sex) {
         this.sex = sex;
@@ -98,20 +99,20 @@ public class Member {
         isCompetitive = competitive;
     }
 
-    public String readSex(){
-        return sex? "M" : "K";
+    public String readSex() {
+        return sex ? "M" : "K";
     }
 
-    public String readIsStudent(){
-        return isStudent? "Ja": "Nej";
+    public String readIsStudent() {
+        return isStudent ? "Ja" : "Nej";
     }
 
-    public String readIsActive(){
-        return isActive? "Ja" : "Nej";
+    public String readIsActive() {
+        return isActive ? "Ja" : "Nej";
     }
 
-    public String readIsCompetitive(){
-        return isCompetitive? "Ja" : "Nej";
+    public String readIsCompetitive() {
+        return isCompetitive ? "Ja" : "Nej";
     }
 
     public String printMember() {
@@ -122,7 +123,7 @@ public class Member {
         stringBuilder.append("Adresse: " + address).append('\n');
         stringBuilder.append("Tlf.nr.: " + phoneNumber).append('\n');
         stringBuilder.append("E-mail: " + mail).append('\n');
-        stringBuilder.append("Fødselsdato: " + birthday.format(birthdayFormat)).append('\n');
+        stringBuilder.append("Fødselsdato: " + birthdate.format(birthdayFormat)).append('\n');
         stringBuilder.append("Køn: " + readSex()).append('\n');
         stringBuilder.append("Studerende: " + readIsStudent()).append('\n');
         stringBuilder.append("Aktivitetsform: " + readIsActive()).append('\n');
@@ -131,5 +132,5 @@ public class Member {
 
         return stringBuilder.toString();
     }
-
 }
+

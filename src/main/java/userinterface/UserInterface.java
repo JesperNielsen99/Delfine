@@ -116,7 +116,7 @@ public class UserInterface {
     }
 
     private void editMemberBirthdate(Member currentMember) {
-        currentMember.setBirthday(readBirthday());
+        currentMember.setBirthdate(readBirthday());
     }
 
     private void editMemberSex(Member currentMember) {

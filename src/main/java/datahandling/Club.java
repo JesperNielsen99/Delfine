@@ -2,7 +2,6 @@ package datahandling;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import member.Member;
 
 public class Club {

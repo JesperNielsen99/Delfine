@@ -28,7 +28,7 @@ public class FileHandler {
                             member.getAddress() + ";" +
                             member.getPhoneNumber() + ";" +
                             member.getMail() + ";" +
-                            member.getBirthday() + ";" +
+                            member.getBirthdate() + ";" +
                             member.getSex() + ";" +
                             member.getIsStudent() + ";" +
                             member.getIsActive() + ";" +
