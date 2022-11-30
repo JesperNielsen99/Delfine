@@ -2,6 +2,8 @@ package datahandling;
 
 import datasource.FileHandler;
 import member.Member;
+
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -24,7 +26,7 @@ public class Controller {
     }
 
     public void loadMembers(){
-        club.setMembers(fileHandler.loadMembers());
+        club.setMembers(fileHandler.loadMembers("Members.txt"));
     }
 
     public void saveMembers(){

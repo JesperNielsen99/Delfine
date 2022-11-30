@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileHandler {
-    private File fileObject = new File("Members.txt");
 
     public FileHandler() {
     }
@@ -17,7 +16,7 @@ public class FileHandler {
     public void saveMembers(ArrayList<Member> members) {
         PrintStream output = null;
         try {
-            output = new PrintStream(fileObject);
+            output = new PrintStream(new File("Members.txt"));
 
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
@@ -38,10 +37,10 @@ public class FileHandler {
         output.close();
     }
 
-    public ArrayList<Member> loadMembers() {
+    public ArrayList<Member> loadMembers(String fileName) {
         ArrayList<Member> members = new ArrayList<>();
         try {
-            Scanner scanner = new Scanner(fileObject);
+            Scanner scanner = new Scanner(new File(fileName));
             while (scanner.hasNextLine()) {
                 String[] lineSplit = scanner.nextLine().split(";");
                 members.add(new Member(
@@ -61,15 +60,4 @@ public class FileHandler {
         }
         return members;
     }
-
-   /* public void saveMembers(String members, String fileName) {
-    }
-    
-    public String loadMembers(String fileName) {
-        return null;
-    }
-    
-    public void checkForFile(String fileName) {
-        // TODO: 23/11/2022 Create file
-    }*/
 }

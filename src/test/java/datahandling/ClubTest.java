@@ -1,13 +1,8 @@
 package datahandling;
 
-import member.Member;
 import org.junit.jupiter.api.BeforeEach;
-
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.time.LocalDate;
-import java.util.ArrayList;
-
 
 class ClubTest {
 
@@ -23,17 +18,9 @@ class ClubTest {
     void searchMember() {
     //arrange
         String searchTest = "Test";
-        ArrayList<Member> testArray = club.searchMember(searchTest);
+        club.searchMember(searchTest);
 
-        assertTrue(testArray.size() != 0);
-
-
-
-
-
-
-
-
+        assertTrue(club.getSearchResult().size() != 0);
     }
 
     @org.junit.jupiter.api.Test
@@ -47,6 +34,5 @@ class ClubTest {
 
         //Assert (true)
         assertEquals(expectedSize,club.getSizeOfMembers());
-
     }
 }
