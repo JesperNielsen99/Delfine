@@ -124,7 +124,7 @@ public class UserInterface {
         boolean memberHasPaid = readHasPaid();
         MembershipStatus memberIsCompetitive = null;
         if (memberIsActive) {
-            memberIsCompetitive = readCompetetive();
+            memberIsCompetitive = readCompetitive();
             boolean crawl = readSwimDisciplin("crawl");
             boolean rygCrawl = readSwimDisciplin("ryg crawl");
             boolean brystSvømning = readSwimDisciplin("bryst svømning");
@@ -224,7 +224,7 @@ public class UserInterface {
     }
 
     private void editIsCompetitive(Member currentMember) {
-        currentMember.setIsCompetitive(readCompetetive());
+        currentMember.setIsCompetitive(readCompetitive());
     }
 
     private void editHasPaid(Member currenMember) {
@@ -444,7 +444,7 @@ public class UserInterface {
         return isActive;
     }
 
-    private MembershipStatus readCompetetive() {
+    private MembershipStatus readCompetitive() {
         boolean wrongInput = true;
         MembershipStatus membershipStatus = MembershipStatus.NONE;
         while (wrongInput) {
