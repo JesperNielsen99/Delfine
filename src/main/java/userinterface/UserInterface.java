@@ -39,6 +39,7 @@ public class UserInterface {
                 4: Slet medlem.
                 5: Print restanceliste.
                 6: Vis forventede indkomst.
+                7: Rediger kontigent.
                 8: Vis alle medlemmer.
                 9: Luk program.
                 """);
@@ -302,8 +303,8 @@ public class UserInterface {
         System.out.println(stringBuilder);
     }
 
-    private double expetedTotalIncome() {
-        return controller.getExpectedTotalIncome();
+    private void expetedTotalIncome() {
+        System.out.println("Forventede årlige inkomst er: " + controller.getExpectedTotalIncome() + "\n");
     }
 
     private void printAllMembers() {
