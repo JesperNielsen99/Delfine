@@ -1,6 +1,8 @@
 package datasource;
 
+import datahandling.Economy;
 import member.Member;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -9,7 +11,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileHandler {
-    private File fileObject = new File("Members.txt");
+    private File membersFile = new File("Members.txt");
+    private File subscriptionFile = new File("Subscription.txt");
+
+    private String fileNotFoundMessage = "Filen blev ikke fundet!!";
 
     public FileHandler() {
     }
@@ -17,10 +22,10 @@ public class FileHandler {
     public void saveMembers(ArrayList<Member> members) {
         PrintStream output = null;
         try {
-            output = new PrintStream(fileObject);
+            output = new PrintStream(membersFile);
 
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            System.out.println(fileNotFoundMessage);;
         }
         for (Member member : members) {
             output.println(
@@ -42,7 +47,7 @@ public class FileHandler {
     public ArrayList<Member> loadMembers() {
         ArrayList<Member> members = new ArrayList<>();
         try {
-            Scanner scanner = new Scanner(fileObject);
+            Scanner scanner = new Scanner(membersFile);
             while (scanner.hasNextLine()) {
                 String[] lineSplit = scanner.nextLine().split(";");
                 members.add(new Member(
@@ -59,19 +64,48 @@ public class FileHandler {
                 ));
             }
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            System.out.println(fileNotFoundMessage);
         }
         return members;
     }
 
-   /* public void saveMembers(String members, String fileName) {
+    public void saveSubscription(Economy economy) {
+        PrintStream output = null;
+        try {
+            output = new PrintStream(subscriptionFile);
+
+        } catch (FileNotFoundException e) {
+            System.out.println(fileNotFoundMessage);
+        }
+        output.println(
+                economy.getPassiv() + ";" +
+                        economy.getJunior() + ";" +
+                        economy.getSenior() + ";" +
+                        economy.getSeniorPlus() + ";" +
+                        economy.getStudent()
+        );
+        output.close();
     }
-    
-    public String loadMembers(String fileName) {
-        return null;
+
+    public Economy loadSubscription() {
+        Economy economy = null;
+        try {
+            Scanner scanner = new Scanner(subscriptionFile);
+
+           String[] lineSplit = scanner.nextLine().split(";");
+            economy = new Economy(
+                    Double.parseDouble(lineSplit[0]),
+                    Double.parseDouble(lineSplit[1]),
+                    Double.parseDouble(lineSplit[2]),
+                    Double.parseDouble(lineSplit[3]),
+                    Double.parseDouble(lineSplit[4])
+            );
+
+
+        } catch (FileNotFoundException e){
+            System.out.println(fileNotFoundMessage);
+        }
+        return economy;
     }
-    
-    public void checkForFile(String fileName) {
-        // TODO: 23/11/2022 Create file
-    }*/
+
 }
