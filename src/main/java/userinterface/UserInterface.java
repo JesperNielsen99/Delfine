@@ -38,6 +38,7 @@ public class UserInterface {
                 3: Redigere medlem.
                 4: Slet medlem.
                 5: Print restanceliste.
+                6: Vis forventede indkomst.
                 8: Vis alle medlemmer.
                 9: Luk program.
                 """);
@@ -47,75 +48,29 @@ public class UserInterface {
         System.out.println("""
                 Hvad ønsker du at redigere?
                                 
-                1: Passive medlemmer
-                2: Hobby medlemmer
-                3: Konkurrence medlemmer
-                9: Tilbage til hovedmenu
-                """);
-    }
-
-    private void printEditPassivMenu() {
-        System.out.println("""
-                Hvad ønsker du at redigere?
-                                
-                1: Navn
-                2: Adresse
-                3: Telefon nummer
-                4: Mail
-                5: Fødselsdag
-                6: Køn
-                7: Studie status
-                8: Aktivitets status
-                9: Betalingssatus
-                10: Tilbage til hovedmenu
-                """);
-    }
-
-    private void printEditHobbyMenu() {
-        System.out.println("""
-                Hvad ønsker du at redigere?
-                                
-                1: Navn
-                2: Adresse
-                3: Telefon nummer
-                4: Mail
-                5: Fødselsdag
-                6: Køn
-                7: Studie status
-                8: Aktivitets status
-                9: Betalingssatus
-                10: Medlemskab
+                1:  Navn
+                2:  Adresse
+                3:  Telefon nummer
+                4:  Mail
+                5:  Fødselsdag
+                6:  Køn
+                7:  Studie status
+                8:  Aktivitets status
+                9:  Medlemskab
+                10: Betalingssatus
                 11: Tilbage til hovedmenu
                 """);
     }
 
-    private void printEditCompetitiveMenu() {
+    private void printSubscriptionMenu() {
         System.out.println("""
-                Hvad ønsker du at redigere?
+                Hvilket kontigent ønsker du at ændre?
                                 
-                1: Navn
-                2: Adresse
-                3: Telefon nummer
-                4: Mail
-                5: Fødselsdag
-                6: Køn
-                7: Studie status
-                8: Aktivitets status
-                9: Betalingssatus
-                10: Medlemskab
-                11: Tilbage til hovedmenu
-                """);
-    }
-
-    private void printEditSwimDisciplinsMenu() {
-        System.out.println("""
-                Hvad ønsker du at redigere?
-                                
-                1: Crawl
-                2: Ryg crawl
-                3: Bryst Svømning
-                4: Butterfly
-                9: Tilbage til hovedmenu
+                1: Passiv
+                2: Junior
+                3: Senior
+                4: Senior+
+                5: Student
                 """);
     }
 
@@ -126,6 +81,8 @@ public class UserInterface {
             case 3 -> editMember();
             case 4 -> deleteMember();
             case 5 -> printMembersInDebt();
+            case 6 -> expetedTotalIncome();
+            case 7 -> editSupscription();
             case 8 -> printAllMembers();
             case 9 -> exitProgram();
             default -> System.out.println("invalid option");
@@ -133,19 +90,7 @@ public class UserInterface {
     }
 
 
-
-    private void handleEditMenuChoice() {
-        switch (readInt()) {
-            case 1 -> editPassiveMember();
-            case 2 -> editHobbyMember();
-            case 3 -> editCompetitiveMember();
-            case 9 -> start();
-            default -> System.out.println("Ikke en mulig funktion.");
-
-        }
-    }
-
-    private void handleEditPassiveMenuChoice(Member currentMember) {
+    private void handleEditMenuChoice(Member currentMember) {
         switch (readInt()) {
             case 1 -> editName(currentMember);
             case 2 -> editAddresse(currentMember);
@@ -155,54 +100,9 @@ public class UserInterface {
             case 6 -> editSex(currentMember);
             case 7 -> editIsStudent(currentMember);
             case 8 -> editIsActive(currentMember);
-            case 9 -> editHasPaid(currentMember);
-            case 10 -> start();
-            default -> System.out.println("Ikke en mulig funktion.");
-
-        }
-    }
-
-    private void handleEditHobbyMenuChoice(Member currentMember) {
-        switch (readInt()) {
-            case 1 -> editName(currentMember);
-            case 2 -> editAddresse(currentMember);
-            case 3 -> editPhoneNumber(currentMember);
-            case 4 -> editMail(currentMember);
-            case 5 -> editBirthdate(currentMember);
-            case 6 -> editSex(currentMember);
-            case 7 -> editIsStudent(currentMember);
-            case 8 -> editIsActive(currentMember);
-            case 9 -> editHasPaid(currentMember);
-            case 10 -> editIsCompetitive(currentMember);
+            case 9 -> editIsCompetitive(currentMember);
+            case 10 -> editHasPaid(currentMember);
             case 11 -> start();
-            default -> System.out.println("Ikke en mulig funktion.");
-
-        }
-    }
-
-    private void handleEditCompetitiveMenuChoice(Member currentMember) {
-        switch (readInt()) {
-            case 1 -> editName(currentMember);
-            case 2 -> editAddresse(currentMember);
-            case 3 -> editPhoneNumber(currentMember);
-            case 4 -> editMail(currentMember);
-            case 5 -> editBirthdate(currentMember);
-            case 6 -> editSex(currentMember);
-            case 7 -> editIsStudent(currentMember);
-            case 8 -> editIsActive(currentMember);
-            case 9 -> editHasPaid(currentMember);
-            case 10 -> editIsCompetitive(currentMember);
-            case 11 -> editSwimDisciplinsForMember(currentMember);
-            case 15 -> start();
-            default -> System.out.println("Ikke en mulig funktion.");
-        }
-    }
-
-    private void handleEditSwimDisciplinsMenu(Member currentMember) {
-        int disciplin = readInt();
-        switch (disciplin) {
-            case 1,2,3,4 -> editSwimDisciplin(currentMember, disciplin);
-            case 9 -> start();
             default -> System.out.println("Ikke en mulig funktion.");
 
         }
@@ -221,7 +121,7 @@ public class UserInterface {
         boolean memberIsStudent = readStudent();
         boolean memberIsActive = readActive();
         boolean memberHasPaid = readHasPaid();
-        MembershipStatus memberIsCompetitive = MembershipStatus.NONE;
+        MembershipStatus memberIsCompetitive = null;
         if (memberIsActive) {
             memberIsCompetitive = readCompetetive();
             boolean crawl = readSwimDisciplin("crawl");
@@ -251,16 +151,6 @@ public class UserInterface {
         }
     }
 
-    private void searchMember(MembershipStatus membershipStatus) {
-        System.out.print("Indtast navn på medlem: ");
-        controller.searchMember(scanner.nextLine(), membershipStatus);
-        if (!controller.getSearchResult().isEmpty()) {
-            printMemberArray(controller.getSearchResult());
-        } else {
-            System.out.println("Ingen medlemmer blev fundet med dette navn.");
-        }
-    }
-
     private Member chooseSearchResult(ArrayList<Member> members) {
         System.out.print("Indtast nummeret på medlemmet: ");
         int index = readInt();
@@ -272,40 +162,14 @@ public class UserInterface {
         return members.get(index - 1);
     }
 
+
     private void editMember() {
-        printEditMenu();
-        handleEditMenuChoice();
-    }
-
-    private void editPassiveMember() {
-        searchMember(MembershipStatus.NONE);
+        searchMember();
         if (!controller.getSearchResult().isEmpty()) {
             Member currentMember = chooseSearchResult(controller.getSearchResult());
-            printEditPassivMenu();
-            handleEditPassiveMenuChoice(currentMember);
+            printEditMenu();
+            handleEditMenuChoice(currentMember);
         }
-    }
-
-    private void editHobbyMember() {
-        searchMember(MembershipStatus.HOBBY);
-        if (!controller.getSearchResult().isEmpty()) {
-            Member currentMember = chooseSearchResult(controller.getSearchResult());
-            printEditHobbyMenu();
-            handleEditHobbyMenuChoice(currentMember);
-        }
-    }
-
-    private void editCompetitiveMember() {
-        searchMember(MembershipStatus.COMPETITIVE);
-        if (!controller.getSearchResult().isEmpty()) {
-            Member currentMember = chooseSearchResult(controller.getSearchResult());
-            printEditCompetitiveMenu();
-            handleEditCompetitiveMenuChoice(currentMember);
-        }
-    }
-    private void editSwimDisciplinsForMember(Member currentMember) {
-        printEditSwimDisciplinsMenu();
-        handleEditSwimDisciplinsMenu(currentMember);
     }
 
     private void editName(Member currentMember) {
@@ -358,23 +222,59 @@ public class UserInterface {
         currentMember.setIsActive(readActive());
     }
 
-    private void editHasPaid(Member currenMember){
-        currenMember.setHasPaid(readHasPaid());
-    }
-
     private void editIsCompetitive(Member currentMember) {
         currentMember.setIsCompetitive(readCompetetive());
     }
 
-    private void editSwimDisciplin(Member currentMember, int disciplin) {
-        switch (disciplin) {
-            case 1 -> { currentMember.setCrawl(readSwimDisciplin("crawl")); }
-            case 2 -> { currentMember.setRygCrawl(readSwimDisciplin("ryg crawl")); }
-            case 3 -> { currentMember.setBrystSvømning(readSwimDisciplin("bryst svømning")); }
-            case 4 -> { currentMember.setButterfly(readSwimDisciplin("butterfly")); }
+    private void editHasPaid(Member currenMember) {
+        currenMember.setHasPaid(readHasPaid());
+    }
+
+    private void editSupscription() {
+        printSubscriptionMenu();
+
+        boolean wrongUserchoice = true;
+        while(wrongUserchoice) {
+            switch (readInt()) {
+                case 1 -> {
+                    System.out.println("Nuværende kontigent for passive medlemmer er: " + controller.getpassiv() + " kr.");
+                    controller.setPassiv(readSubscription());
+                    wrongUserchoice = false;
+                }
+                case 2 -> {
+                    System.out.println("Nuværende kontigent for junior medlemmer er: " + controller.getJunior() + " kr.");
+                    controller.setJunior(readSubscription());
+                    wrongUserchoice = false;
+                }
+                case 3 -> {
+                    System.out.println("Nuværende kontigent for senior medlemmer er: " + controller.getSenior() + " kr.");
+                    controller.setSenior(readSubscription());
+                    wrongUserchoice = false;
+                }
+                case 4 -> {
+                    System.out.println("Nuværende kontigent for senior+ medlemmer er: " + controller.getSeniorPlus() + " kr.");
+                    controller.setSeniorPlus(readSubscription());
+                    wrongUserchoice = false;
+                }
+                case 5 -> {
+                    System.out.println("Nuværende kontigent for studerende er: " + controller.getStudent() + " kr.");
+                    controller.setStudent(readSubscription());
+                    wrongUserchoice = false;
+                }
+                default -> System.out.println("Ugyldigt input. Prøv igen!");
+            }
         }
     }
 
+    private double readSubscription() {
+        System.out.print("Indtast nyt kontingent: ");
+        double input = readDouble();
+        while (input < 0) {
+            System.out.println("Kontingentet kan ikke være negativt. Prøv igen: ");
+            input = readDouble();
+        }
+        return input;
+    }
 
     private void deleteMember() {
         searchMember();
@@ -388,12 +288,12 @@ public class UserInterface {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < members.size(); i++) {
             Member member = members.get(i);
-            stringBuilder.append((i+1) + ") \n" + member.printMember()).append("\nKontigent: ").append(controller.calculateMemberSubscription(member)).append(" kr.").append("\n\n\n");
+            stringBuilder.append((i + 1) + ") \n" + member.printMember()).append("\nKontigent: ").append(controller.calculateMemberSubscription(member)).append(" kr.").append("\n\n\n");
         }
         System.out.println(stringBuilder);
     }
 
-    private void printMembersInDebt(){
+    private void printMembersInDebt() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Member member : controller.getMembersInDebt()) {
             stringBuilder.append(member.printMember()).append("\nManglende betaling: ").append(controller.calculateMemberSubscription(member)).append(" kr.").append("\n");
@@ -402,8 +302,12 @@ public class UserInterface {
         System.out.println(stringBuilder);
     }
 
+    private double expetedTotalIncome() {
+        return controller.getExpectedTotalIncome();
+    }
+
     private void printAllMembers() {
-    printMemberArray(controller.getMembers());
+        printMemberArray(controller.getMembers());
     }
 
 

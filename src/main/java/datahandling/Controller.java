@@ -59,11 +59,41 @@ public class Controller {
         return club.membersInDebt();
     }
 
-    public ArrayList<Member> getTeamJunior(){
-        return club.getTeamJunior();
+    public double getpassiv(){
+       return subscription.getPassiv();
+    }
+    public double getJunior(){
+        return subscription.getJunior();
+    }
+    public double getSenior(){
+        return subscription.getSenior();
+    }
+    public double getSeniorPlus(){
+        return subscription.getSeniorPlus();
+    }
+    public double getStudent(){
+        return subscription.getStudent();
     }
 
-    public ArrayList<Member> getTeamSenior(){
-        return club.getTeamSenior();
+
+    public void setPassiv(double passiv){
+        subscription.setPassiv(passiv);
     }
+
+    public void setJunior (double junior){
+        subscription.setJunior(junior);
+    }
+
+    public void setSenior(double senior){
+        subscription.setSenior(senior);
+    }
+
+    public void setSeniorPlus(double seniorPlus){
+        subscription.setSeniorPlus(seniorPlus);
+    }
+
+    public void setStudent(double student){
+        subscription.setStudent(student);
+    }
+
 }
