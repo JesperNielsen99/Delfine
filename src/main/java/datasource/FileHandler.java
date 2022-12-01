@@ -148,7 +148,7 @@ public class FileHandler {
     public String loadTrainer() {
         String trainer = null;
         try {
-            Scanner scanner = new Scanner(subscriptionFile);
+            Scanner scanner = new Scanner(trainerFile);
             trainer = scanner.nextLine();
 
         } catch (FileNotFoundException e){
