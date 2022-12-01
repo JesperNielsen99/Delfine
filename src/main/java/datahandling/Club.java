@@ -18,6 +18,17 @@ public class Club {
         members.add(new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, isCompetitive, hasPaid,crawl, rygCrawl, brystSvømning, butterfly));
     }
 
+    public void searchMember(String searchMemberName, MembershipStatus membershipStatus) {
+        searchResult.clear();
+        for (Member member : members) {
+            if (member.getName().toLowerCase().contains(searchMemberName.toLowerCase())) {
+                if (member.getIsCompetitive() == membershipStatus) {
+                    searchResult.add(member);
+                }
+            }
+        }
+    }
+
     public void searchMember(String searchMemberName) {
         searchResult.clear();
         for (Member member : members) {

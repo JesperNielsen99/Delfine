@@ -21,7 +21,13 @@ public class Controller {
         club.createMember(name, address, number, mail, birthdate, sex, isStudent, isActive, isCompetitive, hasPaid, crawl, rygCrawl, brystSvømning, butterfly);
     }
 
-    public void searchMember(String searchMemberName){ club.searchMember(searchMemberName); }
+    public void searchMember(String searchMemberName, MembershipStatus membershipStatus) {
+        club.searchMember(searchMemberName, membershipStatus);
+    }
+
+    public void searchMember(String searchMemberName) {
+        club.searchMember(searchMemberName);
+    }
 
     public String deleteMember(Member currentMember){
         return club.deleteMember(currentMember);
