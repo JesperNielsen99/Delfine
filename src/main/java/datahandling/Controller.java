@@ -96,4 +96,12 @@ public class Controller {
         subscription.setStudent(student);
     }
 
+    public ArrayList<Member> getTeamJunior(){
+        return club.getTeamJunior();
+    }
+
+    public ArrayList<Member> getTeamSenior(){
+        return club.getTeamSenior();
+    }
+
 }
