@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Controller {
-    private Economy economy = new Economy();
+    private Subscription subscription = new Subscription();
     private Club club = new Club();
     private FileHandler fileHandler = new FileHandler();
 
@@ -42,11 +42,11 @@ public class Controller {
     public ArrayList<Member> getSearchResult() { return club.getSearchResult(); }
 
     public double calculateMemberSubscription(Member member) {
-        return economy.calculateMemberSubscription(member);
+        return subscription.calculateMemberSubscription(member);
     }
 
     public double getExpectedTotalIncome() {
-        return economy.expectedTotalIncome(club.getMembers());
+        return subscription.expectedTotalIncome(club.getMembers());
     }
 
     public ArrayList<Member> getMembersInDebt(){
