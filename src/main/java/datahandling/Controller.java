@@ -58,4 +58,12 @@ public class Controller {
     public ArrayList<Member> getMembersInDebt(){
         return club.membersInDebt();
     }
+
+    public ArrayList<Member> getTeamJunior(){
+        return club.getTeamJunior();
+    }
+
+    public ArrayList<Member> getTeamSenior(){
+        return club.getTeamSenior();
+    }
 }
