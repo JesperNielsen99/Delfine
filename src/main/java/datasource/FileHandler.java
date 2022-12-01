@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class FileHandler {
     private File membersFile = new File("Members.txt");
     private File subscriptionFile = new File("Subscription.txt");
+    private File trainerFile = new File("Trainer.txt");
 
     private String fileNotFoundMessage = "Filen blev ikke fundet!!";
 
@@ -130,6 +131,30 @@ public class FileHandler {
             System.out.println(fileNotFoundMessage);
         }
         return subscription;
+    }
+
+    public void saveTrainer(String trainer) {
+        PrintStream output = null;
+        try {
+            output = new PrintStream(trainerFile);
+
+        } catch (FileNotFoundException e) {
+            System.out.println(fileNotFoundMessage);
+        }
+        output.println(trainer);
+        output.close();
+    }
+
+    public String loadTrainer() {
+        String trainer = null;
+        try {
+            Scanner scanner = new Scanner(subscriptionFile);
+            trainer = scanner.nextLine();
+
+        } catch (FileNotFoundException e){
+            System.out.println(fileNotFoundMessage);
+        }
+        return trainer;
     }
 
 
