@@ -2,6 +2,7 @@ package datasource;
 
 import datahandling.Subscription;
 import member.Member;
+import member.MembershipStatus;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,18 +29,22 @@ public class FileHandler {
             System.out.println(fileNotFoundMessage);;
         }
         for (Member member : members) {
-            output.println(
-                    member.getName() + ";" +
-                            member.getAddress() + ";" +
-                            member.getPhoneNumber() + ";" +
-                            member.getMail() + ";" +
-                            member.getBirthdate() + ";" +
-                            member.getSex() + ";" +
-                            member.getIsStudent() + ";" +
-                            member.getIsActive() + ";" +
-                            member.getIsCompetitive() + ";" +
-                            member.getHasPaid()
-            );
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(member.getName()).append(';');
+            stringBuilder.append(member.getAddress()).append(';');
+            stringBuilder.append(member.getPhoneNumber()).append(';');
+            stringBuilder.append(member.getMail()).append(';');
+            stringBuilder.append(member.getBirthdate()).append(';');
+            stringBuilder.append(member.getSex()).append(';');
+            stringBuilder.append(member.getIsStudent()).append(';');
+            stringBuilder.append(member.getIsActive()).append(';');
+            stringBuilder.append(member.getHasPaid()).append(';');
+            stringBuilder.append(member.getIsCompetitive()).append(';');
+            stringBuilder.append(member.getCrawl()).append(';');
+            stringBuilder.append(member.getRygCrawl()).append(';');
+            stringBuilder.append(member.getBrystSvømning()).append(';');
+            stringBuilder.append(member.getButterfly());
+            output.println(stringBuilder);
         }
         output.close();
     }
@@ -50,18 +55,37 @@ public class FileHandler {
             Scanner scanner = new Scanner(membersFile);
             while (scanner.hasNextLine()) {
                 String[] lineSplit = scanner.nextLine().split(";");
-                members.add(new Member(
-                        lineSplit[0],
-                        lineSplit[1],
-                        lineSplit[2],
-                        lineSplit[3],
-                        LocalDate.parse(lineSplit[4]),
-                        Boolean.parseBoolean(lineSplit[5]),
-                        Boolean.parseBoolean(lineSplit[6]),
-                        Boolean.parseBoolean(lineSplit[7]),
-                        Boolean.parseBoolean(lineSplit[8]),
-                        Boolean.parseBoolean(lineSplit[9])
-                ));
+                if (lineSplit.length == 9) {
+                    members.add(new Member(
+                            lineSplit[0],
+                            lineSplit[1],
+                            lineSplit[2],
+                            lineSplit[3],
+                            LocalDate.parse(lineSplit[4]),
+                            Boolean.parseBoolean(lineSplit[5]),
+                            Boolean.parseBoolean(lineSplit[6]),
+                            Boolean.parseBoolean(lineSplit[7]),
+                            readMemberShipStatus(lineSplit[9]),
+                            Boolean.parseBoolean(lineSplit[8])
+                    ));
+                } else {
+                    members.add(new Member(
+                            lineSplit[0],
+                            lineSplit[1],
+                            lineSplit[2],
+                            lineSplit[3],
+                            LocalDate.parse(lineSplit[4]),
+                            Boolean.parseBoolean(lineSplit[5]),
+                            Boolean.parseBoolean(lineSplit[6]),
+                            Boolean.parseBoolean(lineSplit[7]),
+                            readMemberShipStatus(lineSplit[9]),
+                            Boolean.parseBoolean(lineSplit[8]),
+                            Boolean.parseBoolean(lineSplit[10]),
+                            Boolean.parseBoolean(lineSplit[11]),
+                            Boolean.parseBoolean(lineSplit[12]),
+                            Boolean.parseBoolean(lineSplit[13])
+                    ));
+                }
             }
         } catch (FileNotFoundException e) {
             System.out.println(fileNotFoundMessage);
@@ -108,4 +132,14 @@ public class FileHandler {
         return subscription;
     }
 
+
+    private MembershipStatus readMemberShipStatus(String memberShipStatusString) {
+        MembershipStatus membershipStatus = MembershipStatus.NONE;
+        switch (memberShipStatusString) {
+            case "NONE" -> { membershipStatus = MembershipStatus.NONE; }
+            case "HOBBY" -> { membershipStatus = MembershipStatus.HOBBY; }
+            case "COMPETITIVE" -> { membershipStatus = MembershipStatus.COMPETITIVE; }
+        }
+        return membershipStatus;
+    }
 }

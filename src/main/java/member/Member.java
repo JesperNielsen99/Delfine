@@ -138,7 +138,7 @@ public class Member {
         isCompetitive = competitive;
     }
 
-    public void setHasPaid(boolean hasPaid){
+    public void setHasPaid(boolean hasPaid) {
         this.hasPaid = hasPaid;
     }
 
@@ -206,7 +206,24 @@ public class Member {
         return hasPaid ? "Nej" : "Ja";
     }
 
+    private String activeSwimDisciplins() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(crawl ? "Crawl, " : "");
+        stringBuilder.append(rygCrawl ? "Rygcrawl, " : "");
+        stringBuilder.append(brystSvømning ? "Bryst svømning, " : "");
+        stringBuilder.append(butterfly ? "Butterfly" : "");
+        return stringBuilder.toString();
+    }
+
     public String printMember() {
+        if (isCompetitive == MembershipStatus.COMPETITIVE) {
+            return printCompetitiveMember();
+        } else {
+            return printNonCompetitiveMember();
+        }
+    }
+
+    private String printNonCompetitiveMember() {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append("Navn: " + name).append('\n');
@@ -218,9 +235,25 @@ public class Member {
         stringBuilder.append("Køn: " + readSex()).append('\n');
         stringBuilder.append("Studerende: " + readIsStudent()).append('\n');
         stringBuilder.append("Aktivitetsform: " + readIsActive()).append('\n');
-        stringBuilder.append("Konkurrencesvømmer: " + readIsCompetitive()).append('\n');
         stringBuilder.append("Restance: " + readHasPaid());
 
+        return stringBuilder.toString();
+    }
+
+    private String printCompetitiveMember() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("Navn: " + name).append('\n');
+        stringBuilder.append("Adresse: " + address).append('\n');
+        stringBuilder.append("Tlf.nr.: " + phoneNumber).append('\n');
+        stringBuilder.append("E-mail: " + mail).append('\n');
+        stringBuilder.append("Fødselsdato: " + birthdate.format(birthdayFormat)).append('\n');
+        stringBuilder.append("Alder: " + getAge()).append('\n');
+        stringBuilder.append("Køn: " + readSex()).append('\n');
+        stringBuilder.append("Studerende: " + readIsStudent()).append('\n');
+        stringBuilder.append("Aktivitetsform: " + readIsActive()).append('\n');
+        stringBuilder.append("Restance: " + readHasPaid()).append('\n');
+        stringBuilder.append("Aktive svømmediscipliner: " + activeSwimDisciplins());
 
         return stringBuilder.toString();
     }
