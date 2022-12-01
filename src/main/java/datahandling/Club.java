@@ -9,6 +9,9 @@ public class Club {
     private ArrayList<Member> members = new ArrayList<>();
     private ArrayList<Member> searchResult = new ArrayList<>();
 
+    private Team teamJunior = new Team("Junior træner");
+    private Team teamSenior = new Team("Senior træner");
+
 
     public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, Boolean isActive, MembershipStatus isCompetitive, boolean hasPaid) {
         members.add(new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, isCompetitive, hasPaid));
@@ -69,5 +72,28 @@ public class Club {
             }
         }
         return membersInDebt;
+    }
+
+    public void addMemberToTeam(Member member){
+        if (member.getAge() < 18){
+            teamJunior.addMemberToTeam(member);
+        }
+        else {
+            teamSenior.addMemberToTeam(member);
+        }
+    }
+
+    private void addMembersToTeam(ArrayList<Member> members){
+        for (Member member : members){
+            addMemberToTeam(member);
+        }
+    }
+
+    public ArrayList<Member> getTeamJunior(){
+        return teamJunior.getTeamMembers();
+    }
+
+    public ArrayList<Member> getTeamSenior(){
+        return teamJunior.getTeamMembers();
     }
 }
