@@ -452,9 +452,11 @@ public class UserInterface {
             switch (scanner.nextLine().toLowerCase()) {
                 case "ja", "j" -> {
                     membershipStatus = MembershipStatus.COMPETITIVE;
+                    wrongInput = false;
                 }
                 case "nej", "n" -> {
                     membershipStatus = MembershipStatus.HOBBY;
+                    wrongInput = false;
                 }
                 default -> System.out.println("Ugyldigt input");
             }
