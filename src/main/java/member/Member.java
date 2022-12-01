@@ -22,7 +22,7 @@ public class Member {
     private final DateTimeFormatter birthdayFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     public Member(String name, String address, String phoneNumber, String mail, LocalDate birthdate,
-                  boolean sex, boolean isStudent, boolean isActive, MembershipStatus isCompetitive, boolean hasPaid) {
+                  boolean sex, boolean isStudent, boolean isActive, boolean hasPaid, MembershipStatus isCompetitive) {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
@@ -40,7 +40,7 @@ public class Member {
     }
 
     public Member(String name, String address, String phoneNumber, String mail, LocalDate birthdate,
-                  boolean sex, boolean isStudent, boolean isActive, MembershipStatus isCompetitive, boolean hasPaid,
+                  boolean sex, boolean isStudent, boolean isActive, boolean hasPaid, MembershipStatus isCompetitive,
                   boolean crawl, boolean rygCrawl, boolean brystSvømning, boolean butterfly) {
         this.name = name;
         this.address = address;

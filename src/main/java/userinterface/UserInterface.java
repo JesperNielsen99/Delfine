@@ -483,7 +483,6 @@ public class UserInterface {
                 default -> System.out.println("Ugyldigt input");
             }
         }
-
         return hasPaid;
     }
 

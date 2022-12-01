@@ -66,8 +66,8 @@ public class FileHandler {
                             Boolean.parseBoolean(lineSplit[5]),
                             Boolean.parseBoolean(lineSplit[6]),
                             Boolean.parseBoolean(lineSplit[7]),
-                            readMemberShipStatus(lineSplit[9]),
-                            Boolean.parseBoolean(lineSplit[8])
+                            Boolean.parseBoolean(lineSplit[8]),
+                            readMemberShipStatus(lineSplit[9])
                     ));
                 } else {
                     members.add(new Member(
@@ -79,8 +79,8 @@ public class FileHandler {
                             Boolean.parseBoolean(lineSplit[5]),
                             Boolean.parseBoolean(lineSplit[6]),
                             Boolean.parseBoolean(lineSplit[7]),
-                            readMemberShipStatus(lineSplit[9]),
                             Boolean.parseBoolean(lineSplit[8]),
+                            readMemberShipStatus(lineSplit[9]),
                             Boolean.parseBoolean(lineSplit[10]),
                             Boolean.parseBoolean(lineSplit[11]),
                             Boolean.parseBoolean(lineSplit[12]),

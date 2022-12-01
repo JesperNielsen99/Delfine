@@ -14,11 +14,11 @@ public class Club {
 
 
     public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, Boolean isActive, MembershipStatus isCompetitive, boolean hasPaid) {
-        members.add(new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, isCompetitive, hasPaid));
+        members.add(new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, hasPaid, isCompetitive));
     }
 
     public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, Boolean isActive, MembershipStatus isCompetitive, boolean hasPaid, boolean crawl, boolean rygCrawl, boolean brystSvømning, boolean butterfly) {
-        members.add(new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, isCompetitive, hasPaid,crawl, rygCrawl, brystSvømning, butterfly));
+        members.add(new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, hasPaid, isCompetitive, crawl, rygCrawl, brystSvømning, butterfly));
     }
 
     public void searchMember(String searchMemberName, MembershipStatus membershipStatus) {
