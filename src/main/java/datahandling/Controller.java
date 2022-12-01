@@ -45,6 +45,26 @@ public class Controller {
     public void saveMembers(){
         fileHandler.saveMembers(club.getMembers());
     }
+
+    public void saveSubscription(){
+        fileHandler.saveSubscription(subscription);
+    }
+
+    public void loadSubscription(){
+        Subscription loadedSubscription = fileHandler.loadSubscription();
+        if (loadedSubscription != null) {
+            subscription = loadedSubscription;
+        }
+    }
+
+    public void saveTrainers(){
+        fileHandler.saveTrainer(club.getTraniers());
+    }
+
+    public void loadTrainers(){
+        club.setTrainers(fileHandler.loadTrainers());
+    }
+
     public ArrayList<Member> getSearchResult() { return club.getSearchResult(); }
 
     public double calculateMemberSubscription(Member member) {

@@ -14,11 +14,15 @@ public class Club {
 
 
     public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, Boolean isActive, MembershipStatus isCompetitive, boolean hasPaid) {
-        members.add(new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, hasPaid, isCompetitive));
+        Member member = new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, hasPaid, isCompetitive);
+        members.add(member);
+        addMemberToTeam(member);
     }
 
     public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, Boolean isActive, MembershipStatus isCompetitive, boolean hasPaid, boolean crawl, boolean rygCrawl, boolean brystSvømning, boolean butterfly) {
-        members.add(new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, hasPaid, isCompetitive, crawl, rygCrawl, brystSvømning, butterfly));
+        Member member = new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, hasPaid, isCompetitive, crawl, rygCrawl, brystSvømning, butterfly);
+        members.add(member);
+        addMemberToTeam(member);
     }
 
     public void searchMember(String searchMemberName, MembershipStatus membershipStatus) {
@@ -58,6 +62,7 @@ public class Club {
 
     public void setMembers(ArrayList<Member> members) {
         this.members = members;
+        addMembersToTeam(members);
     }
 
     public ArrayList<Member> getSearchResult() {
@@ -75,11 +80,12 @@ public class Club {
     }
 
     public void addMemberToTeam(Member member){
-        if (member.getAge() < 18){
-            teamJunior.addMemberToTeam(member);
-        }
-        else {
-            teamSenior.addMemberToTeam(member);
+        if (member.getIsCompetitive() == MembershipStatus.COMPETITIVE) {
+            if (member.getAge() < 18) {
+                teamJunior.addMemberToTeam(member);
+            } else {
+                teamSenior.addMemberToTeam(member);
+            }
         }
     }
 
@@ -95,5 +101,17 @@ public class Club {
 
     public ArrayList<Member> getTeamSenior(){
         return teamJunior.getTeamMembers();
+    }
+
+    public String[] getTraniers(){
+        String[] strings = {teamJunior.getTrainerName(),teamSenior.getTrainerName()};
+        return strings;
+    }
+
+    public void setTrainers(String[] trainers){
+        if(trainers != null) {
+            teamJunior.setTrainerName(trainers[0]);
+            teamSenior.setTrainerName(trainers[1]);
+        }
     }
 }

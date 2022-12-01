@@ -15,7 +15,7 @@ public class UserInterface {
     private final Scanner scanner = new Scanner(System.in).useLocale(Locale.GERMAN);
 
     public void start() {
-        controller.loadMembers();
+        loadData();
         System.out.println("Velkommen til Delfinen");
         while (true) {
             if (!controller.getMembers().isEmpty()) {
@@ -131,7 +131,6 @@ public class UserInterface {
             boolean butterfly = readSwimDisciplin("butterfly");
             controller.createMember(memberName, memberAddress, memberPhoneNumber, memberMail, memberBirthdate, memberSex,
                     memberIsStudent, false, memberIsCompetitive, memberHasPaid, crawl, rygCrawl, brystSvømning, butterfly);
-
         } else {
             memberIsCompetitive = MembershipStatus.NONE;
             controller.createMember(memberName, memberAddress, memberPhoneNumber, memberMail, memberBirthdate, memberSex,
@@ -279,7 +278,7 @@ public class UserInterface {
 
     private double readSubscriptionDiscount() {
         System.out.print("Indtast ny rabat i procent: ");
-        double input = readDouble();
+        int input = readInt();
         while (input < 0 || input > 100) {
             System.out.println("Rabat skal være mellem 0 og 100. Prøv igen: ");
             input = readDouble();
@@ -321,9 +320,21 @@ public class UserInterface {
         printMemberArray(controller.getMembers());
     }
 
+    public void loadData() {
+        controller.loadMembers();
+        controller.loadSubscription();
+        controller.loadTrainers();
+    }
+
+    private void saveData(){
+        controller.saveMembers();
+        controller.saveSubscription();
+        controller.saveTrainers();
+    }
 
     private void exitProgram() {
-        controller.saveMembers();
+        saveData();
+        loadData();
         System.exit(0);
     }
 
@@ -508,5 +519,4 @@ public class UserInterface {
 
         return hasDisciplin;
     }
-
 }

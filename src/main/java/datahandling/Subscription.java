@@ -22,6 +22,7 @@ public class Subscription {
         this.student = student;
     }
 
+
     public double calculateMemberSubscription(Member member) {
         double subscription = 0;
         if (member.getIsActive()) {

@@ -133,7 +133,7 @@ public class FileHandler {
         return subscription;
     }
 
-    public void saveTrainer(String trainer) {
+    public void saveTrainer(String[] trainers) {
         PrintStream output = null;
         try {
             output = new PrintStream(trainerFile);
@@ -141,20 +141,23 @@ public class FileHandler {
         } catch (FileNotFoundException e) {
             System.out.println(fileNotFoundMessage);
         }
-        output.println(trainer);
+        output.println(
+                trainers[0] + ";" +
+                trainers[1]);
         output.close();
     }
 
-    public String loadTrainer() {
-        String trainer = null;
+    public String[] loadTrainers() {
+        String[] trainers = null;
         try {
             Scanner scanner = new Scanner(trainerFile);
-            trainer = scanner.nextLine();
+            String trainer = scanner.nextLine();
+            trainers = trainer.split(";");
 
         } catch (FileNotFoundException e){
             System.out.println(fileNotFoundMessage);
         }
-        return trainer;
+        return trainers;
     }
 
 
