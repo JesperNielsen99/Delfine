@@ -1,6 +1,6 @@
 package datasource;
 
-import datahandling.Economy;
+import datahandling.Subscription;
 import member.Member;
 
 import java.io.File;
@@ -69,7 +69,7 @@ public class FileHandler {
         return members;
     }
 
-    public void saveSubscription(Economy economy) {
+    public void saveSubscription(Subscription subscription) {
         PrintStream output = null;
         try {
             output = new PrintStream(subscriptionFile);
@@ -78,22 +78,22 @@ public class FileHandler {
             System.out.println(fileNotFoundMessage);
         }
         output.println(
-                economy.getPassiv() + ";" +
-                        economy.getJunior() + ";" +
-                        economy.getSenior() + ";" +
-                        economy.getSeniorPlus() + ";" +
-                        economy.getStudent()
+                subscription.getPassiv() + ";" +
+                        subscription.getJunior() + ";" +
+                        subscription.getSenior() + ";" +
+                        subscription.getSeniorPlus() + ";" +
+                        subscription.getStudent()
         );
         output.close();
     }
 
-    public Economy loadSubscription() {
-        Economy economy = null;
+    public Subscription loadSubscription() {
+        Subscription subscription = null;
         try {
             Scanner scanner = new Scanner(subscriptionFile);
 
            String[] lineSplit = scanner.nextLine().split(";");
-            economy = new Economy(
+            subscription = new Subscription(
                     Double.parseDouble(lineSplit[0]),
                     Double.parseDouble(lineSplit[1]),
                     Double.parseDouble(lineSplit[2]),
@@ -105,7 +105,7 @@ public class FileHandler {
         } catch (FileNotFoundException e){
             System.out.println(fileNotFoundMessage);
         }
-        return economy;
+        return subscription;
     }
 
 }

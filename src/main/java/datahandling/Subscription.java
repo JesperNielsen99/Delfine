@@ -4,17 +4,17 @@ import member.Member;
 
 import java.util.ArrayList;
 
-public class Economy {
+public class Subscription {
     private double passiv = 500;
     private double junior = 1000;
     private double senior = 1600;
     private double seniorPlus = 0.25;
     private double student = 0.15;
 
-    public Economy() {
+    public Subscription() {
     }
 
-    public Economy(double passiv, double junior, double senior, double seniorPlus, double student){
+    public Subscription(double passiv, double junior, double senior, double seniorPlus, double student){
         this.passiv = passiv;
         this.junior = junior;
         this.senior = senior;
