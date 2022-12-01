@@ -83,7 +83,7 @@ public class UserInterface {
             case 4 -> deleteMember();
             case 5 -> printMembersInDebt();
             case 6 -> expetedTotalIncome();
-            case 7 -> editSupscription();
+            case 7 -> editSubscription();
             case 8 -> printAllMembers();
             case 9 -> exitProgram();
             default -> System.out.println("invalid option");
@@ -231,7 +231,7 @@ public class UserInterface {
         currenMember.setHasPaid(readHasPaid());
     }
 
-    private void editSupscription() {
+    private void editSubscription() {
         printSubscriptionMenu();
 
         boolean wrongUserchoice = true;
@@ -253,13 +253,13 @@ public class UserInterface {
                     wrongUserchoice = false;
                 }
                 case 4 -> {
-                    System.out.println("Nuværende kontigent for senior+ medlemmer er: " + controller.getSeniorPlus() + " kr.");
-                    controller.setSeniorPlus(readSubscription());
+                    System.out.println("Nuværende rabat for senior+ medlemmer er: " + controller.getSeniorPlus() * 100 + " procent.");
+                    controller.setSeniorPlus(readSubscriptionDiscount());
                     wrongUserchoice = false;
                 }
                 case 5 -> {
-                    System.out.println("Nuværende kontigent for studerende er: " + controller.getStudent() + " kr.");
-                    controller.setStudent(readSubscription());
+                    System.out.println("Nuværende rabat for studerende er: " + controller.getStudent() * 100 + " procent.");
+                    controller.setStudent(readSubscriptionDiscount());
                     wrongUserchoice = false;
                 }
                 default -> System.out.println("Ugyldigt input. Prøv igen!");
@@ -272,6 +272,16 @@ public class UserInterface {
         double input = readDouble();
         while (input < 0) {
             System.out.println("Kontingentet kan ikke være negativt. Prøv igen: ");
+            input = readDouble();
+        }
+        return input;
+    }
+
+    private double readSubscriptionDiscount() {
+        System.out.print("Indtast ny rabat i procent: ");
+        double input = readDouble();
+        while (input < 0 || input > 100) {
+            System.out.println("Rabat skal være mellem 0 og 100. Prøv igen: ");
             input = readDouble();
         }
         return input;
