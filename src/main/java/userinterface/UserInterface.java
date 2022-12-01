@@ -38,6 +38,7 @@ public class UserInterface {
                 3: Redigere medlem.
                 4: Slet medlem.
                 5: Print restanceliste.
+                6: Vis forventede indkomst.
                 8: Vis alle medlemmer.
                 9: Luk program.
                 """);
@@ -47,17 +48,29 @@ public class UserInterface {
         System.out.println("""
                 Hvad ønsker du at redigere?
                                 
-                1: Navn
-                2: Adresse
-                3: Telefon nummer
-                4: Mail
-                5: Fødselsdag
-                6: Køn
-                7: Studie status
-                8: Aktivitets status
-                9: Medlemskab
+                1:  Navn
+                2:  Adresse
+                3:  Telefon nummer
+                4:  Mail
+                5:  Fødselsdag
+                6:  Køn
+                7:  Studie status
+                8:  Aktivitets status
+                9:  Medlemskab
                 10: Betalingssatus
                 11: Tilbage til hovedmenu
+                """);
+    }
+
+    private void printSubscriptionMenu() {
+        System.out.println("""
+                Hvilket kontigent ønsker du at ændre?
+                                
+                1: Passiv
+                2: Junior
+                3: Senior
+                4: Senior+
+                5: Student
                 """);
     }
 
@@ -68,12 +81,13 @@ public class UserInterface {
             case 3 -> editMember();
             case 4 -> deleteMember();
             case 5 -> printMembersInDebt();
+            case 6 -> expetedTotalIncome();
+            case 7 -> editSupscription();
             case 8 -> printAllMembers();
             case 9 -> exitProgram();
             default -> System.out.println("invalid option");
         }
     }
-
 
 
     private void handleEditMenuChoice(Member currentMember) {
@@ -107,7 +121,7 @@ public class UserInterface {
         boolean memberIsStudent = readStudent();
         boolean memberIsActive = readActive();
         boolean memberHasPaid = readHasPaid();
-        MembershipStatus memberIsCompetitive = MembershipStatus.NONE;
+        MembershipStatus memberIsCompetitive = null;
         if (memberIsActive) {
             memberIsCompetitive = readCompetetive();
             boolean crawl = readSwimDisciplin("crawl");
@@ -212,11 +226,55 @@ public class UserInterface {
         currentMember.setIsCompetitive(readCompetetive());
     }
 
-    private void editHasPaid(Member currenMember){
+    private void editHasPaid(Member currenMember) {
         currenMember.setHasPaid(readHasPaid());
     }
 
+    private void editSupscription() {
+        printSubscriptionMenu();
 
+        boolean wrongUserchoice = true;
+        while(wrongUserchoice) {
+            switch (readInt()) {
+                case 1 -> {
+                    System.out.println("Nuværende kontigent for passive medlemmer er: " + controller.getpassiv() + " kr.");
+                    controller.setPassiv(readSubscription());
+                    wrongUserchoice = false;
+                }
+                case 2 -> {
+                    System.out.println("Nuværende kontigent for junior medlemmer er: " + controller.getJunior() + " kr.");
+                    controller.setJunior(readSubscription());
+                    wrongUserchoice = false;
+                }
+                case 3 -> {
+                    System.out.println("Nuværende kontigent for senior medlemmer er: " + controller.getSenior() + " kr.");
+                    controller.setSenior(readSubscription());
+                    wrongUserchoice = false;
+                }
+                case 4 -> {
+                    System.out.println("Nuværende kontigent for senior+ medlemmer er: " + controller.getSeniorPlus() + " kr.");
+                    controller.setSeniorPlus(readSubscription());
+                    wrongUserchoice = false;
+                }
+                case 5 -> {
+                    System.out.println("Nuværende kontigent for studerende er: " + controller.getStudent() + " kr.");
+                    controller.setStudent(readSubscription());
+                    wrongUserchoice = false;
+                }
+                default -> System.out.println("Ugyldigt input. Prøv igen!");
+            }
+        }
+    }
+
+    private double readSubscription() {
+        System.out.print("Indtast nyt kontingent: ");
+        double input = readDouble();
+        while (input < 0) {
+            System.out.println("Kontingentet kan ikke være negativt. Prøv igen: ");
+            input = readDouble();
+        }
+        return input;
+    }
 
     private void deleteMember() {
         searchMember();
@@ -230,12 +288,12 @@ public class UserInterface {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < members.size(); i++) {
             Member member = members.get(i);
-            stringBuilder.append((i+1) + ") \n" + member.printMember()).append("\nKontigent: ").append(controller.calculateMemberSubscription(member)).append(" kr.").append("\n\n\n");
+            stringBuilder.append((i + 1) + ") \n" + member.printMember()).append("\nKontigent: ").append(controller.calculateMemberSubscription(member)).append(" kr.").append("\n\n\n");
         }
         System.out.println(stringBuilder);
     }
 
-    private void printMembersInDebt(){
+    private void printMembersInDebt() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Member member : controller.getMembersInDebt()) {
             stringBuilder.append(member.printMember()).append("\nManglende betaling: ").append(controller.calculateMemberSubscription(member)).append(" kr.").append("\n");
@@ -244,8 +302,12 @@ public class UserInterface {
         System.out.println(stringBuilder);
     }
 
+    private double expetedTotalIncome() {
+        return controller.getExpectedTotalIncome();
+    }
+
     private void printAllMembers() {
-    printMemberArray(controller.getMembers());
+        printMemberArray(controller.getMembers());
     }
 
 

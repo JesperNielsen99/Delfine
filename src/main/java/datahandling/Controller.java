@@ -89,7 +89,7 @@ public class Controller {
     }
 
     public void setSeniorPlus(double seniorPlus){
-        subscription.setSenior(seniorPlus);
+        subscription.setSeniorPlus(seniorPlus);
     }
 
     public void setStudent(double student){
