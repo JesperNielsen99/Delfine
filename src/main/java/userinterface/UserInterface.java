@@ -2,6 +2,7 @@ package userinterface;
 
 import datahandling.Controller;
 import member.Member;
+import member.MembershipStatus;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -67,11 +68,13 @@ public class UserInterface {
             case 3 -> editMember();
             case 4 -> deleteMember();
             case 5 -> printMembersInDebt();
-            case 8 -> showAllMembers();
+            case 8 -> printAllMembers();
             case 9 -> exitProgram();
             default -> System.out.println("invalid option");
         }
     }
+
+
 
     private void handleEditMenuChoice(Member currentMember) {
         switch (readInt()) {
@@ -103,11 +106,24 @@ public class UserInterface {
         boolean memberSex = readSex();
         boolean memberIsStudent = readStudent();
         boolean memberIsActive = readActive();
-        boolean memberIsCompetitive = readCompetetive();
         boolean memberHasPaid = readHasPaid();
+        MembershipStatus memberIsCompetitive = MembershipStatus.NONE;
+        if (memberIsActive) {
+            memberIsCompetitive = readCompetetive();
+            boolean crawl = readSwimDisciplin("crawl");
+            boolean rygCrawl = readSwimDisciplin("ryg crawl");
+            boolean brystSvømning = readSwimDisciplin("bryst svømning");
+            boolean butterfly = readSwimDisciplin("butterfly");
+            controller.createMember(memberName, memberAddress, memberPhoneNumber, memberMail, memberBirthdate, memberSex,
+                    memberIsStudent, false, memberIsCompetitive, memberHasPaid, crawl, rygCrawl, brystSvømning, butterfly);
+
+        } else {
+            memberIsCompetitive = MembershipStatus.NONE;
+            controller.createMember(memberName, memberAddress, memberPhoneNumber, memberMail, memberBirthdate, memberSex,
+                    memberIsStudent, false, memberIsCompetitive, memberHasPaid);
+        }
         System.out.println("\n");
 
-        controller.createMember(memberName, memberAddress, memberPhoneNumber, memberMail, memberBirthdate, memberSex, memberIsStudent, memberIsActive, memberIsCompetitive, memberHasPaid);
 
     }
 
@@ -115,7 +131,7 @@ public class UserInterface {
         System.out.print("Indtast navn på medlem: ");
         controller.searchMember(scanner.nextLine());
         if (!controller.getSearchResult().isEmpty()) {
-            printSearchResult(controller.getSearchResult());
+            printMemberArray(controller.getSearchResult());
         } else {
             System.out.println("Ingen medlemmer blev fundet med dette navn.");
         }
@@ -130,12 +146,6 @@ public class UserInterface {
             index = readInt();
         }
         return members.get(index - 1);
-    }
-
-    private void printSearchResult(ArrayList<Member> searchResult) {
-        for (int i = 0; i < searchResult.size(); i++) {
-            System.out.println((i + 1) + ")\n" + searchResult.get(i).printMember() + "\nKontingent: " + controller.calculateMemberSubscription(searchResult.get(i)) + "\n\n");
-        }
     }
 
 
@@ -216,13 +226,13 @@ public class UserInterface {
         }
     }
 
-    private void showAllMembers() {
+    private void printMemberArray(ArrayList<Member> members) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (Member member : controller.getMembers()) {
-            stringBuilder.append(member.printMember()).append("\nKontigent: ").append(controller.calculateMemberSubscription(member)).append(" kr.").append("\n\n\n");
+        for (int i = 0; i < members.size(); i++) {
+            Member member = members.get(i);
+            stringBuilder.append((i+1) + ") \n" + member.printMember()).append("\nKontigent: ").append(controller.calculateMemberSubscription(member)).append(" kr.").append("\n\n\n");
         }
         System.out.println(stringBuilder);
-
     }
 
     private void printMembersInDebt(){
@@ -232,6 +242,10 @@ public class UserInterface {
             stringBuilder.append("\n\nAutogenereret besked til medlem: \nHej ").append(member.getName()).append(". Du mangler at betale: ").append(controller.calculateMemberSubscription(member)).append(" kr.\n\n\n");
         }
         System.out.println(stringBuilder);
+    }
+
+    private void printAllMembers() {
+    printMemberArray(controller.getMembers());
     }
 
 
@@ -298,97 +312,127 @@ public class UserInterface {
 
     private boolean readSex() {
         boolean wrongInput = true;
-
+        boolean sex = true;
         while (wrongInput) {
             System.out.print("Indtast køn (Mand/Kvinde eller M/K): ");
 
             switch (scanner.nextLine().toLowerCase()) {
                 case "m", "mand" -> {
-                    return true;
+                    sex = true;
+                    wrongInput = false;
                 }
                 case "k", "kvinde" -> {
-                    return false;
+                    sex = false;
+                    wrongInput = false;
                 }
                 default -> System.out.println("Ugyldigt input");
             }
         }
-        return true;
+        return sex;
     }
 
     private boolean readStudent() {
         boolean wrongInput = true;
+        boolean isStudent = true;
         while (wrongInput) {
             System.out.print("Er medlemmet studerende? (ja/nej): ");
             switch (scanner.nextLine().toLowerCase()) {
                 case "ja", "j" -> {
-                    return true;
+                    isStudent = true;
+                    wrongInput = false;
                 }
                 case "nej", "n" -> {
-                    return false;
+                    isStudent = false;
+                    wrongInput = false;
                 }
                 default -> System.out.println("Ugyldigt input");
             }
         }
-        return true;
+        return isStudent;
     }
 
     private boolean readActive() {
         boolean wrongInput = true;
+        boolean isActive = true;
         while (wrongInput) {
-
             System.out.print("Er medlemmet aktiv? (ja/nej): ");
             switch (scanner.nextLine().toLowerCase()) {
                 case "ja", "j" -> {
-                    return true;
+                    isActive = true;
+                    wrongInput = false;
                 }
                 case "nej", "n" -> {
-                    return false;
+                    isActive = false;
+                    wrongInput = false;
                 }
                 default -> System.out.println("Ugyldigt input");
             }
         }
-        return true;
+        return isActive;
     }
 
-    private boolean readCompetetive() {
+    private MembershipStatus readCompetetive() {
         boolean wrongInput = true;
-
+        MembershipStatus membershipStatus = MembershipStatus.NONE;
         while (wrongInput) {
-
             System.out.print("Er medlemmet konkurencesvømmer? (ja/nej): ");
             switch (scanner.nextLine().toLowerCase()) {
                 case "ja", "j" -> {
-                    return true;
+                    membershipStatus = MembershipStatus.COMPETITIVE;
                 }
                 case "nej", "n" -> {
-                    return false;
+                    membershipStatus = MembershipStatus.HOBBY;
                 }
                 default -> System.out.println("Ugyldigt input");
             }
         }
-        return true;
+        return membershipStatus;
     }
 
     private boolean readHasPaid() {
         boolean wrongInput = true;
-
+        boolean hasPaid = true;
         while (wrongInput) {
-
             System.out.print("Har medlemmet betalt? (ja/nej): ");
             switch (scanner.nextLine().toLowerCase()) {
                 case "ja", "j" -> {
                     System.out.println("\n");
-                    return true;
+                    hasPaid = true;
+                    wrongInput = false;
                 }
                 case "nej", "n" -> {
                     System.out.println("\n");
-                    return false;
+                    hasPaid = false;
+                    wrongInput = false;
                 }
                 default -> System.out.println("Ugyldigt input");
             }
         }
 
-        return true;
+        return hasPaid;
+    }
+
+    private boolean readSwimDisciplin(String disciplin) {
+        boolean wrongInput = true;
+        boolean hasDisciplin = true;
+        while (wrongInput) {
+            System.out.print("Deltager medlemmet i " + disciplin + "? (ja/nej): ");
+            switch (scanner.nextLine().toLowerCase()) {
+                case "ja", "j" -> {
+                    System.out.println("\n");
+                    hasDisciplin = true;
+                    wrongInput = false;
+                }
+                case "nej", "n" -> {
+                    System.out.println("\n");
+                    hasDisciplin = false;
+                    wrongInput = false;
+                }
+                default -> System.out.println("Ugyldigt input");
+            }
+        }
+
+        return hasDisciplin;
     }
 
 }

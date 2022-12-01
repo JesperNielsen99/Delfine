@@ -1,6 +1,7 @@
 package datahandling;
 
 import member.Member;
+import member.MembershipStatus;
 import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,16 +17,16 @@ class ClubTest {
     @BeforeEach
     public void setup(){
         club = new Club();
-        club.createMember("Test testen testesten","Himmelbjerget 69","10101010", "test@gmail.com", LocalDate.now(), true, true, true, true,true);
+        club.createMember("Test testen testesten","Himmelbjerget 69","10101010", "test@gmail.com", LocalDate.now(), true, true, true, MembershipStatus.NONE, true);
     }
 
     @org.junit.jupiter.api.Test
     void searchMember() {
     //arrange
         String searchTest = "Test";
-        ArrayList<Member> testArray = club.searchMember(searchTest);
+        club.searchMember(searchTest);
 
-        assertTrue(testArray.size() != 0);
+        assertTrue(club.getSearchResult().size() != 0);
 
 
 

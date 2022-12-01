@@ -3,14 +3,19 @@ package datahandling;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import member.Member;
+import member.MembershipStatus;
 
 public class Club {
     private ArrayList<Member> members = new ArrayList<>();
     private ArrayList<Member> searchResult = new ArrayList<>();
 
 
-    public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, Boolean isActive, Boolean isCompetitive, boolean hasPaid) {
+    public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, Boolean isActive, MembershipStatus isCompetitive, boolean hasPaid) {
         members.add(new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, isCompetitive, hasPaid));
+    }
+
+    public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, Boolean isActive, MembershipStatus isCompetitive, boolean hasPaid, boolean crawl, boolean rygCrawl, boolean brystSvømning, boolean butterfly) {
+        members.add(new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, isCompetitive, hasPaid,crawl, rygCrawl, brystSvømning, butterfly));
     }
 
     public void searchMember(String searchMemberName) {
