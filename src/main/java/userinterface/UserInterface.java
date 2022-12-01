@@ -280,10 +280,10 @@ public class UserInterface {
         System.out.print("Indtast ny rabat i procent: ");
         int input = readInt();
         while (input < 0 || input > 100) {
-            System.out.println("Rabat skal være mellem 0 og 100. Prøv igen: ");
-            input = readDouble();
+            System.out.println("Rabat skal være et helt tal mellem 0 og 100. Prøv igen: ");
+            input = readInt();
         }
-        return input;
+        return input / 100;
     }
 
     private void deleteMember() {
