@@ -13,14 +13,14 @@ public class Club {
     private Team teamSenior = new Team("Senior træner");
 
 
-    public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, Boolean isActive, MembershipStatus isCompetitive, boolean hasPaid) {
-        Member member = new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, hasPaid, isCompetitive);
+    public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, MembershipStatus activity, boolean hasPaid) {
+        Member member = new Member(name, address, number, mail, birthdate, sex, isStudent, hasPaid, activity);
         members.add(member);
         addMemberToTeam(member);
     }
 
-    public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, Boolean isActive, MembershipStatus isCompetitive, boolean hasPaid, boolean crawl, boolean rygCrawl, boolean brystSvømning, boolean butterfly) {
-        Member member = new Member(name, address, number, mail, birthdate, sex, isStudent, isActive, hasPaid, isCompetitive, crawl, rygCrawl, brystSvømning, butterfly);
+    public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, MembershipStatus isCompetitive, boolean hasPaid, boolean crawl, boolean rygCrawl, boolean brystSvømning, boolean butterfly) {
+        Member member = new Member(name, address, number, mail, birthdate, sex, isStudent, hasPaid, isCompetitive, crawl, rygCrawl, brystSvømning, butterfly);
         members.add(member);
         addMemberToTeam(member);
     }
@@ -29,7 +29,7 @@ public class Club {
         searchResult.clear();
         for (Member member : members) {
             if (member.getName().toLowerCase().contains(searchMemberName.toLowerCase())) {
-                if (member.getIsCompetitive() == membershipStatus) {
+                if (member.getActivity() == membershipStatus) {
                     searchResult.add(member);
                 }
             }
@@ -62,7 +62,7 @@ public class Club {
 
     public void setMembers(ArrayList<Member> members) {
         this.members = members;
-        addMembersToTeam(members);
+        addMembersToTeam(this.members);
     }
 
     public ArrayList<Member> getSearchResult() {
@@ -80,7 +80,7 @@ public class Club {
     }
 
     public void addMemberToTeam(Member member){
-        if (member.getIsCompetitive() == MembershipStatus.COMPETITIVE) {
+        if (member.getActivity().equals(MembershipStatus.COMPETITIVE)) {
             if (member.getAge() < 18) {
                 teamJunior.addMemberToTeam(member);
             } else {
@@ -100,7 +100,7 @@ public class Club {
     }
 
     public ArrayList<Member> getTeamSenior(){
-        return teamJunior.getTeamMembers();
+        return teamSenior.getTeamMembers();
     }
 
     public String[] getTraniers(){

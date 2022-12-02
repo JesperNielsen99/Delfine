@@ -14,9 +14,7 @@ public class UserInterface {
     private final Controller controller = new Controller();
     private final Scanner scanner = new Scanner(System.in).useLocale(Locale.GERMAN);
 
-    public void start() {
-        loadData();
-        System.out.println("Velkommen til Delfinen");
+    public void runProgram() {
         while (true) {
             if (!controller.getMembers().isEmpty()) {
                 printMainMenu();
@@ -26,7 +24,12 @@ public class UserInterface {
                 createMember();
             }
         }
+    }
 
+    public void start() {
+        loadData();
+        System.out.println("Velkommen til Delfinen");
+        runProgram();
     }
 
     private void printMainMenu() {
@@ -40,12 +43,13 @@ public class UserInterface {
                 5: Print restanceliste.
                 6: Vis forventede indkomst.
                 7: Rediger kontigent.
-                8: Vis alle medlemmer.
-                9: Luk program.
+                8: Vis Konkurrence hold.
+                9: Vis alle medlemmer.
+                10: Luk program.
                 """);
     }
 
-    private void printEditMenu() {
+    private void printEditCompetitiveMenu() {
         System.out.println("""
                 Hvad ønsker du at redigere?
                                 
@@ -56,12 +60,31 @@ public class UserInterface {
                 5:  Fødselsdag
                 6:  Køn
                 7:  Studie status
-                8:  Aktivitets status
-                9:  Medlemskab
-                10: Betalingssatus
+                8:  Aktivitetsform
+                9:  Betalingssatus
+                10: Aktive Svømmediscipliner
                 11: Tilbage til hovedmenu
                 """);
     }
+
+    private void printEditNonCompetitiveMenu() {
+        System.out.println("""
+                Hvad ønsker du at redigere?
+                                
+                1:  Navn
+                2:  Adresse
+                3:  Telefon nummer
+                4:  Mail
+                5:  Fødselsdag
+                6:  Køn
+                7:  Studie status
+                8:  Aktivitetsform
+                9:  Betalingssatus
+                10: Tilbage til hovedmenu
+                """);
+    }
+
+
 
     private void printSubscriptionMenu() {
         System.out.println("""
@@ -75,6 +98,26 @@ public class UserInterface {
                 """);
     }
 
+    private void printSwimDisciplinMenu() {
+        System.out.println("""
+                Hvilken disciplin vil du ændre?
+                                
+                1: Crawl
+                2: Ryg Crawl
+                3: Bryst Svømning
+                4: Butterfly
+                """);
+    }
+
+    private void printSwimTeamMenu() {
+        System.out.println("""
+                Hvilket hold vil du vise?
+                                
+                1: Junior team
+                2: Senior team
+                """);
+    }
+
     private void handleMainMenuChoice() {
         switch (readInt()) {
             case 1 -> createMember();
@@ -84,14 +127,14 @@ public class UserInterface {
             case 5 -> printMembersInDebt();
             case 6 -> expetedTotalIncome();
             case 7 -> editSubscription();
-            case 8 -> printAllMembers();
-            case 9 -> exitProgram();
+            case 8 -> printSwimTeam();
+            case 9 -> printAllMembers();
+            case 10 -> exitProgram();
             default -> System.out.println("invalid option");
         }
     }
 
-
-    private void handleEditMenuChoice(Member currentMember) {
+    private void handleCompetitiveEditMenuChoice(Member currentMember) {
         switch (readInt()) {
             case 1 -> editName(currentMember);
             case 2 -> editAddresse(currentMember);
@@ -100,41 +143,68 @@ public class UserInterface {
             case 5 -> editBirthdate(currentMember);
             case 6 -> editSex(currentMember);
             case 7 -> editIsStudent(currentMember);
-            case 8 -> editIsActive(currentMember);
-            case 9 -> editIsCompetitive(currentMember);
-            case 10 -> editHasPaid(currentMember);
-            case 11 -> start();
+            case 8 -> editActivity(currentMember);
+            case 9 -> editHasPaid(currentMember);
+            case 10 -> editSwimDisciplins(currentMember);
+            case 11 -> runProgram();
             default -> System.out.println("Ikke en mulig funktion.");
 
         }
     }
 
+    private void handleNonCompetitiveEditMenuChoice(Member currentMember) {
+        switch (readInt()) {
+            case 1 -> editName(currentMember);
+            case 2 -> editAddresse(currentMember);
+            case 3 -> editPhoneNumber(currentMember);
+            case 4 -> editMail(currentMember);
+            case 5 -> editBirthdate(currentMember);
+            case 6 -> editSex(currentMember);
+            case 7 -> editIsStudent(currentMember);
+            case 8 -> editActivity(currentMember);
+            case 9 -> editHasPaid(currentMember);
+            case 10 -> runProgram();
+            default -> System.out.println("Ikke en mulig funktion.");
+
+        }
+    }
+
+    private void handleSwimTeamMenuChoice() {
+        switch (readInt()) {
+            case 1 -> printMemberArray(controller.getTeamJunior());
+            case 2 -> printMemberArray(controller.getTeamSenior());
+        }
+    }
+
+    private void printSwimTeam() {
+        printSwimTeamMenu();
+        handleSwimTeamMenuChoice();
+    }
+
     private void createMember() {
-        System.out.println("Indtast navnet på det nye medlem: ");
+        System.out.print("Indtast navnet på det nye medlem: ");
         String memberName = scanner.nextLine();
-        System.out.println("Indtast adressen på det nye medlem: ");
+        System.out.print("Indtast adressen på det nye medlem: ");
         String memberAddress = scanner.nextLine();
-        System.out.println("Indtast telefon nummer på det nye medlem: ");
+        System.out.print("Indtast telefon nummer på det nye medlem: ");
         String memberPhoneNumber = scanner.nextLine();
         String memberMail = readMail();
         LocalDate memberBirthdate = readBirthday();
         boolean memberSex = readSex();
         boolean memberIsStudent = readStudent();
-        boolean memberIsActive = readActive();
         boolean memberHasPaid = readHasPaid();
         MembershipStatus memberIsCompetitive = null;
-        if (memberIsActive) {
-            memberIsCompetitive = readCompetitive();
+        memberIsCompetitive = readCompetitive();
+        if (memberIsCompetitive.equals(MembershipStatus.COMPETITIVE)) {
             boolean crawl = readSwimDisciplin("crawl");
             boolean rygCrawl = readSwimDisciplin("ryg crawl");
             boolean brystSvømning = readSwimDisciplin("bryst svømning");
             boolean butterfly = readSwimDisciplin("butterfly");
             controller.createMember(memberName, memberAddress, memberPhoneNumber, memberMail, memberBirthdate, memberSex,
-                    memberIsStudent, false, memberIsCompetitive, memberHasPaid, crawl, rygCrawl, brystSvømning, butterfly);
+                    memberIsStudent, memberIsCompetitive, memberHasPaid, crawl, rygCrawl, brystSvømning, butterfly);
         } else {
-            memberIsCompetitive = MembershipStatus.NONE;
             controller.createMember(memberName, memberAddress, memberPhoneNumber, memberMail, memberBirthdate, memberSex,
-                    memberIsStudent, false, memberIsCompetitive, memberHasPaid);
+                    memberIsStudent, memberIsCompetitive, memberHasPaid);
         }
         System.out.println("\n");
 
@@ -167,8 +237,13 @@ public class UserInterface {
         searchMember();
         if (!controller.getSearchResult().isEmpty()) {
             Member currentMember = chooseSearchResult(controller.getSearchResult());
-            printEditMenu();
-            handleEditMenuChoice(currentMember);
+            if (currentMember.getActivity().equals(MembershipStatus.COMPETITIVE)) {
+                printEditCompetitiveMenu();
+                handleCompetitiveEditMenuChoice(currentMember);
+            } else {
+                printEditNonCompetitiveMenu();
+                handleNonCompetitiveEditMenuChoice(currentMember);
+            }
         }
     }
 
@@ -218,12 +293,8 @@ public class UserInterface {
         currentMember.setIsStudent(readStudent());
     }
 
-    private void editIsActive(Member currentMember) {
-        currentMember.setIsActive(readActive());
-    }
-
-    private void editIsCompetitive(Member currentMember) {
-        currentMember.setIsCompetitive(readCompetitive());
+    private void editActivity(Member currentMember) {
+        currentMember.setActivity(readCompetitive());
     }
 
     private void editHasPaid(Member currenMember) {
@@ -234,7 +305,7 @@ public class UserInterface {
         printSubscriptionMenu();
 
         boolean wrongUserchoice = true;
-        while(wrongUserchoice) {
+        while (wrongUserchoice) {
             switch (readInt()) {
                 case 1 -> {
                     System.out.println("Nuværende kontigent for passive medlemmer er: " + controller.getpassiv() + " kr.");
@@ -266,6 +337,33 @@ public class UserInterface {
         }
     }
 
+    private void editSwimDisciplins(Member member) {
+        printSwimDisciplinMenu();
+
+        boolean wrongUserchoice = true;
+        while (wrongUserchoice) {
+            switch (readInt()) {
+                case 1 -> {
+                    member.setCrawl(readSwimDisciplin("crawl"));
+                    wrongUserchoice = false;
+                }
+                case 2 -> {
+                    member.setRygCrawl(readSwimDisciplin("ryg crawl"));
+                    wrongUserchoice = false;
+                }
+                case 3 -> {
+                    member.setBrystSvømning(readSwimDisciplin("bryst svømning"));
+                    wrongUserchoice = false;
+                }
+                case 4 -> {
+                    member.setButterfly(readSwimDisciplin("butterfly"));
+                    wrongUserchoice = false;
+                }
+                default -> System.out.println("Ugyldigt input. Prøv igen!");
+            }
+        }
+    }
+
     private double readSubscription() {
         System.out.print("Indtast nyt kontingent: ");
         double input = readDouble();
@@ -277,11 +375,11 @@ public class UserInterface {
     }
 
     private double readSubscriptionDiscount() {
-        System.out.print("Indtast ny rabat i procent: ");
-        int input = readInt();
+        System.out.print("Indtast ny rabat i procent som et tal mellem 0 og 100: ");
+        double input = readDouble();
         while (input < 0 || input > 100) {
-            System.out.println("Rabat skal være et helt tal mellem 0 og 100. Prøv igen: ");
-            input = readInt();
+            System.out.println("Rabat skal være et tal mellem 0 og 100. Prøv igen: ");
+            input = readDouble();
         }
         return input / 100;
     }
@@ -326,7 +424,7 @@ public class UserInterface {
         controller.loadTrainers();
     }
 
-    private void saveData(){
+    private void saveData() {
         controller.saveMembers();
         controller.saveSubscription();
         controller.saveTrainers();
@@ -360,7 +458,7 @@ public class UserInterface {
     }
 
     private String readMail() {
-        System.out.println("Indtast mail");
+        System.out.print("Indtast mail: ");
         String input = scanner.nextLine();
         String emailValidation = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*"
                 + "@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
@@ -435,37 +533,21 @@ public class UserInterface {
         return isStudent;
     }
 
-    private boolean readActive() {
-        boolean wrongInput = true;
-        boolean isActive = true;
-        while (wrongInput) {
-            System.out.print("Er medlemmet aktiv? (ja/nej): ");
-            switch (scanner.nextLine().toLowerCase()) {
-                case "ja", "j" -> {
-                    isActive = true;
-                    wrongInput = false;
-                }
-                case "nej", "n" -> {
-                    isActive = false;
-                    wrongInput = false;
-                }
-                default -> System.out.println("Ugyldigt input");
-            }
-        }
-        return isActive;
-    }
-
     private MembershipStatus readCompetitive() {
         boolean wrongInput = true;
         MembershipStatus membershipStatus = MembershipStatus.NONE;
         while (wrongInput) {
-            System.out.print("Er medlemmet konkurencesvømmer? (ja/nej): ");
+            System.out.print("Medlemmets aktivitetsform (passiv/motionist/konkurrence): ");
             switch (scanner.nextLine().toLowerCase()) {
-                case "ja", "j" -> {
+                case "passiv", "pas", "p" -> {
+                    membershipStatus = MembershipStatus.NONE;
+                    wrongInput = false;
+                }
+                case "konkurrence", "kon", "k" -> {
                     membershipStatus = MembershipStatus.COMPETITIVE;
                     wrongInput = false;
                 }
-                case "nej", "n" -> {
+                case "motionist", "mot", "m" -> {
                     membershipStatus = MembershipStatus.HOBBY;
                     wrongInput = false;
                 }
@@ -482,12 +564,10 @@ public class UserInterface {
             System.out.print("Har medlemmet betalt? (ja/nej): ");
             switch (scanner.nextLine().toLowerCase()) {
                 case "ja", "j" -> {
-                    System.out.println("\n");
                     hasPaid = true;
                     wrongInput = false;
                 }
                 case "nej", "n" -> {
-                    System.out.println("\n");
                     hasPaid = false;
                     wrongInput = false;
                 }
@@ -504,12 +584,10 @@ public class UserInterface {
             System.out.print("Deltager medlemmet i " + disciplin + "? (ja/nej): ");
             switch (scanner.nextLine().toLowerCase()) {
                 case "ja", "j" -> {
-                    System.out.println("\n");
                     hasDisciplin = true;
                     wrongInput = false;
                 }
                 case "nej", "n" -> {
-                    System.out.println("\n");
                     hasDisciplin = false;
                     wrongInput = false;
                 }

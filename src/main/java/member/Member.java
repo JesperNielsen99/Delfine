@@ -11,8 +11,7 @@ public class Member {
     private LocalDate birthdate;
     private boolean sex;
     private boolean isStudent;
-    private boolean isActive;
-    private MembershipStatus isCompetitive;
+    private MembershipStatus activity;
     private boolean hasPaid;
     private boolean crawl;
     private boolean rygCrawl;
@@ -22,7 +21,7 @@ public class Member {
     private final DateTimeFormatter birthdayFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     public Member(String name, String address, String phoneNumber, String mail, LocalDate birthdate,
-                  boolean sex, boolean isStudent, boolean isActive, boolean hasPaid, MembershipStatus isCompetitive) {
+                  boolean sex, boolean isStudent, boolean hasPaid, MembershipStatus activity) {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
@@ -30,8 +29,7 @@ public class Member {
         this.birthdate = birthdate;
         this.sex = sex;
         this.isStudent = isStudent;
-        this.isActive = isActive;
-        this.isCompetitive = isCompetitive;
+        this.activity = activity;
         this.hasPaid = hasPaid;
         crawl = false;
         rygCrawl = false;
@@ -40,7 +38,7 @@ public class Member {
     }
 
     public Member(String name, String address, String phoneNumber, String mail, LocalDate birthdate,
-                  boolean sex, boolean isStudent, boolean isActive, boolean hasPaid, MembershipStatus isCompetitive,
+                  boolean sex, boolean isStudent, boolean hasPaid, MembershipStatus activity,
                   boolean crawl, boolean rygCrawl, boolean brystSvømning, boolean butterfly) {
         this.name = name;
         this.address = address;
@@ -49,8 +47,7 @@ public class Member {
         this.birthdate = birthdate;
         this.sex = sex;
         this.isStudent = isStudent;
-        this.isActive = isActive;
-        this.isCompetitive = isCompetitive;
+        this.activity = activity;
         this.hasPaid = hasPaid;
         this.crawl = crawl;
         this.rygCrawl = rygCrawl;
@@ -86,12 +83,8 @@ public class Member {
         return isStudent;
     }
 
-    public boolean getIsActive() {
-        return isActive;
-    }
-
-    public MembershipStatus getIsCompetitive() {
-        return isCompetitive;
+    public MembershipStatus getActivity() {
+        return activity;
     }
 
     public boolean getHasPaid() {
@@ -130,12 +123,8 @@ public class Member {
         isStudent = student;
     }
 
-    public void setIsActive(boolean active) {
-        isActive = active;
-    }
-
-    public void setIsCompetitive(MembershipStatus competitive) {
-        isCompetitive = competitive;
+    public void setActivity(MembershipStatus competitive) {
+        activity = competitive;
     }
 
     public void setHasPaid(boolean hasPaid) {
@@ -182,18 +171,14 @@ public class Member {
         return isStudent ? "Ja" : "Nej";
     }
 
-    public String readIsActive() {
-        return isActive ? "Ja" : "Nej";
-    }
-
-    public String readIsCompetitive() {
+    public String readActivity() {
         String competitive = "";
-        switch (isCompetitive) {
+        switch (activity) {
             case COMPETITIVE -> {
-                competitive = "Ja";
+                competitive = "Konkurrence Svømmer";
             }
             case HOBBY -> {
-                competitive = "Nej";
+                competitive = "Motionist";
             }
             case NONE -> {
                 competitive = "Er ikke aktiv";
@@ -208,15 +193,15 @@ public class Member {
 
     private String activeSwimDisciplins() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(crawl ? "Crawl, " : "");
-        stringBuilder.append(rygCrawl ? "Rygcrawl, " : "");
-        stringBuilder.append(brystSvømning ? "Bryst svømning, " : "");
-        stringBuilder.append(butterfly ? "Butterfly" : "");
+        stringBuilder.append(crawl ? "| Crawl |" : "");
+        stringBuilder.append(rygCrawl ? "| Rygcrawl |" : "");
+        stringBuilder.append(brystSvømning ? "| Bryst svømning |" : "");
+        stringBuilder.append(butterfly ? "| Butterfly |" : "");
         return stringBuilder.toString();
     }
 
     public String printMember() {
-        if (isCompetitive == MembershipStatus.COMPETITIVE) {
+        if (activity == MembershipStatus.COMPETITIVE) {
             return printCompetitiveMember();
         } else {
             return printNonCompetitiveMember();
@@ -234,7 +219,7 @@ public class Member {
         stringBuilder.append("Alder: " + getAge()).append('\n');
         stringBuilder.append("Køn: " + readSex()).append('\n');
         stringBuilder.append("Studerende: " + readIsStudent()).append('\n');
-        stringBuilder.append("Aktivitetsform: " + readIsActive()).append('\n');
+        stringBuilder.append("Aktivitetsform: " + readActivity()).append('\n');
         stringBuilder.append("Restance: " + readHasPaid());
 
         return stringBuilder.toString();
@@ -251,7 +236,7 @@ public class Member {
         stringBuilder.append("Alder: " + getAge()).append('\n');
         stringBuilder.append("Køn: " + readSex()).append('\n');
         stringBuilder.append("Studerende: " + readIsStudent()).append('\n');
-        stringBuilder.append("Aktivitetsform: " + readIsActive()).append('\n');
+        stringBuilder.append("Aktivitetsform: " + readActivity()).append('\n');
         stringBuilder.append("Restance: " + readHasPaid()).append('\n');
         stringBuilder.append("Aktive svømmediscipliner: " + activeSwimDisciplins());
 

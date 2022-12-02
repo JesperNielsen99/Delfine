@@ -38,9 +38,8 @@ public class FileHandler {
             stringBuilder.append(member.getBirthdate()).append(';');
             stringBuilder.append(member.getSex()).append(';');
             stringBuilder.append(member.getIsStudent()).append(';');
-            stringBuilder.append(member.getIsActive()).append(';');
             stringBuilder.append(member.getHasPaid()).append(';');
-            stringBuilder.append(member.getIsCompetitive()).append(';');
+            stringBuilder.append(member.getActivity()).append(';');
             stringBuilder.append(member.getCrawl()).append(';');
             stringBuilder.append(member.getRygCrawl()).append(';');
             stringBuilder.append(member.getBrystSvømning()).append(';');
@@ -66,8 +65,7 @@ public class FileHandler {
                             Boolean.parseBoolean(lineSplit[5]),
                             Boolean.parseBoolean(lineSplit[6]),
                             Boolean.parseBoolean(lineSplit[7]),
-                            Boolean.parseBoolean(lineSplit[8]),
-                            readMemberShipStatus(lineSplit[9])
+                            readMemberShipStatus(lineSplit[8])
                     ));
                 } else {
                     members.add(new Member(
@@ -79,12 +77,11 @@ public class FileHandler {
                             Boolean.parseBoolean(lineSplit[5]),
                             Boolean.parseBoolean(lineSplit[6]),
                             Boolean.parseBoolean(lineSplit[7]),
-                            Boolean.parseBoolean(lineSplit[8]),
-                            readMemberShipStatus(lineSplit[9]),
+                            readMemberShipStatus(lineSplit[8]),
+                            Boolean.parseBoolean(lineSplit[9]),
                             Boolean.parseBoolean(lineSplit[10]),
                             Boolean.parseBoolean(lineSplit[11]),
-                            Boolean.parseBoolean(lineSplit[12]),
-                            Boolean.parseBoolean(lineSplit[13])
+                            Boolean.parseBoolean(lineSplit[12])
                     ));
                 }
             }

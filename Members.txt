@@ -1,1 +1,3 @@
-Jesper;f;u;c@k.you;2000-01-01;true;true;true;true;NONE;false;false;false;false
+Jesper;f;u;c@k.you;2000-01-01;true;true;false;COMPETITIVE;true;true;false;false
+sadfhl;sdagjfk;sdf;as@ls.dk;1910-10-01;true;false;false;NONE;false;false;false;false
+dsaghf;asdgfh;dsjhakf;sadf@2sad.sk;2000-02-02;true;false;false;COMPETITIVE;true;false;false;true

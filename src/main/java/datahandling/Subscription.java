@@ -1,6 +1,7 @@
 package datahandling;
 
 import member.Member;
+import member.MembershipStatus;
 
 import java.util.ArrayList;
 
@@ -25,20 +26,20 @@ public class Subscription {
 
     public double calculateMemberSubscription(Member member) {
         double subscription = 0;
-        if (member.getIsActive()) {
-            if (member.getAge() > 18) {
+        if (!member.getActivity().equals(MembershipStatus.NONE)) {
+            if (member.getAge() < 18) {
                 if (member.getIsStudent()) {
                     subscription = junior * (1 - student);
                 } else {
                     subscription = junior;
                 }
-            } else if (member.getAge() <= 18) {
+            } else if (member.getAge() >= 18) {
                 if (member.getIsStudent()) {
                     subscription = senior * (1 - student);
                 } else {
                     subscription = senior;
                 }
-            } else if (member.getAge() <= 60) {
+            } else if (member.getAge() >= 60) {
                 subscription = senior * (1 - seniorPlus);
             }
         } else {
