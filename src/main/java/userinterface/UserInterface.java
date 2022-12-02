@@ -3,7 +3,6 @@ package userinterface;
 import datahandling.Controller;
 import member.Member;
 import member.MembershipStatus;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -14,6 +13,7 @@ public class UserInterface {
     private final Controller controller = new Controller();
     private final Scanner scanner = new Scanner(System.in).useLocale(Locale.GERMAN);
 
+    //*----------------------------------------------StartProgram----------------------------------------------------*\\
     public void runProgram() {
         while (true) {
             if (!controller.getMembers().isEmpty()) {
@@ -32,6 +32,7 @@ public class UserInterface {
         runProgram();
     }
 
+    //*----------------------------------------------PrintMenus----------------------------------------------------*\\
     private void printMainMenu() {
         System.out.println("""
                 Du har følgende valgmuligheder, hvad ønsker du at gøre?
@@ -84,8 +85,6 @@ public class UserInterface {
                 """);
     }
 
-
-
     private void printSubscriptionMenu() {
         System.out.println("""
                 Hvilket kontigent ønsker du at ændre?
@@ -118,6 +117,7 @@ public class UserInterface {
                 """);
     }
 
+    //*---------------------------------------------HandelUserinput--------------------------------------------------*\\
     private void handleMainMenuChoice() {
         switch (readInt()) {
             case 1 -> createMember();
@@ -176,10 +176,39 @@ public class UserInterface {
         }
     }
 
+    //*---------------------------------------------PrintMemberInfo--------------------------------------------------*\\
     private void printSwimTeam() {
         printSwimTeamMenu();
         handleSwimTeamMenuChoice();
     }
+
+    private void printMemberArray(ArrayList<Member> members) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < members.size(); i++) {
+            Member member = members.get(i);
+            stringBuilder.append(i + 1).append(") \n").append(member.printMember()).append("\nKontigent: ").append(controller.calculateMemberSubscription(member)).append(" kr.").append("\n\n\n");
+        }
+        System.out.println(stringBuilder);
+    }
+
+    private void printMembersInDebt() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Member member : controller.getMembersInDebt()) {
+            stringBuilder.append(member.printMember()).append("\nManglende betaling: ").append(controller.calculateMemberSubscription(member)).append(" kr.").append("\n");
+            stringBuilder.append("\n\nAutogenereret besked til medlem: \nHej ").append(member.getName()).append(". Du mangler at betale: ").append(controller.calculateMemberSubscription(member)).append(" kr.\n\n\n");
+        }
+        System.out.println(stringBuilder);
+    }
+
+    private void printAllMembers() {
+        printMemberArray(controller.getMembers());
+    }
+
+    private void expetedTotalIncome() {
+        System.out.println("Forventede årlige inkomst er: " + controller.getExpectedTotalIncome() + "\n");
+    }
+
+    //*--------------------------------------------------Create------------------------------------------------------*\\
 
     private void createMember() {
         System.out.print("Indtast navnet på det nye medlem: ");
@@ -193,15 +222,15 @@ public class UserInterface {
         boolean memberSex = readSex();
         boolean memberIsStudent = readStudent();
         boolean memberHasPaid = readHasPaid();
-        MembershipStatus memberIsCompetitive = null;
+        MembershipStatus memberIsCompetitive;
         memberIsCompetitive = readCompetitive();
         if (memberIsCompetitive.equals(MembershipStatus.COMPETITIVE)) {
             boolean crawl = readSwimDisciplin("crawl");
-            boolean rygCrawl = readSwimDisciplin("ryg crawl");
-            boolean brystSvømning = readSwimDisciplin("bryst svømning");
+            boolean backCrawl = readSwimDisciplin("ryg crawl");
+            boolean breastStroke = readSwimDisciplin("bryst svømning");
             boolean butterfly = readSwimDisciplin("butterfly");
             controller.createMember(memberName, memberAddress, memberPhoneNumber, memberMail, memberBirthdate, memberSex,
-                    memberIsStudent, memberIsCompetitive, memberHasPaid, crawl, rygCrawl, brystSvømning, butterfly);
+                    memberIsStudent, memberIsCompetitive, memberHasPaid, crawl, backCrawl, breastStroke, butterfly);
         } else {
             controller.createMember(memberName, memberAddress, memberPhoneNumber, memberMail, memberBirthdate, memberSex,
                     memberIsStudent, memberIsCompetitive, memberHasPaid);
@@ -211,6 +240,7 @@ public class UserInterface {
 
     }
 
+    //*--------------------------------------------------Search------------------------------------------------------*\\
     private void searchMember() {
         System.out.print("Indtast navn på medlem: ");
         controller.searchMember(scanner.nextLine());
@@ -232,7 +262,7 @@ public class UserInterface {
         return members.get(index - 1);
     }
 
-
+    //*---------------------------------------------------Edits------------------------------------------------------*\\
     private void editMember() {
         searchMember();
         if (!controller.getSearchResult().isEmpty()) {
@@ -304,33 +334,33 @@ public class UserInterface {
     private void editSubscription() {
         printSubscriptionMenu();
 
-        boolean wrongUserchoice = true;
-        while (wrongUserchoice) {
+        boolean wrongUserChoice = true;
+        while (wrongUserChoice) {
             switch (readInt()) {
                 case 1 -> {
-                    System.out.println("Nuværende kontigent for passive medlemmer er: " + controller.getpassiv() + " kr.");
-                    controller.setPassiv(readSubscription());
-                    wrongUserchoice = false;
+                    System.out.println("Nuværende kontigent for passive medlemmer er: " + controller.getPassive() + " kr.");
+                    controller.setPassive(readSubscription());
+                    wrongUserChoice = false;
                 }
                 case 2 -> {
                     System.out.println("Nuværende kontigent for junior medlemmer er: " + controller.getJunior() + " kr.");
                     controller.setJunior(readSubscription());
-                    wrongUserchoice = false;
+                    wrongUserChoice = false;
                 }
                 case 3 -> {
                     System.out.println("Nuværende kontigent for senior medlemmer er: " + controller.getSenior() + " kr.");
                     controller.setSenior(readSubscription());
-                    wrongUserchoice = false;
+                    wrongUserChoice = false;
                 }
                 case 4 -> {
                     System.out.println("Nuværende rabat for senior+ medlemmer er: " + controller.getSeniorPlus() * 100 + " procent.");
                     controller.setSeniorPlus(readSubscriptionDiscount());
-                    wrongUserchoice = false;
+                    wrongUserChoice = false;
                 }
                 case 5 -> {
                     System.out.println("Nuværende rabat for studerende er: " + controller.getStudent() * 100 + " procent.");
                     controller.setStudent(readSubscriptionDiscount());
-                    wrongUserchoice = false;
+                    wrongUserChoice = false;
                 }
                 default -> System.out.println("Ugyldigt input. Prøv igen!");
             }
@@ -348,11 +378,11 @@ public class UserInterface {
                     wrongUserchoice = false;
                 }
                 case 2 -> {
-                    member.setRygCrawl(readSwimDisciplin("ryg crawl"));
+                    member.setBackCrawl(readSwimDisciplin("ryg crawl"));
                     wrongUserchoice = false;
                 }
                 case 3 -> {
-                    member.setBrystSvømning(readSwimDisciplin("bryst svømning"));
+                    member.setBreastStroke(readSwimDisciplin("bryst svømning"));
                     wrongUserchoice = false;
                 }
                 case 4 -> {
@@ -364,26 +394,7 @@ public class UserInterface {
         }
     }
 
-    private double readSubscription() {
-        System.out.print("Indtast nyt kontingent: ");
-        double input = readDouble();
-        while (input < 0) {
-            System.out.println("Kontingentet kan ikke være negativt. Prøv igen: ");
-            input = readDouble();
-        }
-        return input;
-    }
-
-    private double readSubscriptionDiscount() {
-        System.out.print("Indtast ny rabat i procent som et tal mellem 0 og 100: ");
-        double input = readDouble();
-        while (input < 0 || input > 100) {
-            System.out.println("Rabat skal være et tal mellem 0 og 100. Prøv igen: ");
-            input = readDouble();
-        }
-        return input / 100;
-    }
-
+    //*-------------------------------------------------Delete-------------------------------------------------------*\\
     private void deleteMember() {
         searchMember();
         if (!controller.getSearchResult().isEmpty()) {
@@ -392,32 +403,7 @@ public class UserInterface {
         }
     }
 
-    private void printMemberArray(ArrayList<Member> members) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < members.size(); i++) {
-            Member member = members.get(i);
-            stringBuilder.append((i + 1) + ") \n" + member.printMember()).append("\nKontigent: ").append(controller.calculateMemberSubscription(member)).append(" kr.").append("\n\n\n");
-        }
-        System.out.println(stringBuilder);
-    }
-
-    private void printMembersInDebt() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Member member : controller.getMembersInDebt()) {
-            stringBuilder.append(member.printMember()).append("\nManglende betaling: ").append(controller.calculateMemberSubscription(member)).append(" kr.").append("\n");
-            stringBuilder.append("\n\nAutogenereret besked til medlem: \nHej ").append(member.getName()).append(". Du mangler at betale: ").append(controller.calculateMemberSubscription(member)).append(" kr.\n\n\n");
-        }
-        System.out.println(stringBuilder);
-    }
-
-    private void expetedTotalIncome() {
-        System.out.println("Forventede årlige inkomst er: " + controller.getExpectedTotalIncome() + "\n");
-    }
-
-    private void printAllMembers() {
-        printMemberArray(controller.getMembers());
-    }
-
+    //*------------------------------------------------ExitProgram---------------------------------------------------*\\
     public void loadData() {
         controller.loadMembers();
         controller.loadSubscription();
@@ -436,6 +422,7 @@ public class UserInterface {
         System.exit(0);
     }
 
+    //*-------------------------------------------------READS--------------------------------------------------------*\\
     private int readInt() {
         while (!scanner.hasNextInt()) {
             String wrongInput = scanner.nextLine();
@@ -596,5 +583,25 @@ public class UserInterface {
         }
 
         return hasDisciplin;
+    }
+
+    private double readSubscription() {
+        System.out.print("Indtast nyt kontingent: ");
+        double input = readDouble();
+        while (input < 0) {
+            System.out.println("Kontingentet kan ikke være negativt. Prøv igen: ");
+            input = readDouble();
+        }
+        return input;
+    }
+
+    private double readSubscriptionDiscount() {
+        System.out.print("Indtast ny rabat i procent som et tal mellem 0 og 100: ");
+        double input = readDouble();
+        while (input < 0 || input > 100) {
+            System.out.println("Rabat skal være et tal mellem 0 og 100. Prøv igen: ");
+            input = readDouble();
+        }
+        return input / 100;
     }
 }

@@ -3,7 +3,6 @@ package datasource;
 import datahandling.Subscription;
 import member.Member;
 import member.MembershipStatus;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -12,22 +11,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileHandler {
-    private File membersFile = new File("Members.txt");
-    private File subscriptionFile = new File("Subscription.txt");
-    private File trainerFile = new File("Trainer.txt");
+    private final File membersFile = new File("Members.txt");
+    private final File subscriptionFile = new File("Subscription.txt");
+    private final File trainerFile = new File("Trainer.txt");
 
-    private String fileNotFoundMessage = "Filen blev ikke fundet!!";
+    private final String fileNotFoundMessage = "Filen blev ikke fundet!!";
 
     public FileHandler() {
     }
 
+    //*--------------------------------------------------Save--------------------------------------------------------*\\
     public void saveMembers(ArrayList<Member> members) {
         PrintStream output = null;
         try {
             output = new PrintStream(membersFile);
 
         } catch (FileNotFoundException e) {
-            System.out.println(fileNotFoundMessage);;
+            System.out.println(fileNotFoundMessage);
         }
         for (Member member : members) {
             StringBuilder stringBuilder = new StringBuilder();
@@ -41,14 +41,61 @@ public class FileHandler {
             stringBuilder.append(member.getHasPaid()).append(';');
             stringBuilder.append(member.getActivity()).append(';');
             stringBuilder.append(member.getCrawl()).append(';');
-            stringBuilder.append(member.getRygCrawl()).append(';');
-            stringBuilder.append(member.getBrystSvømning()).append(';');
+            stringBuilder.append(member.getBackCrawl()).append(';');
+            stringBuilder.append(member.getBreastStroke()).append(';');
             stringBuilder.append(member.getButterfly());
-            output.println(stringBuilder);
+
+            if (output != null) {
+                output.println(stringBuilder);
+            }
         }
-        output.close();
+
+        if (output != null) {
+            output.close();
+        }
     }
 
+    public void saveSubscription(Subscription subscription) {
+        PrintStream output = null;
+        try {
+            output = new PrintStream(subscriptionFile);
+
+        } catch (FileNotFoundException e) {
+            System.out.println(fileNotFoundMessage);
+        }
+        if (output != null) {
+            output.println(
+                    subscription.getPassive() + ";" +
+                            subscription.getJunior() + ";" +
+                            subscription.getSenior() + ";" +
+                            subscription.getSeniorPlus() + ";" +
+                            subscription.getStudent()
+            );
+        }
+        if (output != null) {
+            output.close();
+        }
+    }
+
+    public void saveTrainer(String[] trainers) {
+        PrintStream output = null;
+        try {
+            output = new PrintStream(trainerFile);
+
+        } catch (FileNotFoundException e) {
+            System.out.println(fileNotFoundMessage);
+        }
+        if (output != null) {
+            output.println(
+                    trainers[0] + ";" +
+                            trainers[1]);
+        }
+        if (output != null) {
+            output.close();
+        }
+    }
+
+    //*--------------------------------------------------Load--------------------------------------------------------*\\
     public ArrayList<Member> loadMembers() {
         ArrayList<Member> members = new ArrayList<>();
         try {
@@ -91,30 +138,12 @@ public class FileHandler {
         return members;
     }
 
-    public void saveSubscription(Subscription subscription) {
-        PrintStream output = null;
-        try {
-            output = new PrintStream(subscriptionFile);
-
-        } catch (FileNotFoundException e) {
-            System.out.println(fileNotFoundMessage);
-        }
-        output.println(
-                subscription.getPassiv() + ";" +
-                        subscription.getJunior() + ";" +
-                        subscription.getSenior() + ";" +
-                        subscription.getSeniorPlus() + ";" +
-                        subscription.getStudent()
-        );
-        output.close();
-    }
-
     public Subscription loadSubscription() {
         Subscription subscription = null;
         try {
             Scanner scanner = new Scanner(subscriptionFile);
 
-           String[] lineSplit = scanner.nextLine().split(";");
+            String[] lineSplit = scanner.nextLine().split(";");
             subscription = new Subscription(
                     Double.parseDouble(lineSplit[0]),
                     Double.parseDouble(lineSplit[1]),
@@ -124,24 +153,10 @@ public class FileHandler {
             );
 
 
-        } catch (FileNotFoundException e){
-            System.out.println(fileNotFoundMessage);
-        }
-        return subscription;
-    }
-
-    public void saveTrainer(String[] trainers) {
-        PrintStream output = null;
-        try {
-            output = new PrintStream(trainerFile);
-
         } catch (FileNotFoundException e) {
             System.out.println(fileNotFoundMessage);
         }
-        output.println(
-                trainers[0] + ";" +
-                trainers[1]);
-        output.close();
+        return subscription;
     }
 
     public String[] loadTrainers() {
@@ -151,19 +166,19 @@ public class FileHandler {
             String trainer = scanner.nextLine();
             trainers = trainer.split(";");
 
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println(fileNotFoundMessage);
         }
         return trainers;
     }
 
-
+    //*-------------------------------------------------READS--------------------------------------------------------*\\
     private MembershipStatus readMemberShipStatus(String memberShipStatusString) {
         MembershipStatus membershipStatus = MembershipStatus.NONE;
         switch (memberShipStatusString) {
-            case "NONE" -> { membershipStatus = MembershipStatus.NONE; }
-            case "HOBBY" -> { membershipStatus = MembershipStatus.HOBBY; }
-            case "COMPETITIVE" -> { membershipStatus = MembershipStatus.COMPETITIVE; }
+            case "NONE" -> membershipStatus = MembershipStatus.NONE;
+            case "HOBBY" -> membershipStatus = MembershipStatus.HOBBY;
+            case "COMPETITIVE" -> membershipStatus = MembershipStatus.COMPETITIVE;
         }
         return membershipStatus;
     }

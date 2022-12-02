@@ -2,28 +2,28 @@ package datahandling;
 
 import member.Member;
 import member.MembershipStatus;
-
 import java.util.ArrayList;
 
 public class Subscription {
-    private double passiv = 500;
+    private double passive = 500;
     private double junior = 1000;
     private double senior = 1600;
     private double seniorPlus = 0.25;
     private double student = 0.15;
 
+    //*-----------------------------------------------Constructor----------------------------------------------------*\\
     public Subscription() {
     }
 
-    public Subscription(double passiv, double junior, double senior, double seniorPlus, double student){
-        this.passiv = passiv;
+    public Subscription(double passive, double junior, double senior, double seniorPlus, double student){
+        this.passive = passive;
         this.junior = junior;
         this.senior = senior;
         this.seniorPlus = seniorPlus;
         this.student = student;
     }
 
-
+    //*--------------------------------------------------Income------------------------------------------------------*\\
     public double calculateMemberSubscription(Member member) {
         double subscription = 0;
         if (!member.getActivity().equals(MembershipStatus.NONE)) {
@@ -44,9 +44,9 @@ public class Subscription {
             }
         } else {
             if (member.getIsStudent()) {
-                subscription = passiv * (1 - student);
+                subscription = passive * (1 - student);
             } else {
-                subscription = passiv;
+                subscription = passive;
             }
         }
         return subscription;
@@ -60,40 +60,42 @@ public class Subscription {
         return expectedTotalIncome;
     }
 
-    public double getPassiv() {
-        return passiv;
-    }
-
-    public void setPassiv(double passiv) {
-        this.passiv = passiv;
+    //*--------------------------------------------------Getter------------------------------------------------------*\\
+    public double getPassive() {
+        return passive;
     }
 
     public double getJunior() {
         return junior;
     }
 
-    public void setJunior(double junior) {
-        this.junior = junior;
-    }
-
     public double getSenior() {
         return senior;
-    }
-
-    public void setSenior(double senior) {
-        this.senior = senior;
     }
 
     public double getSeniorPlus() {
         return seniorPlus;
     }
 
-    public void setSeniorPlus(double seniorPlus) {
-        this.seniorPlus = seniorPlus;
-    }
-
     public double getStudent() {
         return student;
+    }
+
+    //*--------------------------------------------------Setter------------------------------------------------------*\\
+    public void setPassive(double passive) {
+        this.passive = passive;
+    }
+
+    public void setJunior(double junior) {
+        this.junior = junior;
+    }
+
+    public void setSenior(double senior) {
+        this.senior = senior;
+    }
+
+    public void setSeniorPlus(double seniorPlus) {
+        this.seniorPlus = seniorPlus;
     }
 
     public void setStudent(double student) {

@@ -14,12 +14,14 @@ public class Member {
     private MembershipStatus activity;
     private boolean hasPaid;
     private boolean crawl;
-    private boolean rygCrawl;
-    private boolean brystSvømning;
+    private boolean backCrawl;
+    private boolean breastStroke;
     private boolean butterfly;
 
     private final DateTimeFormatter birthdayFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private StringBuilder stringBuilder = new StringBuilder();
 
+    //*-----------------------------------------------Constructor----------------------------------------------------*\\
     public Member(String name, String address, String phoneNumber, String mail, LocalDate birthdate,
                   boolean sex, boolean isStudent, boolean hasPaid, MembershipStatus activity) {
         this.name = name;
@@ -32,14 +34,14 @@ public class Member {
         this.activity = activity;
         this.hasPaid = hasPaid;
         crawl = false;
-        rygCrawl = false;
-        brystSvømning = false;
+        backCrawl = false;
+        breastStroke = false;
         butterfly = false;
     }
 
     public Member(String name, String address, String phoneNumber, String mail, LocalDate birthdate,
                   boolean sex, boolean isStudent, boolean hasPaid, MembershipStatus activity,
-                  boolean crawl, boolean rygCrawl, boolean brystSvømning, boolean butterfly) {
+                  boolean crawl, boolean backCrawl, boolean breastStroke, boolean butterfly) {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
@@ -50,11 +52,65 @@ public class Member {
         this.activity = activity;
         this.hasPaid = hasPaid;
         this.crawl = crawl;
-        this.rygCrawl = rygCrawl;
-        this.brystSvømning = brystSvømning;
+        this.backCrawl = backCrawl;
+        this.breastStroke = breastStroke;
         this.butterfly = butterfly;
     }
 
+    //*---------------------------------------------PrintMemberInfo--------------------------------------------------*\\
+    public String printMember() {
+        if (activity == MembershipStatus.COMPETITIVE) {
+            return printCompetitiveMember();
+        } else {
+            return printNonCompetitiveMember();
+        }
+    }
+
+    private String printNonCompetitiveMember() {
+        stringBuilder = new StringBuilder();
+
+        stringBuilder.append("Navn: ").append(name).append('\n');
+        stringBuilder.append("Adresse: ").append(address).append('\n');
+        stringBuilder.append("Tlf.nr.: ").append(phoneNumber).append('\n');
+        stringBuilder.append("E-mail: ").append(mail).append('\n');
+        stringBuilder.append("Fødselsdato: ").append(birthdate.format(birthdayFormat)).append('\n');
+        stringBuilder.append("Alder: ").append(getAge()).append('\n');
+        stringBuilder.append("Køn: ").append(readSex()).append('\n');
+        stringBuilder.append("Studerende: ").append(readIsStudent()).append('\n');
+        stringBuilder.append("Aktivitetsform: ").append(readActivity()).append('\n');
+        stringBuilder.append("Restance: ").append(readHasPaid());
+
+        return stringBuilder.toString();
+    }
+
+    private String printCompetitiveMember() {
+        stringBuilder = new StringBuilder();
+
+        stringBuilder.append("Navn: ").append(name).append('\n');
+        stringBuilder.append("Adresse: ").append(address).append('\n');
+        stringBuilder.append("Tlf.nr.: ").append(phoneNumber).append('\n');
+        stringBuilder.append("E-mail: ").append(mail).append('\n');
+        stringBuilder.append("Fødselsdato: ").append(birthdate.format(birthdayFormat)).append('\n');
+        stringBuilder.append("Alder: ").append(getAge()).append('\n');
+        stringBuilder.append("Køn: ").append(readSex()).append('\n');
+        stringBuilder.append("Studerende: ").append(readIsStudent()).append('\n');
+        stringBuilder.append("Aktivitetsform: ").append(readActivity()).append('\n');
+        stringBuilder.append("Restance: ").append(readHasPaid()).append('\n');
+        stringBuilder.append("Aktive svømmediscipliner: ").append(activeSwimDisciplins());
+
+        return stringBuilder.toString();
+    }
+
+    private String activeSwimDisciplins() {
+        stringBuilder = new StringBuilder();
+        stringBuilder.append(crawl ? "| Crawl |" : "");
+        stringBuilder.append(backCrawl ? "| Rygcrawl |" : "");
+        stringBuilder.append(breastStroke ? "| Bryst svømning |" : "");
+        stringBuilder.append(butterfly ? "| Butterfly |" : "");
+        return stringBuilder.toString();
+    }
+
+    //*--------------------------------------------------Getter------------------------------------------------------*\\
     public String getName() {
         return name;
     }
@@ -95,6 +151,24 @@ public class Member {
         return LocalDate.now().compareTo(birthdate);
     }
 
+    public boolean getCrawl() {
+        return crawl;
+    }
+
+    public boolean getBackCrawl() {
+        return backCrawl;
+    }
+
+    public boolean getBreastStroke() {
+        return breastStroke;
+    }
+
+    public boolean getButterfly() {
+        return butterfly;
+    }
+
+    //*--------------------------------------------------Setter------------------------------------------------------*\\
+
     public void setName(String name) {
         this.name = name;
     }
@@ -131,38 +205,23 @@ public class Member {
         this.hasPaid = hasPaid;
     }
 
-    public boolean getCrawl() {
-        return crawl;
-    }
-
     public void setCrawl(boolean crawl) {
         this.crawl = crawl;
     }
 
-    public boolean getRygCrawl() {
-        return rygCrawl;
+    public void setBackCrawl(boolean backCrawl) {
+        this.backCrawl = backCrawl;
     }
 
-    public void setRygCrawl(boolean rygCrawl) {
-        this.rygCrawl = rygCrawl;
-    }
-
-    public boolean getBrystSvømning() {
-        return brystSvømning;
-    }
-
-    public void setBrystSvømning(boolean brystSvømning) {
-        this.brystSvømning = brystSvømning;
-    }
-
-    public boolean getButterfly() {
-        return butterfly;
+    public void setBreastStroke(boolean breastStroke) {
+        this.breastStroke = breastStroke;
     }
 
     public void setButterfly(boolean butterfly) {
         this.butterfly = butterfly;
     }
 
+    //*-------------------------------------------------READS--------------------------------------------------------*\\
     public String readSex() {
         return sex ? "M" : "K";
     }
@@ -174,73 +233,15 @@ public class Member {
     public String readActivity() {
         String competitive = "";
         switch (activity) {
-            case COMPETITIVE -> {
-                competitive = "Konkurrence Svømmer";
-            }
-            case HOBBY -> {
-                competitive = "Motionist";
-            }
-            case NONE -> {
-                competitive = "Er ikke aktiv";
-            }
+            case COMPETITIVE -> competitive = "Konkurrence Svømmer";
+            case HOBBY -> competitive = "Motionist";
+            case NONE -> competitive = "Er ikke aktiv";
         }
         return competitive;
     }
 
     public String readHasPaid() {
         return hasPaid ? "Nej" : "Ja";
-    }
-
-    private String activeSwimDisciplins() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(crawl ? "| Crawl |" : "");
-        stringBuilder.append(rygCrawl ? "| Rygcrawl |" : "");
-        stringBuilder.append(brystSvømning ? "| Bryst svømning |" : "");
-        stringBuilder.append(butterfly ? "| Butterfly |" : "");
-        return stringBuilder.toString();
-    }
-
-    public String printMember() {
-        if (activity == MembershipStatus.COMPETITIVE) {
-            return printCompetitiveMember();
-        } else {
-            return printNonCompetitiveMember();
-        }
-    }
-
-    private String printNonCompetitiveMember() {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        stringBuilder.append("Navn: " + name).append('\n');
-        stringBuilder.append("Adresse: " + address).append('\n');
-        stringBuilder.append("Tlf.nr.: " + phoneNumber).append('\n');
-        stringBuilder.append("E-mail: " + mail).append('\n');
-        stringBuilder.append("Fødselsdato: " + birthdate.format(birthdayFormat)).append('\n');
-        stringBuilder.append("Alder: " + getAge()).append('\n');
-        stringBuilder.append("Køn: " + readSex()).append('\n');
-        stringBuilder.append("Studerende: " + readIsStudent()).append('\n');
-        stringBuilder.append("Aktivitetsform: " + readActivity()).append('\n');
-        stringBuilder.append("Restance: " + readHasPaid());
-
-        return stringBuilder.toString();
-    }
-
-    private String printCompetitiveMember() {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        stringBuilder.append("Navn: " + name).append('\n');
-        stringBuilder.append("Adresse: " + address).append('\n');
-        stringBuilder.append("Tlf.nr.: " + phoneNumber).append('\n');
-        stringBuilder.append("E-mail: " + mail).append('\n');
-        stringBuilder.append("Fødselsdato: " + birthdate.format(birthdayFormat)).append('\n');
-        stringBuilder.append("Alder: " + getAge()).append('\n');
-        stringBuilder.append("Køn: " + readSex()).append('\n');
-        stringBuilder.append("Studerende: " + readIsStudent()).append('\n');
-        stringBuilder.append("Aktivitetsform: " + readActivity()).append('\n');
-        stringBuilder.append("Restance: " + readHasPaid()).append('\n');
-        stringBuilder.append("Aktive svømmediscipliner: " + activeSwimDisciplins());
-
-        return stringBuilder.toString();
     }
 }
 
