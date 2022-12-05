@@ -3,6 +3,8 @@ package userinterface;
 import datahandling.Controller;
 import member.Member;
 import member.MembershipStatus;
+
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -619,5 +621,25 @@ public class UserInterface {
             input = readDouble();
         }
         return input / 100;
+    }
+
+    private double readSwimTime() {
+        System.out.print("Indtast ny svømmetid med formattet (m:s.ms): ");
+        String input = scanner.nextLine();
+        return calculateSwimTime(input);
+    }
+
+
+    // TODO: 05/12/2022 Fix format and test. 
+    public double calculateSwimTime(String input) {
+        String[] timeArray = input.split(":");
+        double time = 0;
+        try {
+            time += Integer.parseInt(timeArray[0]) * 60;
+            time += Double.parseDouble(timeArray[1]);
+        } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
+        }
+        return time;
     }
 }
