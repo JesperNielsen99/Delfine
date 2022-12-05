@@ -37,12 +37,9 @@ public class Controller {
     }
 
     //*--------------------------------------------------Save--------------------------------------------------------*\\
-    public void loadMembers(){
-        club.setMembers(fileHandler.loadMembers());
-    }
 
     public void saveMembers(){
-        fileHandler.saveMembers(club.getMembers());
+        fileHandler.saveMembers(club.getCurrentMembers());
     }
 
     public void saveSubscription(){
@@ -54,6 +51,10 @@ public class Controller {
     }
 
     //*--------------------------------------------------Load--------------------------------------------------------*\\
+
+    public void loadMembers(){
+        club.setMembers(fileHandler.loadMembers());
+    }
 
     public void loadSubscription(){
         Subscription loadedSubscription = fileHandler.loadSubscription();
@@ -69,13 +70,13 @@ public class Controller {
 
     //*--------------------------------------------------Getter------------------------------------------------------*\\
     public ArrayList<Member> getMembers() {
-        return club.getMembers();
+        return club.getCurrentMembers();
     }
 
     public ArrayList<Member> getSearchResult() { return club.getSearchResult(); }
 
     public double getExpectedTotalIncome() {
-        return subscription.expectedTotalIncome(club.getMembers());
+        return subscription.expectedTotalIncome(club.getCurrentMembers());
     }
 
     public ArrayList<Member> getMembersInDebt(){

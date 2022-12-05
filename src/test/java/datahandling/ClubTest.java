@@ -1,13 +1,11 @@
 package datahandling;
 
-import member.Member;
 import member.MembershipStatus;
 import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 
 class ClubTest {
@@ -43,7 +41,7 @@ class ClubTest {
         assertTrue(club.getSizeOfMembers() > 0);
 
         //Act
-        club.deleteMember(club.getMembers().get(0));
+        club.deleteMember(club.getCurrentMembers().get(0));
         int expectedSize = 0;
 
         //Assert (true)

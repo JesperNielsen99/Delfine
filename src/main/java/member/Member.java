@@ -17,6 +17,7 @@ public class Member {
     private boolean backCrawl;
     private boolean breastStroke;
     private boolean butterfly;
+    private boolean currentMember;
 
     private final DateTimeFormatter birthdayFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
@@ -36,6 +37,7 @@ public class Member {
         backCrawl = false;
         breastStroke = false;
         butterfly = false;
+        currentMember = true;
     }
 
     public Member(String name, String address, String phoneNumber, String mail, LocalDate birthdate,
@@ -54,6 +56,7 @@ public class Member {
         this.backCrawl = backCrawl;
         this.breastStroke = breastStroke;
         this.butterfly = butterfly;
+        currentMember = true;
     }
 
     //*---------------------------------------------PrintMemberInfo--------------------------------------------------*\\
@@ -157,6 +160,10 @@ public class Member {
         return butterfly;
     }
 
+    public boolean getCurrentMember() {
+        return currentMember;
+    }
+
     //*--------------------------------------------------Setter------------------------------------------------------*\\
 
     public void setName(String name) {
@@ -209,6 +216,10 @@ public class Member {
 
     public void setButterfly(boolean butterfly) {
         this.butterfly = butterfly;
+    }
+
+    public void setCurrentMember(boolean currentMember) {
+       this.currentMember = currentMember;
     }
 
     //*-------------------------------------------------READS--------------------------------------------------------*\\

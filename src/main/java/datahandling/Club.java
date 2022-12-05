@@ -6,8 +6,10 @@ import member.Member;
 import member.MembershipStatus;
 
 public class Club {
-    private ArrayList<Member> members = new ArrayList<>();
+    private final ArrayList<Member> currentMembers = new ArrayList<>();
+    private final ArrayList<Member> formerMembers = new ArrayList<>();
     private final ArrayList<Member> searchResult = new ArrayList<>();
+
 
     private final Team teamJunior = new Team("Junior træner");
     private final Team teamSenior = new Team("Senior træner");
@@ -15,20 +17,20 @@ public class Club {
     //*--------------------------------------------------Create------------------------------------------------------*\\
     public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, MembershipStatus activity, boolean hasPaid) {
         Member member = new Member(name, address, number, mail, birthdate, sex, isStudent, hasPaid, activity);
-        members.add(member);
+        currentMembers.add(member);
         addMemberToTeam(member);
     }
 
     public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, MembershipStatus isCompetitive, boolean hasPaid, boolean crawl, boolean BackCrawl, boolean breastStroke, boolean butterfly) {
         Member member = new Member(name, address, number, mail, birthdate, sex, isStudent, hasPaid, isCompetitive, crawl, BackCrawl, breastStroke, butterfly);
-        members.add(member);
+        currentMembers.add(member);
         addMemberToTeam(member);
     }
 
     //*--------------------------------------------------Search------------------------------------------------------*\\
     public void searchMember(String searchMemberName, MembershipStatus membershipStatus) {
         searchResult.clear();
-        for (Member member : members) {
+        for (Member member : currentMembers) {
             if (member.getName().toLowerCase().contains(searchMemberName.toLowerCase())) {
                 if (member.getActivity() == membershipStatus) {
                     searchResult.add(member);
@@ -39,7 +41,7 @@ public class Club {
 
     public void searchMember(String searchMemberName) {
         searchResult.clear();
-        for (Member member : members) {
+        for (Member member : currentMembers) {
             if (member.getName().toLowerCase().contains(searchMemberName.toLowerCase())) {
                 searchResult.add(member);
             }
@@ -50,7 +52,7 @@ public class Club {
 
     public ArrayList<Member> membersInDebt() {
         ArrayList<Member> membersInDebt = new ArrayList<>();
-        for (Member member : members) {
+        for (Member member : currentMembers) {
             if (!member.getHasPaid()) {
                 membersInDebt.add(member);
             }
@@ -77,17 +79,21 @@ public class Club {
     //*-------------------------------------------------Delete-------------------------------------------------------*\\
     public String deleteMember(Member currentMember) {
         String currentMemberName = currentMember.getName();
-        members.remove(currentMember);
+        currentMembers.remove(currentMember);
         return String.format("%s er blevet slettet fra medlemslisten.", currentMemberName);
     }
 
     //*--------------------------------------------------Getter------------------------------------------------------*\\
     public int getSizeOfMembers(){
-        return members.size();
+        return currentMembers.size();
     }
 
-    public ArrayList<Member> getMembers(){
-        return members;
+    public ArrayList<Member> getCurrentMembers(){
+        return currentMembers;
+    }
+
+    public ArrayList<Member> getFormerMembers() {
+        return formerMembers;
     }
 
     public ArrayList<Member> getSearchResult() {
@@ -114,6 +120,7 @@ public class Club {
         return teamSenior;
     }
 
+
     //*--------------------------------------------------Setter------------------------------------------------------*\\
     public void setTrainers(String[] trainers){
         if(trainers != null) {
@@ -123,7 +130,16 @@ public class Club {
     }
 
     public void setMembers(ArrayList<Member> members) {
-        this.members = members;
-        addMembersToTeam(this.members);
+
+        for (Member member : members) {
+            if (member.getCurrentMember()){
+                currentMembers.add(member);
+            } else {
+                formerMembers.add(member);
+            }
+        }
+        addMembersToTeam(currentMembers);
     }
+
+
 }
