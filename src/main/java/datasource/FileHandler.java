@@ -49,10 +49,7 @@ public class FileHandler {
                 output.println(stringBuilder);
             }
         }
-
-        if (output != null) {
-            output.close();
-        }
+        output.close();
     }
 
     public void saveSubscription(Subscription subscription) {
@@ -72,9 +69,7 @@ public class FileHandler {
                             subscription.getStudent()
             );
         }
-        if (output != null) {
-            output.close();
-        }
+        output.close();
     }
 
     public void saveTrainer(String[] trainers) {
@@ -87,12 +82,9 @@ public class FileHandler {
         }
         if (output != null) {
             output.println(
-                    trainers[0] + ";" +
-                            trainers[1]);
+                    trainers[0] + ";" + trainers[1]);
         }
-        if (output != null) {
-            output.close();
-        }
+        output.close();
     }
 
     //*--------------------------------------------------Load--------------------------------------------------------*\\

@@ -19,7 +19,6 @@ public class Member {
     private boolean butterfly;
 
     private final DateTimeFormatter birthdayFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    private StringBuilder stringBuilder = new StringBuilder();
 
     //*-----------------------------------------------Constructor----------------------------------------------------*\\
     public Member(String name, String address, String phoneNumber, String mail, LocalDate birthdate,
@@ -67,7 +66,7 @@ public class Member {
     }
 
     private String printNonCompetitiveMember() {
-        stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append("Navn: ").append(name).append('\n');
         stringBuilder.append("Adresse: ").append(address).append('\n');
@@ -84,25 +83,16 @@ public class Member {
     }
 
     private String printCompetitiveMember() {
-        stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.append("Navn: ").append(name).append('\n');
-        stringBuilder.append("Adresse: ").append(address).append('\n');
-        stringBuilder.append("Tlf.nr.: ").append(phoneNumber).append('\n');
-        stringBuilder.append("E-mail: ").append(mail).append('\n');
-        stringBuilder.append("Fødselsdato: ").append(birthdate.format(birthdayFormat)).append('\n');
-        stringBuilder.append("Alder: ").append(getAge()).append('\n');
-        stringBuilder.append("Køn: ").append(readSex()).append('\n');
-        stringBuilder.append("Studerende: ").append(readIsStudent()).append('\n');
-        stringBuilder.append("Aktivitetsform: ").append(readActivity()).append('\n');
-        stringBuilder.append("Restance: ").append(readHasPaid()).append('\n');
+        stringBuilder.append(printNonCompetitiveMember()).append('\n');
         stringBuilder.append("Aktive svømmediscipliner: ").append(activeSwimDisciplins());
 
         return stringBuilder.toString();
     }
 
     private String activeSwimDisciplins() {
-        stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(crawl ? "| Crawl |" : "");
         stringBuilder.append(backCrawl ? "| Rygcrawl |" : "");
         stringBuilder.append(breastStroke ? "| Bryst svømning |" : "");
