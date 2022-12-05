@@ -164,7 +164,7 @@ public class FileHandler {
         return trainers;
     }
 
-    //*-------------------------------------------------READS--------------------------------------------------------*\\
+    //*-------------------------------------------------MISC--------------------------------------------------------*\\
     private MembershipStatus readMemberShipStatus(String memberShipStatusString) {
         MembershipStatus membershipStatus = MembershipStatus.NONE;
         switch (memberShipStatusString) {
