@@ -110,10 +110,12 @@ public class UserInterface {
 
     private void printSwimTeamMenu() {
         System.out.println("""
-                Hvilket hold vil du vise?
+                Hvilken mulighed vil du vælge?
                                 
-                1: Junior team
-                2: Senior team
+                1: Vis junior team
+                2: Vis senior team
+                3: Skift junior træner
+                4: Skift senior træner
                 """);
     }
 
@@ -179,6 +181,14 @@ public class UserInterface {
                 System.out.println("Hold træner: " + controller.getTeamSenior().getTrainerName() + '\n');
                 printMemberArray(controller.getTeamSeniorMembers());
             }
+            case 3 -> {
+                System.out.print("Indtast den nye junior træner's navn: ");
+                controller.getTeamJunior().setTrainerName(scanner.nextLine());
+            }
+            case 4 -> {
+                System.out.print("Indtast den nye senior træner's navn: ");
+                controller.getTeamSenior().setTrainerName(scanner.nextLine());
+            }
         }
     }
 
@@ -201,7 +211,7 @@ public class UserInterface {
         StringBuilder stringBuilder = new StringBuilder();
         for (Member member : controller.getMembersInDebt()) {
             stringBuilder.append(member.printMember()).append("\nManglende betaling: ").append(controller.calculateMemberSubscription(member)).append(" kr.").append("\n");
-            stringBuilder.append("\n\nAutogenereret besked til medlem: \nHej ").append(member.getName()).append(". Du mangler at betale: ").append(controller.calculateMemberSubscription(member)).append(" kr.\n\n\n");
+            stringBuilder.append("\n\nAutogenereret besked til medlem: \nHej ").append(member.getName()).append(". Du mangler at betale: ").append(controller.calculateMemberSubscription(member)).append(" kr.\nMed venlig hilsen. Delfinens Kasserer\n\n\n");
         }
         System.out.println(stringBuilder);
     }
@@ -236,10 +246,10 @@ public class UserInterface {
             boolean breastStroke = readSwimDisciplin("bryst svømning");
             boolean butterfly = readSwimDisciplin("butterfly");
             controller.createMember(memberName, memberAddress, memberPhoneNumber, memberMail, memberBirthdate, memberSex,
-                    memberIsStudent, memberIsCompetitive, memberHasPaid, crawl, backCrawl, breastStroke, butterfly);
+                    memberIsStudent, memberIsCompetitive, memberHasPaid, crawl, backCrawl, breastStroke, butterfly, false);
         } else {
             controller.createMember(memberName, memberAddress, memberPhoneNumber, memberMail, memberBirthdate, memberSex,
-                    memberIsStudent, memberIsCompetitive, memberHasPaid);
+                    memberIsStudent, memberIsCompetitive, memberHasPaid, false);
         }
         System.out.println("\n");
 

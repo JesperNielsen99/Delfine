@@ -13,13 +13,14 @@ public class Controller {
 
     //*--------------------------------------------------Create------------------------------------------------------*\\
     public void createMember(String name, String address, String number, String mail, LocalDate birthdate,
-                             boolean sex, Boolean isStudent, MembershipStatus activity, boolean hasPaid){
-        club.createMember(name, address, number, mail, birthdate, sex, isStudent, activity, hasPaid);
+                             boolean sex, Boolean isStudent, MembershipStatus activity, boolean hasPaid, boolean currentMember){
+        club.createMember(name, address, number, mail, birthdate, sex, isStudent, activity, hasPaid, currentMember);
     }
 
     public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent,
-                             MembershipStatus activity, boolean hasPaid, boolean crawl, boolean backCrawl, boolean breastStroke, boolean butterfly){
-        club.createMember(name, address, number, mail, birthdate, sex, isStudent, activity, hasPaid, crawl, backCrawl, breastStroke, butterfly);
+                             MembershipStatus activity, boolean hasPaid, boolean crawl, boolean backCrawl, boolean breastStroke,
+                             boolean butterfly, boolean currentMember){
+        club.createMember(name, address, number, mail, birthdate, sex, isStudent, activity, hasPaid, crawl, backCrawl, breastStroke, butterfly, currentMember);
     }
 
     //*--------------------------------------------------Search------------------------------------------------------*\\

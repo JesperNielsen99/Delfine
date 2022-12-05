@@ -23,7 +23,7 @@ public class Member {
 
     //*-----------------------------------------------Constructor----------------------------------------------------*\\
     public Member(String name, String address, String phoneNumber, String mail, LocalDate birthdate,
-                  boolean sex, boolean isStudent, boolean hasPaid, MembershipStatus activity) {
+                  boolean sex, boolean isStudent, boolean hasPaid, MembershipStatus activity, boolean currentMember) {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
@@ -37,12 +37,12 @@ public class Member {
         backCrawl = false;
         breastStroke = false;
         butterfly = false;
-        currentMember = true;
+        this.currentMember = currentMember;
     }
 
     public Member(String name, String address, String phoneNumber, String mail, LocalDate birthdate,
                   boolean sex, boolean isStudent, boolean hasPaid, MembershipStatus activity,
-                  boolean crawl, boolean backCrawl, boolean breastStroke, boolean butterfly) {
+                  boolean crawl, boolean backCrawl, boolean breastStroke, boolean butterfly, boolean currentMember) {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
@@ -56,7 +56,7 @@ public class Member {
         this.backCrawl = backCrawl;
         this.breastStroke = breastStroke;
         this.butterfly = butterfly;
-        currentMember = true;
+        this.currentMember = currentMember;
     }
 
     //*---------------------------------------------PrintMemberInfo--------------------------------------------------*\\

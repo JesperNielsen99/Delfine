@@ -43,7 +43,8 @@ public class FileHandler {
             stringBuilder.append(member.getCrawl()).append(';');
             stringBuilder.append(member.getBackCrawl()).append(';');
             stringBuilder.append(member.getBreastStroke()).append(';');
-            stringBuilder.append(member.getButterfly());
+            stringBuilder.append(member.getButterfly()).append(';');
+            stringBuilder.append(member.getCurrentMember());
 
             if (output != null) {
                 output.println(stringBuilder);
@@ -94,7 +95,7 @@ public class FileHandler {
             Scanner scanner = new Scanner(membersFile);
             while (scanner.hasNextLine()) {
                 String[] lineSplit = scanner.nextLine().split(";");
-                if (lineSplit.length == 9) {
+                if (lineSplit.length == 10) {
                     members.add(new Member(
                             lineSplit[0],
                             lineSplit[1],
@@ -104,7 +105,8 @@ public class FileHandler {
                             Boolean.parseBoolean(lineSplit[5]),
                             Boolean.parseBoolean(lineSplit[6]),
                             Boolean.parseBoolean(lineSplit[7]),
-                            readMemberShipStatus(lineSplit[8])
+                            readMemberShipStatus(lineSplit[8]),
+                            Boolean.parseBoolean(lineSplit[9])
                     ));
                 } else {
                     members.add(new Member(
@@ -120,7 +122,8 @@ public class FileHandler {
                             Boolean.parseBoolean(lineSplit[9]),
                             Boolean.parseBoolean(lineSplit[10]),
                             Boolean.parseBoolean(lineSplit[11]),
-                            Boolean.parseBoolean(lineSplit[12])
+                            Boolean.parseBoolean(lineSplit[12]),
+                            Boolean.parseBoolean(lineSplit[13])
                     ));
                 }
             }

@@ -15,14 +15,16 @@ public class Club {
     private final Team teamSenior = new Team("Senior træner");
 
     //*--------------------------------------------------Create------------------------------------------------------*\\
-    public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, MembershipStatus activity, boolean hasPaid) {
-        Member member = new Member(name, address, number, mail, birthdate, sex, isStudent, hasPaid, activity);
+    public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex,
+                             Boolean isStudent, MembershipStatus activity, boolean hasPaid, boolean currentMember) {
+        Member member = new Member(name, address, number, mail, birthdate, sex, isStudent, hasPaid, activity, currentMember);
         currentMembers.add(member);
         addMemberToTeam(member);
     }
 
-    public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent, MembershipStatus isCompetitive, boolean hasPaid, boolean crawl, boolean BackCrawl, boolean breastStroke, boolean butterfly) {
-        Member member = new Member(name, address, number, mail, birthdate, sex, isStudent, hasPaid, isCompetitive, crawl, BackCrawl, breastStroke, butterfly);
+    public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex,
+                             Boolean isStudent, MembershipStatus isCompetitive, boolean hasPaid, boolean crawl, boolean BackCrawl, boolean breastStroke, boolean butterfly, boolean currentMember) {
+        Member member = new Member(name, address, number, mail, birthdate, sex, isStudent, hasPaid, isCompetitive, crawl, BackCrawl, breastStroke, butterfly, currentMember);
         currentMembers.add(member);
         addMemberToTeam(member);
     }
@@ -79,6 +81,8 @@ public class Club {
     //*-------------------------------------------------Delete-------------------------------------------------------*\\
     public String deleteMember(Member currentMember) {
         String currentMemberName = currentMember.getName();
+        currentMember.setCurrentMember(false);
+        formerMembers.add(currentMember);
         currentMembers.remove(currentMember);
         return String.format("%s er blevet slettet fra medlemslisten.", currentMemberName);
     }
