@@ -171,8 +171,14 @@ public class UserInterface {
 
     private void handleSwimTeamMenuChoice() {
         switch (readInt()) {
-            case 1 -> printMemberArray(controller.getTeamJunior());
-            case 2 -> printMemberArray(controller.getTeamSenior());
+            case 1 -> {
+                System.out.println("Hold træner: " + controller.getTeamJunior().getTrainerName() + '\n');
+                printMemberArray(controller.getTeamJuniorMembers());
+            }
+            case 2 -> {
+                System.out.println("Hold træner: " + controller.getTeamSenior().getTrainerName() + '\n');
+                printMemberArray(controller.getTeamSeniorMembers());
+            }
         }
     }
 

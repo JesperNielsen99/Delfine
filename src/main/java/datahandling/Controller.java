@@ -102,16 +102,24 @@ public class Controller {
         return subscription.getStudent();
     }
 
-    public ArrayList<Member> getTeamJunior(){
-        return club.getTeamJunior();
+    public ArrayList<Member> getTeamJuniorMembers(){
+        return club.getTeamJuniorMembers();
     }
 
-    public ArrayList<Member> getTeamSenior(){
-        return club.getTeamSenior();
+    public ArrayList<Member> getTeamSeniorMembers(){
+        return club.getTeamSeniorMembers();
     }
 
     public double calculateMemberSubscription(Member member) {
         return subscription.calculateMemberSubscription(member);
+    }
+
+    public Team getTeamJunior() {
+       return club.getTeamJunior();
+    }
+
+    public Team getTeamSenior() {
+        return club.getTeamSenior();
     }
 
     //*--------------------------------------------------Setter------------------------------------------------------*\\

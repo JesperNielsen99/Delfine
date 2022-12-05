@@ -94,16 +94,24 @@ public class Club {
         return searchResult;
     }
 
-    public ArrayList<Member> getTeamJunior(){
+    public ArrayList<Member> getTeamJuniorMembers(){
         return teamJunior.getTeamMembers();
     }
 
-    public ArrayList<Member> getTeamSenior(){
+    public ArrayList<Member> getTeamSeniorMembers(){
         return teamSenior.getTeamMembers();
     }
 
     public String[] getTrainers(){
         return new String[]{teamJunior.getTrainerName(),teamSenior.getTrainerName()};
+    }
+
+    public Team getTeamJunior() {
+        return teamJunior;
+    }
+
+    public Team getTeamSenior() {
+        return teamSenior;
     }
 
     //*--------------------------------------------------Setter------------------------------------------------------*\\
