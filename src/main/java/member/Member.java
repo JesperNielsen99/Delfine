@@ -2,6 +2,7 @@ package member;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Member {
     private String name;
@@ -18,6 +19,7 @@ public class Member {
     private boolean breastStroke;
     private boolean butterfly;
     private boolean currentMember;
+    private final ArrayList<Time> times = new ArrayList<>();
 
     private final DateTimeFormatter birthdayFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
@@ -104,65 +106,37 @@ public class Member {
     }
 
     //*--------------------------------------------------Getter------------------------------------------------------*\\
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
-    public String getAddress() {
-        return address;
-    }
+    public String getAddress() { return address; }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+    public String getPhoneNumber() { return phoneNumber; }
 
-    public String getMail() {
-        return mail;
-    }
+    public String getMail() { return mail; }
 
-    public LocalDate getBirthdate() {
-        return birthdate;
-    }
+    public LocalDate getBirthdate() { return birthdate; }
 
-    public boolean getSex() {
-        return sex;
-    }
+    public boolean getSex() { return sex; }
 
-    public boolean getIsStudent() {
-        return isStudent;
-    }
+    public boolean getIsStudent() { return isStudent; }
 
-    public MembershipStatus getActivity() {
-        return activity;
-    }
+    public MembershipStatus getActivity() { return activity; }
 
-    public boolean getHasPaid() {
-        return hasPaid;
-    }
+    public boolean getHasPaid() { return hasPaid; }
 
-    public int getAge() {
-        return LocalDate.now().compareTo(birthdate);
-    }
+    public int getAge() { return LocalDate.now().compareTo(birthdate); }
 
-    public boolean getCrawl() {
-        return crawl;
-    }
+    public boolean getCrawl() { return crawl; }
 
-    public boolean getBackCrawl() {
-        return backCrawl;
-    }
+    public boolean getBackCrawl() { return backCrawl; }
 
-    public boolean getBreastStroke() {
-        return breastStroke;
-    }
+    public boolean getBreastStroke() { return breastStroke; }
 
-    public boolean getButterfly() {
-        return butterfly;
-    }
+    public boolean getButterfly() { return butterfly; }
 
-    public boolean getCurrentMember() {
-        return currentMember;
-    }
+    public boolean getCurrentMember() { return currentMember; }
+
+    public ArrayList<Time> getTimes() { return times; }
 
     //*--------------------------------------------------Setter------------------------------------------------------*\\
 
