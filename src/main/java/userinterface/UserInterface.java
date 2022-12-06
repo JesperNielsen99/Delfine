@@ -122,6 +122,17 @@ public class UserInterface {
                 """);
     }
 
+    private void printChooseSwimDisciplin(){
+        System.out.println("""
+                Hvilken disciplin er tiden taget it?
+                                
+                1: Crawl.
+                2: Ryg crawl.
+                3: Bryst svømning.
+                4: Butterfly.
+                """);
+    }
+
     //*---------------------------------------------HandelUserinput--------------------------------------------------*\\
     private void handleMainMenuChoice() {
         switch (readInt()) {
