@@ -5,7 +5,6 @@ import member.Member;
 import member.MembershipStatus;
 import member.SwimDisciplin;
 
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -67,7 +66,8 @@ public class UserInterface {
                 8:  Aktivitetsform
                 9:  Betalingssatus
                 10: Aktive Svømmediscipliner
-                11: Tilbage til hovedmenu
+                11: Svømmetider 
+                12: Tilbage til hovedmenu
                 """);
     }
 
@@ -119,6 +119,8 @@ public class UserInterface {
                 2: Vis senior team
                 3: Skift junior træner
                 4: Skift senior træner
+                5: Vis Top 5 Junior svømmere
+                6: Vis Top 5 Senior svømmere
                 """);
     }
 
@@ -162,7 +164,8 @@ public class UserInterface {
             case 8 -> editActivity(currentMember);
             case 9 -> editHasPaid(currentMember);
             case 10 -> editSwimDisciplins(currentMember);
-            case 11 -> runProgram();
+            case 11 -> editSwimTime(currentMember);
+            case 12 -> runProgram();
             default -> System.out.println("Ikke en mulig funktion.");
 
         }
@@ -202,6 +205,15 @@ public class UserInterface {
             case 4 -> {
                 System.out.print("Indtast den nye senior træner's navn: ");
                 controller.getTeamSenior().setTrainerName(scanner.nextLine());
+            }
+            case 5 -> {
+                System.out.println("De bedste 5 tider på junior holdet er:  ");
+                System.out.println("======================================");
+                printTop5Svimmers(controller.getTop5TimesInTeam(controller.getTeamJunior()));
+            }
+            case 6 -> {
+                System.out.print("De bedste 5 tider på senior holdet er:  ");
+                controller.getTop5TimesInTeam(controller.getTeamSenior());
             }
         }
     }
@@ -316,6 +328,7 @@ public class UserInterface {
 
 
     }
+
 
     //*--------------------------------------------------Search------------------------------------------------------*\\
     private void searchMember() {
@@ -469,7 +482,19 @@ public class UserInterface {
                 default -> System.out.println("Ugyldigt input. Prøv igen!");
             }
         }
+
     }
+
+    private void editSwimTime(Member currentMember){
+        System.out.println("Indtast navn på konkurrence, hvis det er træning efterlad blank.");
+        String name = scanner.nextLine();
+        Double swimTime = readSwimTime();
+        LocalDate date = readSwimDate(currentMember);
+        SwimDisciplin swimDisciplin = chooseSwimDisciplin(currentMember);
+        currentMember.setSwimTime(name, swimTime, date, swimDisciplin);
+    }
+
+
 
     //*-------------------------------------------------Delete-------------------------------------------------------*\\
     private void deleteMember() {

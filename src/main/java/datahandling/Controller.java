@@ -122,6 +122,10 @@ public class Controller {
         return club.getTeamSenior();
     }
 
+    public ArrayList<ArrayList<Member>> getTop5TimesInTeam(Team team){
+        return club.getTop5TimesInTeam(team);
+    }
+
     //*--------------------------------------------------Setter------------------------------------------------------*\\
     public void setPassive(double passive){
         subscription.setPassive(passive);
