@@ -3,10 +3,14 @@ package datasource;
 import datahandling.Subscription;
 import member.Member;
 import member.MembershipStatus;
+import member.SwimDisciplin;
+import member.Time;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -40,12 +44,14 @@ public class FileHandler {
             stringBuilder.append(member.getIsStudent()).append(';');
             stringBuilder.append(member.getHasPaid()).append(';');
             stringBuilder.append(member.getActivity()).append(';');
-            stringBuilder.append(member.getCrawl()).append(';');
-            stringBuilder.append(member.getBackCrawl()).append(';');
-            stringBuilder.append(member.getBreastStroke()).append(';');
-            stringBuilder.append(member.getButterfly()).append(';');
-            stringBuilder.append(member.getCurrentMember());
-
+            if (member.getCrawl() || member.getBackCrawl() || member.getBreastStroke() || member.getButterfly()) {
+                stringBuilder.append(member.getCrawl()).append(';');
+                stringBuilder.append(member.getBackCrawl()).append(';');
+                stringBuilder.append(member.getBreastStroke()).append(';');
+                stringBuilder.append(member.getButterfly()).append(';');
+            }
+            stringBuilder.append(member.getCurrentMember()).append(';');
+            stringBuilder.append(readTimeToString(member));
             if (output != null) {
                 output.println(stringBuilder);
             }
@@ -123,7 +129,8 @@ public class FileHandler {
                             Boolean.parseBoolean(lineSplit[10]),
                             Boolean.parseBoolean(lineSplit[11]),
                             Boolean.parseBoolean(lineSplit[12]),
-                            Boolean.parseBoolean(lineSplit[13])
+                            Boolean.parseBoolean(lineSplit[13]),
+                            readStringToTime(lineSplit[14])
                     ));
                 }
             }
@@ -176,5 +183,40 @@ public class FileHandler {
             case "COMPETITIVE" -> membershipStatus = MembershipStatus.COMPETITIVE;
         }
         return membershipStatus;
+    }
+
+    private SwimDisciplin readSwimDisciplin(String swimDisciplinString) {
+        SwimDisciplin swimDisciplin = SwimDisciplin.CRAWL;
+        switch (swimDisciplinString) {
+            case "CRAWL" -> swimDisciplin = SwimDisciplin.CRAWL;
+            case "BACKCRAWL" -> swimDisciplin = SwimDisciplin.BACKCRAWL;
+            case "BREASTSTROKE" -> swimDisciplin = SwimDisciplin.BREASTSTROKE;
+            case "BUTTERFLY" -> swimDisciplin = SwimDisciplin.BUTTERFLY;
+        }
+        return swimDisciplin;
+    }
+
+    private String readTimeToString(Member member) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Time time : member.getSwimTimes()) {
+            stringBuilder.append(time.getName()).append(':');
+            stringBuilder.append(time.getTime()).append(':');
+            stringBuilder.append(time.getDate()).append(':');
+            stringBuilder.append(time.getSwimDisciplin()).append('/');
+        }
+        return stringBuilder.toString();
+    }
+
+    private ArrayList<Time> readStringToTime(String input) {
+        ArrayList<Time> times = new ArrayList<>();
+        if (input != null) {
+            String[] timeArray = input.split("\\/");
+            for (String timeString : timeArray) {
+                String[] singleTime = timeString.split(":");
+                times.add(new Time(singleTime[0], Double.parseDouble(singleTime[1]),
+                        LocalDate.parse(singleTime[2]), readSwimDisciplin(singleTime[3])));
+            }
+        }
+        return times;
     }
 }

@@ -3,6 +3,8 @@ package datahandling;
 import datasource.FileHandler;
 import member.Member;
 import member.MembershipStatus;
+import member.Time;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -19,15 +21,11 @@ public class Controller {
 
     public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex, Boolean isStudent,
                              MembershipStatus activity, boolean hasPaid, boolean crawl, boolean backCrawl, boolean breastStroke,
-                             boolean butterfly, boolean currentMember){
-        club.createMember(name, address, number, mail, birthdate, sex, isStudent, activity, hasPaid, crawl, backCrawl, breastStroke, butterfly, currentMember);
+                             boolean butterfly, boolean currentMember, ArrayList<Time> times){
+        club.createMember(name, address, number, mail, birthdate, sex, isStudent, activity, hasPaid, crawl, backCrawl, breastStroke, butterfly, currentMember, times);
     }
 
     //*--------------------------------------------------Search------------------------------------------------------*\\
-    public void searchMember(String searchMemberName, MembershipStatus membershipStatus) {
-        club.searchMember(searchMemberName, membershipStatus);
-    }
-
     public void searchMember(String searchMemberName) {
         club.searchMember(searchMemberName);
     }

@@ -1,8 +1,11 @@
 package member;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Member {
     private String name;
@@ -12,8 +15,8 @@ public class Member {
     private LocalDate birthdate;
     private boolean sex;
     private boolean isStudent;
-    private MembershipStatus activity;
     private boolean hasPaid;
+    private MembershipStatus activity;
     private boolean crawl;
     private boolean backCrawl;
     private boolean breastStroke;
@@ -25,7 +28,8 @@ public class Member {
 
     //*-----------------------------------------------Constructor----------------------------------------------------*\\
     public Member(String name, String address, String phoneNumber, String mail, LocalDate birthdate,
-                  boolean sex, boolean isStudent, boolean hasPaid, MembershipStatus activity, boolean currentMember) {
+                  boolean sex, boolean isStudent, boolean hasPaid, MembershipStatus activity,
+                  boolean currentMember) {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
@@ -40,11 +44,12 @@ public class Member {
         breastStroke = false;
         butterfly = false;
         this.currentMember = currentMember;
+        times = new ArrayList<>();
     }
 
     public Member(String name, String address, String phoneNumber, String mail, LocalDate birthdate,
-                  boolean sex, boolean isStudent, boolean hasPaid, MembershipStatus activity,
-                  boolean crawl, boolean backCrawl, boolean breastStroke, boolean butterfly, boolean currentMember) {
+                  boolean sex, boolean isStudent, boolean hasPaid, MembershipStatus activity, boolean crawl,
+                  boolean backCrawl, boolean breastStroke, boolean butterfly, boolean currentMember, ArrayList<Time> times) {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
@@ -59,6 +64,11 @@ public class Member {
         this.breastStroke = breastStroke;
         this.butterfly = butterfly;
         this.currentMember = currentMember;
+        if (times != null) {
+            this.times = times;
+        } else {
+            this.times = new ArrayList<>();
+        }
     }
 
     //*---------------------------------------------PrintMemberInfo--------------------------------------------------*\\
@@ -91,7 +101,8 @@ public class Member {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append(printNonCompetitiveMember()).append('\n');
-        stringBuilder.append("Aktive svømmediscipliner: ").append(activeSwimDisciplins());
+        stringBuilder.append("Aktive svømmediscipliner: ").append(activeSwimDisciplins()).append('\n');
+        stringBuilder.append("Svømmetider: ").append(readSwimTimes());
 
         return stringBuilder.toString();
     }
@@ -196,6 +207,10 @@ public class Member {
        this.currentMember = currentMember;
     }
 
+    public void setSwimTime(String name, double swimTime, LocalDate date, SwimDisciplin swimDisciplin) {
+        times.add(new Time(name, swimTime, date, swimDisciplin));
+    }
+
     //*-------------------------------------------------READS--------------------------------------------------------*\\
     public String readSex() {
         return sex ? "M" : "K";
@@ -217,6 +232,24 @@ public class Member {
 
     public String readHasPaid() {
         return hasPaid ? "Nej" : "Ja";
+    }
+
+    public String readSwimTime(Time time) {
+        int minutes = (int) (time.getTime() / 60 % 60);
+        double seconds = time.getTime() % 60;
+        String secondsInString = String.format("%.2f", seconds);
+        if (seconds < 10) {
+            secondsInString = String.format("0%.2f", seconds);
+        }
+        return String.format("%s:%s", minutes, secondsInString).replace(',', '.');
+    }
+
+    public String readSwimTimes() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Time time : times) {
+            stringBuilder.append(readSwimTime(time)).append(" | ");
+        }
+        return stringBuilder.toString();
     }
 }
 

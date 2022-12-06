@@ -1,16 +1,18 @@
 package member;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Time {
     private String name;
-    private Time time;
-    private LocalDateTime date;
+    private Double time;
+    private LocalDate date;
+    private SwimDisciplin swimDisciplin;
 
-    public Time(String name, Time time, LocalDateTime date) {
+    public Time(String name, Double time, LocalDate date, SwimDisciplin swimDisciplin) {
      this.name = name;
      this.time = time;
      this.date = date;
+     this.swimDisciplin = swimDisciplin;
     }
 
 
@@ -18,11 +20,15 @@ public class Time {
 
     public void setName(String name) { this.name = name; }
 
-    public Time getTime() { return time; }
+    public Double getTime() { return time; }
 
-    public void setTime(Time time) { this.time = time; }
+    public void setTime(Double time) { this.time = time; }
 
-    public LocalDateTime getDate() { return date; }
+    public LocalDate getDate() { return date; }
 
-    public void setDate(LocalDateTime date) { this.date = date; }
+    public void setDate(LocalDate date) { this.date = date; }
+
+    public SwimDisciplin getSwimDisciplin() {
+        return swimDisciplin;
+    }
 }

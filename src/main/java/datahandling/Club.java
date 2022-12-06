@@ -2,8 +2,7 @@ package datahandling;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import member.Member;
-import member.MembershipStatus;
+import member.*;
 
 public class Club {
     private final ArrayList<Member> currentMembers = new ArrayList<>();
@@ -13,7 +12,6 @@ public class Club {
 
     private final Team teamJunior = new Team("Junior træner");
     private final Team teamSenior = new Team("Senior træner");
-
     //*--------------------------------------------------Create------------------------------------------------------*\\
     public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex,
                              Boolean isStudent, MembershipStatus activity, boolean hasPaid, boolean currentMember) {
@@ -23,23 +21,14 @@ public class Club {
     }
 
     public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex,
-                             Boolean isStudent, MembershipStatus isCompetitive, boolean hasPaid, boolean crawl, boolean BackCrawl, boolean breastStroke, boolean butterfly, boolean currentMember) {
-        Member member = new Member(name, address, number, mail, birthdate, sex, isStudent, hasPaid, isCompetitive, crawl, BackCrawl, breastStroke, butterfly, currentMember);
+                             Boolean isStudent, MembershipStatus isCompetitive, boolean hasPaid, boolean crawl,
+                             boolean BackCrawl, boolean breastStroke, boolean butterfly, boolean currentMember, ArrayList<Time> times) {
+        Member member = new Member(name, address, number, mail, birthdate, sex, isStudent, hasPaid, isCompetitive, crawl, BackCrawl, breastStroke, butterfly, currentMember, times);
         currentMembers.add(member);
         addMemberToTeam(member);
     }
 
     //*--------------------------------------------------Search------------------------------------------------------*\\
-    public void searchMember(String searchMemberName, MembershipStatus membershipStatus) {
-        searchResult.clear();
-        for (Member member : currentMembers) {
-            if (member.getName().toLowerCase().contains(searchMemberName.toLowerCase())) {
-                if (member.getActivity() == membershipStatus) {
-                    searchResult.add(member);
-                }
-            }
-        }
-    }
 
     public void searchMember(String searchMemberName) {
         searchResult.clear();
@@ -144,6 +133,8 @@ public class Club {
         }
         addMembersToTeam(currentMembers);
     }
+    //*--------------------------------------------------Misc--------------------------------------------------------*\\
+
 
 
 }

@@ -3,6 +3,7 @@ package userinterface;
 import datahandling.Controller;
 import member.Member;
 import member.MembershipStatus;
+import member.SwimDisciplin;
 
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -129,7 +130,7 @@ public class UserInterface {
             case 3 -> editMember();
             case 4 -> deleteMember();
             case 5 -> printMembersInDebt();
-            case 6 -> expetedTotalIncome();
+            case 6 -> printExpetedTotalIncome();
             case 7 -> editSubscription();
             case 8 -> printSwimTeam();
             case 9 -> printAllMembers();
@@ -222,8 +223,55 @@ public class UserInterface {
         printMemberArray(controller.getMembers());
     }
 
-    private void expetedTotalIncome() {
+    private void printExpetedTotalIncome() {
         System.out.println("Forventede årlige inkomst er: " + controller.getExpectedTotalIncome() + "\n");
+    }
+
+    private void printTop5Svimmers(ArrayList<ArrayList<Member>> members) {
+        ArrayList<Member> bestCrawlTimes = members.get(0);
+        ArrayList<Member> bestBackCrawlTimes = members.get(1);
+        ArrayList<Member> bestBreastStrokeTimes = members.get(2);
+        ArrayList<Member> bestButterflyTimes = members.get(3);
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("\nTop 5 crawl svømmere:\n");
+        if (bestCrawlTimes.size() > 0) {
+            for (Member member : bestCrawlTimes) {
+                stringBuilder.append(member.getName()).append(": ").append(member.getBestTime(SwimDisciplin.CRAWL)).append("\n");
+            }
+        } else {
+            stringBuilder.append("Der er ingen svømmere som har en tid i crawl");
+        }
+
+        stringBuilder.append("\nTop 5 ryg crawl svømmere:\n");
+        if (bestBackCrawlTimes.size() > 0) {
+            for (Member member : bestBackCrawlTimes) {
+                stringBuilder.append(member.getName()).append(": ").append(member.getBestTime(SwimDisciplin.BACKCRAWL)).append("\n");
+            }
+        } else {
+            stringBuilder.append("Der er ingen svømmere som har en tid i ryg crawl");
+        }
+
+        stringBuilder.append("\nTop 5 bryst svømning svømmere:\n");
+        if (bestBreastStrokeTimes.size() > 0) {
+            for (Member member : bestBreastStrokeTimes) {
+                stringBuilder.append(member.getName()).append(": ").append(member.getBestTime(SwimDisciplin.BREASTSTROKE)).append("\n");
+            }
+        } else {
+            stringBuilder.append("Der er ingen svømmere som har en tid i brystsvømning");
+        }
+
+        stringBuilder.append("\nTop 5 butterfly svømmere:\n");
+        if (bestButterflyTimes.size() > 0) {
+            for (Member member : bestButterflyTimes) {
+                stringBuilder.append(member.getName()).append(": ").append(member.getBestTime(SwimDisciplin.BUTTERFLY)).append("\n");
+            }
+        } else {
+            stringBuilder.append("Der er ingen svømmere som har en tid i butterfly");
+        }
+
+        System.out.println(stringBuilder);
     }
 
     //*--------------------------------------------------Create------------------------------------------------------*\\
@@ -248,7 +296,7 @@ public class UserInterface {
             boolean breastStroke = readSwimDisciplin("bryst svømning");
             boolean butterfly = readSwimDisciplin("butterfly");
             controller.createMember(memberName, memberAddress, memberPhoneNumber, memberMail, memberBirthdate, memberSex,
-                    memberIsStudent, memberIsCompetitive, memberHasPaid, crawl, backCrawl, breastStroke, butterfly, false);
+                    memberIsStudent, memberIsCompetitive, memberHasPaid, crawl, backCrawl, breastStroke, butterfly, false, null);
         } else {
             controller.createMember(memberName, memberAddress, memberPhoneNumber, memberMail, memberBirthdate, memberSex,
                     memberIsStudent, memberIsCompetitive, memberHasPaid, false);
@@ -642,4 +690,77 @@ public class UserInterface {
         }
         return time;
     }
+
+    private LocalDate readSwimDate(Member member) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate swimDate = null;
+        String errorMessage = "Ugyldig svømme dato prøv igen!";
+
+        boolean wrongSwimdate = true;
+        while (wrongSwimdate) {
+            System.out.print("Intast Dagen der blev svømmet på (dd-mm-yyyy): ");
+            String swimTimeInput = scanner.nextLine();
+            try {
+                swimDate = LocalDate.parse(swimTimeInput, dateFormat);
+                if (swimDate.getYear() <= LocalDate.now().getYear() && swimDate.getYear() > member.getBirthdate().getYear()) {
+                    wrongSwimdate = false;
+                } else {
+                    System.out.println(errorMessage);
+                }
+            } catch (Exception e) {
+                System.out.println(errorMessage);
+            }
+        }
+        return swimDate;
+    }
+
+    private SwimDisciplin chooseSwimDisciplin(Member member) {
+        boolean wrongInput = true;
+        SwimDisciplin swimDisciplin = SwimDisciplin.CRAWL;
+        printChooseSwimDisciplin();
+        while (wrongInput) {
+            switch (readInt()) {
+                case 1 -> {
+                    if (member.getCrawl()) {
+                        swimDisciplin = SwimDisciplin.CRAWL;
+                        wrongInput = false;
+                    } else {
+                        System.out.println(member.getName() + " har ikke crawl");
+                        wrongInput = false;
+                    }
+                }
+                case 2 -> {
+                    if (member.getBackCrawl()) {
+                        swimDisciplin = SwimDisciplin.BACKCRAWL;
+                        wrongInput = false;
+                    } else {
+                        System.out.println(member.getName() + " har ikke ryg crawl");
+                        wrongInput = false;
+                    }
+                }
+                case 3 -> {
+                    if (member.getBreastStroke()) {
+                        swimDisciplin = SwimDisciplin.BREASTSTROKE;
+                        wrongInput = false;
+                    } else {
+                        System.out.println(member.getName() + " har ikke bryst svømning");
+                        wrongInput = false;
+                    }
+                }
+                case 4 -> {
+                    if (member.getButterfly()) {
+                        swimDisciplin = SwimDisciplin.BUTTERFLY;
+                        wrongInput = false;
+                    } else {
+                        System.out.println(member.getName() + " har ikke butterfly");
+                        wrongInput = false;
+                    }
+                }
+                default -> System.out.println("Ugyldigt input");
+            }
+        }
+        return swimDisciplin;
+    }
+
+
 }

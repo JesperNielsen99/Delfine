@@ -1,3 +1,26 @@
-Jesper;f;u;c@k.you;2000-01-01;true;true;false;COMPETITIVE;true;true;false;false;true
-sadfhl;sdagjfk;sdf;as@ls.dk;1910-10-01;true;false;false;NONE;false;false;false;false;true
-dsaghf;asdgfh;dsjhakf;sadf@2sad.sk;2000-02-02;true;false;false;COMPETITIVE;true;false;false;true;true
+Jesper;f;u;c@k.you;2000-01-01;true;true;false;COMPETITIVE;true;true;false;false;true;name:87.0:2001-10-11:CRAWL/:80.0:2001-01-01:BACKCRAWL/
+sadfuck;sdagjfk;sdf;as@ls.dk;1910-10-01;true;false;false;NONE;true;
+gladfuck;asdgfh;dsjhakf;sadf@2sad.sk;2000-02-02;true;false;false;COMPETITIVE;true;false;false;true;true;test:23.0:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+tissemand;FU Street 2;12345678;Meeepseeks69@seekme.com;2016-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:423.0:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+mandtisser;FU Street 2;12345678;Meeepseeks69@seekme.com;2016-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:133.0:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+jon;FU Street 2;12345678;Meeepseeks69@seekme.com;2016-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:122.2:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+jhon;FU Street 2;12345678;Meeepseeks69@seekme.com;2000-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:123.0:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+numi;FU Street 2;12345678;Meeepseeks69@seekme.com;2000-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:123.4:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+namnam;FU Street 2;12345678;Meeepseeks69@seekme.com;2000-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:23.0:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+kattemanden;FU Street 2;12345678;Meeepseeks69@seekme.com;2016-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:123.0:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+Fin gamaias;FU Street 2;12345678;Meeepseeks69@seekme.com;2016-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:123.0:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+Ben dover;FU Street 2;12345678;Meeepseeks69@seekme.com;2016-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:113.0:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+vådekarl;FU Street 2;12345678;Meeepseeks69@seekme.com;2016-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:112.0:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+svømmer1;FU Street 2;12345678;Meeepseeks69@seekme.com;2016-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:1123.0:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+kastanjemanden;FU Street 2;12345678;Meeepseeks69@seekme.com;2016-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:13.0:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+klunkekaj;FU Street 2;12345678;Meeepseeks69@seekme.com;2016-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:123.022:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+tihi;FU Street 2;12345678;Meeepseeks69@seekme.com;2016-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:123.22:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+smørlse;FU Street 2;12345678;Meeepseeks69@seekme.com;2016-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:123.21:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+conrad;FU Street 2;12345678;Meeepseeks69@seekme.com;2000-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:123.12:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+panda;FU Street 2;12345678;Meeepseeks69@seekme.com;2016-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:153.0:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+suk maas;FU Street 2;12345678;Meeepseeks69@seekme.com;2016-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:121.0:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+Eliza;FU Street 2;12345678;Meeepseeks69@seekme.com;2000-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:121.12:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+Happy hand;FU Street 2;12345678;Meeepseeks69@seekme.com;2016-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:121.01:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+you-p;FU Street 2;12345678;Meeepseeks69@seekme.com;2000-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:120.1:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+julemanden;FU Street 2;12345678;Meeepseeks69@seekme.com;2016-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:123.1:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
+burhan;FU Street 2;12345678;Meeepseeks69@seekme.com;2016-08-08;true;true;true;COMPETITIVE;true;true;true;true;true;test:11223.0:2001-10-10:CRAWL/test:123.0:2001-10-10:BACKCRAWL/
