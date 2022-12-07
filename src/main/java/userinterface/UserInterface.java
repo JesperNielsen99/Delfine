@@ -520,7 +520,6 @@ public class UserInterface {
 
     private void exitProgram() {
         saveData();
-        loadData();
         System.exit(0);
     }
 
