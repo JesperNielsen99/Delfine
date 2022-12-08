@@ -1,11 +1,8 @@
 package member;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class Member {
     private String name;
@@ -23,7 +20,7 @@ public class Member {
     private boolean butterfly;
     private boolean currentMember;
 
-    private ArrayList<Time> times;
+    private final ArrayList<Time> times;
     private final DateTimeFormatter birthdayFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     //*-----------------------------------------------Constructor----------------------------------------------------*\\
@@ -255,7 +252,7 @@ public class Member {
         this.currentMember = currentMember;
     }
 
-    public void setSwimTime(String name, double swimTime, LocalDate date, SwimDisciplin swimDisciplin) {
+    public void addSwimTime(String name, double swimTime, LocalDate date, SwimDisciplin swimDisciplin) {
         times.add(new Time(name, swimTime, date, swimDisciplin));
     }
 
@@ -295,6 +292,14 @@ public class Member {
     public String readSwimTimes() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Time time : times) {
+            String swimDisciplin = "";
+            switch (time.getSwimDisciplin()) {
+                case CRAWL -> swimDisciplin = "Crawl: ";
+                case BACKCRAWL -> swimDisciplin = "Ryg crawl: ";
+                case BREASTSTROKE -> swimDisciplin = "Bryst svømning: ";
+                case BUTTERFLY -> swimDisciplin = "Butterfly: ";
+            }
+            stringBuilder.append(swimDisciplin);
             stringBuilder.append(readSwimTime(time)).append(" | ");
         }
         return stringBuilder.toString();

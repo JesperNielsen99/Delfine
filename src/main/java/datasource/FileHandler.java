@@ -95,6 +95,51 @@ public class FileHandler {
     }
 
     //*--------------------------------------------------Load--------------------------------------------------------*\\
+    public ArrayList<Member> loadMembers(String fileName) {
+        ArrayList<Member> members = new ArrayList<>();
+        try {
+            Scanner scanner = new Scanner(new File(fileName));
+            while (scanner.hasNextLine()) {
+                String[] lineSplit = scanner.nextLine().split(";");
+                if (lineSplit.length == 10) {
+                    members.add(new Member(
+                            lineSplit[0],
+                            lineSplit[1],
+                            lineSplit[2],
+                            lineSplit[3],
+                            LocalDate.parse(lineSplit[4]),
+                            Boolean.parseBoolean(lineSplit[5]),
+                            Boolean.parseBoolean(lineSplit[6]),
+                            Boolean.parseBoolean(lineSplit[7]),
+                            readMemberShipStatus(lineSplit[8]),
+                            Boolean.parseBoolean(lineSplit[9])
+                    ));
+                } else {
+                    members.add(new Member(
+                            lineSplit[0],
+                            lineSplit[1],
+                            lineSplit[2],
+                            lineSplit[3],
+                            LocalDate.parse(lineSplit[4]),
+                            Boolean.parseBoolean(lineSplit[5]),
+                            Boolean.parseBoolean(lineSplit[6]),
+                            Boolean.parseBoolean(lineSplit[7]),
+                            readMemberShipStatus(lineSplit[8]),
+                            Boolean.parseBoolean(lineSplit[9]),
+                            Boolean.parseBoolean(lineSplit[10]),
+                            Boolean.parseBoolean(lineSplit[11]),
+                            Boolean.parseBoolean(lineSplit[12]),
+                            Boolean.parseBoolean(lineSplit[13]),
+                            readStringToTime(lineSplit[14])
+                    ));
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(fileNotFoundMessage);
+        }
+        return members;
+    }
+
     public ArrayList<Member> loadMembers() {
         ArrayList<Member> members = new ArrayList<>();
         try {

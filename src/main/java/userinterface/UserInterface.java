@@ -4,7 +4,6 @@ import datahandling.Controller;
 import member.Member;
 import member.MembershipStatus;
 import member.SwimDisciplin;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -66,7 +65,7 @@ public class UserInterface {
                 8:  Aktivitetsform
                 9:  Betalingssatus
                 10: Aktive Svømmediscipliner
-                11: Svømmetider 
+                11: Tilføj svømmetid
                 12: Tilbage til hovedmenu
                 """);
     }
@@ -124,17 +123,6 @@ public class UserInterface {
                 """);
     }
 
-    private void printChooseSwimDisciplin(){
-        System.out.println("""
-                Hvilken disciplin er tiden taget it?
-                                
-                1: Crawl.
-                2: Ryg crawl.
-                3: Bryst svømning.
-                4: Butterfly.
-                """);
-    }
-
     //*---------------------------------------------HandelUserinput--------------------------------------------------*\\
     private void handleMainMenuChoice() {
         switch (readInt()) {
@@ -143,7 +131,7 @@ public class UserInterface {
             case 3 -> editMember();
             case 4 -> deleteMember();
             case 5 -> printMembersInDebt();
-            case 6 -> printExpetedTotalIncome();
+            case 6 -> expetedTotalIncome();
             case 7 -> editSubscription();
             case 8 -> printSwimTeam();
             case 9 -> printAllMembers();
@@ -164,7 +152,7 @@ public class UserInterface {
             case 8 -> editActivity(currentMember);
             case 9 -> editHasPaid(currentMember);
             case 10 -> editSwimDisciplins(currentMember);
-            case 11 -> editSwimTime(currentMember);
+            case 11 -> addSwimTime(currentMember);
             case 12 -> runProgram();
             default -> System.out.println("Ikke en mulig funktion.");
 
@@ -207,13 +195,14 @@ public class UserInterface {
                 controller.getTeamSenior().setTrainerName(scanner.nextLine());
             }
             case 5 -> {
-                System.out.println("De bedste 5 tider på junior holdet er:  ");
+                System.out.println("De bedste 5 tider på junior holdet er:");
                 System.out.println("======================================");
                 printTop5Svimmers(controller.getTop5TimesInTeam(controller.getTeamJunior()));
             }
             case 6 -> {
-                System.out.print("De bedste 5 tider på senior holdet er:  ");
-                controller.getTop5TimesInTeam(controller.getTeamSenior());
+                System.out.println("De bedste 5 tider på senior holdet er:");
+                System.out.println("======================================");
+                printTop5Svimmers(controller.getTop5TimesInTeam(controller.getTeamSenior()));
             }
         }
     }
@@ -244,10 +233,6 @@ public class UserInterface {
 
     private void printAllMembers() {
         printMemberArray(controller.getMembers());
-    }
-
-    private void printExpetedTotalIncome() {
-        System.out.println("Forventede årlige inkomst er: " + controller.getExpectedTotalIncome() + "\n");
     }
 
     private void printTop5Svimmers(ArrayList<ArrayList<Member>> members) {
@@ -293,8 +278,19 @@ public class UserInterface {
         } else {
             stringBuilder.append("Der er ingen svømmere som har en tid i butterfly");
         }
-
+        stringBuilder.append('\n');
         System.out.println(stringBuilder);
+    }
+
+    private void printChooseSwimDisciplin(){
+        System.out.println("""
+                Hvilken disciplin er tiden taget it?
+                                
+                1: Crawl.
+                2: Ryg crawl.
+                3: Bryst svømning.
+                4: Butterfly.
+                """);
     }
 
     //*--------------------------------------------------Create------------------------------------------------------*\\
@@ -328,7 +324,6 @@ public class UserInterface {
 
 
     }
-
 
     //*--------------------------------------------------Search------------------------------------------------------*\\
     private void searchMember() {
@@ -482,19 +477,16 @@ public class UserInterface {
                 default -> System.out.println("Ugyldigt input. Prøv igen!");
             }
         }
-
     }
 
-    private void editSwimTime(Member currentMember){
+    public void addSwimTime(Member member) {
         System.out.println("Indtast navn på konkurrence, hvis det er træning efterlad blank.");
         String name = scanner.nextLine();
         Double swimTime = readSwimTime();
-        LocalDate date = readSwimDate(currentMember);
-        SwimDisciplin swimDisciplin = chooseSwimDisciplin(currentMember);
-        currentMember.setSwimTime(name, swimTime, date, swimDisciplin);
+        LocalDate date = readSwimDate(member);
+        SwimDisciplin swimDisciplin = chooseSwimDisciplin(member);
+        member.addSwimTime(name, swimTime, date, swimDisciplin);
     }
-
-
 
     //*-------------------------------------------------Delete-------------------------------------------------------*\\
     private void deleteMember() {
@@ -505,6 +497,22 @@ public class UserInterface {
         }
     }
 
+    //*------------------------------------------------Calculate-----------------------------------------------------*\\
+    private void expetedTotalIncome() {
+        System.out.println("Forventede årlige inkomst er: " + controller.getExpectedTotalIncome() + "\n");
+    }
+
+    public double calculateSwimTime(String input) {
+        String[] timeArray = input.split(":");
+        double time = 0;
+        try {
+            time += Integer.parseInt(timeArray[0]) * 60;
+            time += Double.parseDouble(timeArray[1]);
+        } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
+        }
+        return time;
+    }
     //*------------------------------------------------ExitProgram---------------------------------------------------*\\
     public void loadData() {
         controller.loadMembers();
@@ -520,6 +528,7 @@ public class UserInterface {
 
     private void exitProgram() {
         saveData();
+        loadData();
         System.exit(0);
     }
 
@@ -707,23 +716,17 @@ public class UserInterface {
     }
 
     private double readSwimTime() {
-        System.out.print("Indtast ny svømmetid med formattet (m:s.ms): ");
+        System.out.print("Indtast ny svømmetid med formattet (m:ss.ms): ");
+        boolean wrongInput = true;
         String input = scanner.nextLine();
-        return calculateSwimTime(input);
-    }
-
-
-    // TODO: 05/12/2022 Fix format and test. 
-    public double calculateSwimTime(String input) {
-        String[] timeArray = input.split(":");
-        double time = 0;
-        try {
-            time += Integer.parseInt(timeArray[0]) * 60;
-            time += Double.parseDouble(timeArray[1]);
-        } catch (NumberFormatException e) {
-            System.out.println(e.getMessage());
+        while (wrongInput) {
+            if (input.matches("^\\d:\\d\\d\\.\\d\\d$")) {
+                wrongInput = false;
+            } else {
+                input = scanner.nextLine();
+            }
         }
-        return time;
+        return calculateSwimTime(input);
     }
 
     private LocalDate readSwimDate(Member member) {
@@ -796,6 +799,4 @@ public class UserInterface {
         }
         return swimDisciplin;
     }
-
-
 }

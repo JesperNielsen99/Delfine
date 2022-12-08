@@ -11,6 +11,7 @@ public class Club {
 
     private final Team teamJunior = new Team("Junior træner");
     private final Team teamSenior = new Team("Senior træner");
+
     //*--------------------------------------------------Create------------------------------------------------------*\\
     public void createMember(String name, String address, String number, String mail, LocalDate birthdate, boolean sex,
                              Boolean isStudent, MembershipStatus activity, boolean hasPaid, boolean currentMember) {
@@ -216,8 +217,4 @@ public class Club {
         }
         addMembersToTeam(currentMembers);
     }
-    //*--------------------------------------------------Misc--------------------------------------------------------*\\
-
-
-
 }

@@ -33,7 +33,7 @@ public class Subscription {
                 } else {
                     subscription = junior;
                 }
-            } else if (member.getAge() >= 18) {
+            } else if (member.getAge() >= 18 && member.getAge() < 60) {
                 if (member.getIsStudent()) {
                     subscription = senior * (1 - student);
                 } else {

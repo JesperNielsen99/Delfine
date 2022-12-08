@@ -8,6 +8,7 @@ public class Time {
     private LocalDate date;
     private SwimDisciplin swimDisciplin;
 
+    //*-----------------------------------------------Constructor----------------------------------------------------*\\
     public Time(String name, Double time, LocalDate date, SwimDisciplin swimDisciplin) {
      this.name = name;
      this.time = time;
@@ -15,20 +16,24 @@ public class Time {
      this.swimDisciplin = swimDisciplin;
     }
 
-
+    //*--------------------------------------------------Getter------------------------------------------------------*\\
     public String getName() { return name; }
-
-    public void setName(String name) { this.name = name; }
 
     public Double getTime() { return time; }
 
-    public void setTime(Double time) { this.time = time; }
-
     public LocalDate getDate() { return date; }
-
-    public void setDate(LocalDate date) { this.date = date; }
 
     public SwimDisciplin getSwimDisciplin() {
         return swimDisciplin;
     }
+
+
+    //*--------------------------------------------------Setter------------------------------------------------------*\\
+    public void setName(String name) { this.name = name; }
+
+    public void setTime(Double time) { this.time = time; }
+
+    public void setDate(LocalDate date) { this.date = date; }
+
+
 }

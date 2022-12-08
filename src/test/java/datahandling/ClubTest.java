@@ -2,9 +2,7 @@ package datahandling;
 
 import member.MembershipStatus;
 import org.junit.jupiter.api.BeforeEach;
-
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.time.LocalDate;
 
 
@@ -15,7 +13,7 @@ class ClubTest {
     @BeforeEach
     public void setup(){
         club = new Club();
-        club.createMember("Test testen testesten","Himmelbjerget 69","10101010", "test@gmail.com", LocalDate.now(), true, true, MembershipStatus.NONE, true);
+        club.createMember("Test testen testesten","Himmelbjerget 69","10101010", "test@gmail.com", LocalDate.now(), true, true, MembershipStatus.NONE, true, true);
     }
 
     @org.junit.jupiter.api.Test
@@ -25,13 +23,6 @@ class ClubTest {
         club.searchMember(searchTest);
 
         assertTrue(club.getSearchResult().size() != 0);
-
-
-
-
-
-
-
 
     }
 
