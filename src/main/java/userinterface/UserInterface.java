@@ -752,6 +752,8 @@ public class UserInterface {
         return swimDate;
     }
 
+    //*-------------------------------------------------MISC--------------------------------------------------------*\\
+
     private SwimDiscipline chooseSwimDisciplin(Member member) {
         boolean wrongInput = true;
         SwimDiscipline swimDiscipline = SwimDiscipline.CRAWL;
