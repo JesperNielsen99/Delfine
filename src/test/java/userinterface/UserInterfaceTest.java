@@ -7,12 +7,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserInterfaceTest {
     private UserInterface userInterface;
 
-
+    //*--------------------------------------------------Setup------------------------------------------------------*\\
     @BeforeEach
     public void setup(){
         userInterface = new UserInterface();
     }
 
+    //*---------------------------------------------------Test-------------------------------------------------------*\\
     @Test
     void calculateSwimTime() {
         double expectedTime = 70.10;

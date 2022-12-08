@@ -178,10 +178,10 @@ public class Member {
         return times;
     }
 
-    public double getBestTime(SwimDisciplin swimDisciplin) {
+    public double getBestTime(SwimDiscipline swimDiscipline) {
         double bestTime = Double.MAX_VALUE;
         for (Time time : times) {
-            if (swimDisciplin == time.getSwimDisciplin()) {
+            if (swimDiscipline == time.getSwimDisciplin()) {
                 if (time.getTime() < bestTime) {
                     bestTime = time.getTime();
                 }
@@ -252,8 +252,8 @@ public class Member {
         this.currentMember = currentMember;
     }
 
-    public void addSwimTime(String name, double swimTime, LocalDate date, SwimDisciplin swimDisciplin) {
-        times.add(new Time(name, swimTime, date, swimDisciplin));
+    public void addSwimTime(String name, double swimTime, LocalDate date, SwimDiscipline swimDiscipline) {
+        times.add(new Time(name, swimTime, date, swimDiscipline));
     }
 
     //*-------------------------------------------------READS--------------------------------------------------------*\\

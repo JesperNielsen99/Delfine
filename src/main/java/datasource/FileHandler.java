@@ -3,14 +3,12 @@ package datasource;
 import datahandling.Subscription;
 import member.Member;
 import member.MembershipStatus;
-import member.SwimDisciplin;
+import member.SwimDiscipline;
 import member.Time;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,6 +19,7 @@ public class FileHandler {
 
     private final String fileNotFoundMessage = "Filen blev ikke fundet!!";
 
+    //*-----------------------------------------------Constructor----------------------------------------------------*\\
     public FileHandler() {
     }
 
@@ -230,15 +229,15 @@ public class FileHandler {
         return membershipStatus;
     }
 
-    private SwimDisciplin readSwimDisciplin(String swimDisciplinString) {
-        SwimDisciplin swimDisciplin = SwimDisciplin.CRAWL;
+    private SwimDiscipline readSwimDisciplin(String swimDisciplinString) {
+        SwimDiscipline swimDiscipline = SwimDiscipline.CRAWL;
         switch (swimDisciplinString) {
-            case "CRAWL" -> swimDisciplin = SwimDisciplin.CRAWL;
-            case "BACKCRAWL" -> swimDisciplin = SwimDisciplin.BACKCRAWL;
-            case "BREASTSTROKE" -> swimDisciplin = SwimDisciplin.BREASTSTROKE;
-            case "BUTTERFLY" -> swimDisciplin = SwimDisciplin.BUTTERFLY;
+            case "CRAWL" -> swimDiscipline = SwimDiscipline.CRAWL;
+            case "BACKCRAWL" -> swimDiscipline = SwimDiscipline.BACKCRAWL;
+            case "BREASTSTROKE" -> swimDiscipline = SwimDiscipline.BREASTSTROKE;
+            case "BUTTERFLY" -> swimDiscipline = SwimDiscipline.BUTTERFLY;
         }
-        return swimDisciplin;
+        return swimDiscipline;
     }
 
     private String readTimeToString(Member member) {
@@ -255,7 +254,7 @@ public class FileHandler {
     private ArrayList<Time> readStringToTime(String input) {
         ArrayList<Time> times = new ArrayList<>();
         if (input != null) {
-            String[] timeArray = input.split("\\/");
+            String[] timeArray = input.split("/");
             for (String timeString : timeArray) {
                 String[] singleTime = timeString.split(":");
                 times.add(new Time(singleTime[0], Double.parseDouble(singleTime[1]),

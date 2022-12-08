@@ -12,7 +12,7 @@ public class SubscriptionTest {
      private Subscription subscription;
      private ArrayList<Member> members;
 
-
+     //*--------------------------------------------------Setup------------------------------------------------------*\\
      @BeforeEach
      public void setup(){
           subscription = new Subscription();
@@ -31,6 +31,7 @@ public class SubscriptionTest {
           members.add(StudentSenior);
      }
 
+     //*---------------------------------------------------Test-------------------------------------------------------*\\
      @Test
      void calculateMemberSubscription(){
          //Arrange

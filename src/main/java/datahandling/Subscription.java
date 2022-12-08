@@ -24,6 +24,7 @@ public class Subscription {
     }
 
     //*--------------------------------------------------Income------------------------------------------------------*\\
+
     public double calculateMemberSubscription(Member member) {
         double subscription = 0;
         if (!member.getActivity().equals(MembershipStatus.NONE)) {

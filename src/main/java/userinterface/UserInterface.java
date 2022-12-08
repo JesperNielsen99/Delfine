@@ -3,7 +3,7 @@ package userinterface;
 import datahandling.Controller;
 import member.Member;
 import member.MembershipStatus;
-import member.SwimDisciplin;
+import member.SwimDiscipline;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -246,7 +246,7 @@ public class UserInterface {
         stringBuilder.append("\nTop 5 crawl svømmere:\n");
         if (bestCrawlTimes.size() > 0) {
             for (Member member : bestCrawlTimes) {
-                stringBuilder.append(member.getName()).append(": ").append(member.getBestTime(SwimDisciplin.CRAWL)).append("\n");
+                stringBuilder.append(member.getName()).append(": ").append(member.getBestTime(SwimDiscipline.CRAWL)).append("\n");
             }
         } else {
             stringBuilder.append("Der er ingen svømmere som har en tid i crawl");
@@ -255,7 +255,7 @@ public class UserInterface {
         stringBuilder.append("\nTop 5 ryg crawl svømmere:\n");
         if (bestBackCrawlTimes.size() > 0) {
             for (Member member : bestBackCrawlTimes) {
-                stringBuilder.append(member.getName()).append(": ").append(member.getBestTime(SwimDisciplin.BACKCRAWL)).append("\n");
+                stringBuilder.append(member.getName()).append(": ").append(member.getBestTime(SwimDiscipline.BACKCRAWL)).append("\n");
             }
         } else {
             stringBuilder.append("Der er ingen svømmere som har en tid i ryg crawl");
@@ -264,7 +264,7 @@ public class UserInterface {
         stringBuilder.append("\nTop 5 bryst svømning svømmere:\n");
         if (bestBreastStrokeTimes.size() > 0) {
             for (Member member : bestBreastStrokeTimes) {
-                stringBuilder.append(member.getName()).append(": ").append(member.getBestTime(SwimDisciplin.BREASTSTROKE)).append("\n");
+                stringBuilder.append(member.getName()).append(": ").append(member.getBestTime(SwimDiscipline.BREASTSTROKE)).append("\n");
             }
         } else {
             stringBuilder.append("Der er ingen svømmere som har en tid i brystsvømning");
@@ -273,7 +273,7 @@ public class UserInterface {
         stringBuilder.append("\nTop 5 butterfly svømmere:\n");
         if (bestButterflyTimes.size() > 0) {
             for (Member member : bestButterflyTimes) {
-                stringBuilder.append(member.getName()).append(": ").append(member.getBestTime(SwimDisciplin.BUTTERFLY)).append("\n");
+                stringBuilder.append(member.getName()).append(": ").append(member.getBestTime(SwimDiscipline.BUTTERFLY)).append("\n");
             }
         } else {
             stringBuilder.append("Der er ingen svømmere som har en tid i butterfly");
@@ -482,10 +482,10 @@ public class UserInterface {
     public void addSwimTime(Member member) {
         System.out.println("Indtast navn på konkurrence, hvis det er træning efterlad blank.");
         String name = scanner.nextLine();
-        Double swimTime = readSwimTime();
+        double swimTime = readSwimTime();
         LocalDate date = readSwimDate(member);
-        SwimDisciplin swimDisciplin = chooseSwimDisciplin(member);
-        member.addSwimTime(name, swimTime, date, swimDisciplin);
+        SwimDiscipline swimDiscipline = chooseSwimDisciplin(member);
+        member.addSwimTime(name, swimTime, date, swimDiscipline);
     }
 
     //*-------------------------------------------------Delete-------------------------------------------------------*\\
@@ -752,15 +752,15 @@ public class UserInterface {
         return swimDate;
     }
 
-    private SwimDisciplin chooseSwimDisciplin(Member member) {
+    private SwimDiscipline chooseSwimDisciplin(Member member) {
         boolean wrongInput = true;
-        SwimDisciplin swimDisciplin = SwimDisciplin.CRAWL;
+        SwimDiscipline swimDiscipline = SwimDiscipline.CRAWL;
         printChooseSwimDisciplin();
         while (wrongInput) {
             switch (readInt()) {
                 case 1 -> {
                     if (member.getCrawl()) {
-                        swimDisciplin = SwimDisciplin.CRAWL;
+                        swimDiscipline = SwimDiscipline.CRAWL;
                         wrongInput = false;
                     } else {
                         System.out.println(member.getName() + " har ikke crawl");
@@ -769,7 +769,7 @@ public class UserInterface {
                 }
                 case 2 -> {
                     if (member.getBackCrawl()) {
-                        swimDisciplin = SwimDisciplin.BACKCRAWL;
+                        swimDiscipline = SwimDiscipline.BACKCRAWL;
                         wrongInput = false;
                     } else {
                         System.out.println(member.getName() + " har ikke ryg crawl");
@@ -778,7 +778,7 @@ public class UserInterface {
                 }
                 case 3 -> {
                     if (member.getBreastStroke()) {
-                        swimDisciplin = SwimDisciplin.BREASTSTROKE;
+                        swimDiscipline = SwimDiscipline.BREASTSTROKE;
                         wrongInput = false;
                     } else {
                         System.out.println(member.getName() + " har ikke bryst svømning");
@@ -787,7 +787,7 @@ public class UserInterface {
                 }
                 case 4 -> {
                     if (member.getButterfly()) {
-                        swimDisciplin = SwimDisciplin.BUTTERFLY;
+                        swimDiscipline = SwimDiscipline.BUTTERFLY;
                         wrongInput = false;
                     } else {
                         System.out.println(member.getName() + " har ikke butterfly");
@@ -797,6 +797,6 @@ public class UserInterface {
                 default -> System.out.println("Ugyldigt input");
             }
         }
-        return swimDisciplin;
+        return swimDiscipline;
     }
 }

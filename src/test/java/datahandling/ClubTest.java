@@ -10,11 +10,14 @@ class ClubTest {
 
     Club club;
 
+    //*--------------------------------------------------Setup-------------------------------------------------------*\\
     @BeforeEach
     public void setup(){
         club = new Club();
         club.createMember("Test testen testesten","Himmelbjerget 69","10101010", "test@gmail.com", LocalDate.now(), true, true, MembershipStatus.NONE, true, true);
     }
+
+    //*---------------------------------------------------Test-------------------------------------------------------*\\
 
     @org.junit.jupiter.api.Test
     void searchMember() {

@@ -4,7 +4,6 @@ import datasource.FileHandler;
 import member.Member;
 import member.MembershipStatus;
 import member.Time;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -26,11 +25,13 @@ public class Controller {
     }
 
     //*--------------------------------------------------Search------------------------------------------------------*\\
+
     public void searchMember(String searchMemberName) {
         club.searchMember(searchMemberName);
     }
 
     //*-------------------------------------------------Delete-------------------------------------------------------*\\
+
     public String deleteMember(Member currentMember){
         return club.deleteMember(currentMember);
     }
@@ -110,9 +111,7 @@ public class Controller {
         return club.getTeamSeniorMembers();
     }
 
-    public double calculateMemberSubscription(Member member) {
-        return subscription.calculateMemberSubscription(member);
-    }
+    public double calculateMemberSubscription(Member member) { return subscription.calculateMemberSubscription(member);}
 
     public Team getTeamJunior() {
        return club.getTeamJunior();

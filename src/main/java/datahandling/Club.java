@@ -81,13 +81,13 @@ public class Club {
         bestTimes.add(bestButterflyTimes);
 
         for (Member member : team.getTeamMembers()) {
-            for (SwimDisciplin swimDisciplin : SwimDisciplin.values()) {
-                double memberBestTime = member.getBestTime(swimDisciplin);
-                switch (swimDisciplin) {
+            for (SwimDiscipline swimDiscipline : SwimDiscipline.values()) {
+                double memberBestTime = member.getBestTime(swimDiscipline);
+                switch (swimDiscipline) {
                     case CRAWL -> {
                         if (bestCrawlTimes.size() == 5) {
                             for (Member bestMember : bestCrawlTimes) {
-                                if (memberBestTime < bestMember.getBestTime(swimDisciplin) && memberBestTime != 0) {
+                                if (memberBestTime < bestMember.getBestTime(swimDiscipline) && memberBestTime != 0) {
                                     bestCrawlTimes.remove(bestMember);
                                     bestCrawlTimes.add(member);
                                     break;
@@ -102,7 +102,7 @@ public class Club {
                     case BACKCRAWL -> {
                         if (bestBackCrawlTimes.size() == 5) {
                             for (Member bestMember : bestBackCrawlTimes) {
-                                if (memberBestTime < bestMember.getBestTime(swimDisciplin) && memberBestTime != 0) {
+                                if (memberBestTime < bestMember.getBestTime(swimDiscipline) && memberBestTime != 0) {
                                     bestBackCrawlTimes.remove(bestMember);
                                     bestBackCrawlTimes.add(member);
                                     break;
@@ -117,7 +117,7 @@ public class Club {
                     case BREASTSTROKE -> {
                         if (bestBreastStrokeTimes.size() == 5) {
                             for (Member bestMember : bestBreastStrokeTimes) {
-                                if (memberBestTime < bestMember.getBestTime(swimDisciplin) && memberBestTime != 0) {
+                                if (memberBestTime < bestMember.getBestTime(swimDiscipline) && memberBestTime != 0) {
                                     bestBreastStrokeTimes.remove(bestMember);
                                     bestBreastStrokeTimes.add(member);
                                     break;
@@ -132,7 +132,7 @@ public class Club {
                     case BUTTERFLY -> {
                         if (bestButterflyTimes.size() == 5) {
                             for (Member bestMember : bestButterflyTimes) {
-                                if (memberBestTime < bestMember.getBestTime(swimDisciplin) && memberBestTime != 0) {
+                                if (memberBestTime < bestMember.getBestTime(swimDiscipline) && memberBestTime != 0) {
                                     bestButterflyTimes.remove(bestMember);
                                     bestButterflyTimes.add(member);
                                     break;
